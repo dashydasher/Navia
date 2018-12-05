@@ -1,5 +1,8 @@
 {
     "require": {
         "twig/twig": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {"Models\\": "models/"}
     }
 }
