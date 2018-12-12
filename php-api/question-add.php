@@ -12,14 +12,16 @@ if (!isset($_POST['signature']) || !isset($_POST['question']) || !isset($_POST['
     $comment = new Comment;
     $result = $comment->store($signature, $question, $room_id);
     if ($result > 0) {
-        echo json_encode(
+        echo json_encode(array(
             "success" => true,
+            "error" => null,
             "question" => $question
-        );
+        ));
     } else {
-        echo json_encode(
+        echo json_encode(array(
             "success" => false,
+            "error" => "Došlo je do pogreške prilikom dodavanja pitanja",
             "question" => null
-        );
+        ));
     }
 }
