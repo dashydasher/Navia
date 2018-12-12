@@ -245,3 +245,51 @@ header .nav-login a{
   background-color: #111;
 
 }
+
+/*question*/
+.question-form {
+  width:80%;
+  align:center;
+  margin:0 auto;
+  padding-top: 30px;
+}
+
+.question-form input {
+  position: relative;
+  width:90%;
+  height:30%;
+  padding:0px 5%;
+  border-bottom-style: solid;
+  background-color:#fff;
+  font-family:arial;
+  font-size: 16px;
+  color:#111;
+
+}
+
+.question-form button {
+  position: relative;
+  display:block;
+  width:30%;
+  height:30%%;
+  border:none;
+  background-color:#222;
+  font-family:arial;
+  font-size: 16px;
+  color:#fff;
+  cursor:pointer;
+
+}
+
+.question-form button:hover {
+  background-color: #111;
+
+}
+
+.main-container h3 {
+  font-family:arial;
+  font-size: 40px;
+  color:#111;
+  line-height:40%;
+  text-align: center;
+}
