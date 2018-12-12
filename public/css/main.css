@@ -29,6 +29,7 @@ time, mark, audio, video {
 
 body {
     line-height:1;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
 }
 
 article,aside,details,figcaption,figure,
@@ -106,7 +107,7 @@ input, select {
 
 .main-wrapper{
   margin: 0 auto;
-  max-width: 1000px;
+  width: 1000px;
 }
 
 
@@ -248,17 +249,16 @@ header .nav-login a{
 
 /*question*/
 .question-form {
-  width:auto;
+  width:80%;
   align:center;
   margin:0 auto;
   padding-top: 30px;
 }
 
 .question-form input {
-  position: inherit;
-  align: center;
-  width:auto;
-  height:auto;
+  position: relative;
+  width:90%;
+  height:30%;
   padding:0px 5%;
   border-bottom-style: solid;
   background-color:#fff;
@@ -269,16 +269,14 @@ header .nav-login a{
 }
 
 .question-form button {
-  position: inherit;
+  position: relative;
   display:block;
-  width:auto;
-  height:auto;
+  width:30%;
+  height:30%%;
   border:none;
-  align: center;
   background-color:#222;
   font-family:arial;
   font-size: 16px;
-  padding: 10px;
   color:#fff;
   cursor:pointer;
 
@@ -290,8 +288,9 @@ header .nav-login a{
 }
 
 .main-container h3 {
-  align: center;
   font-family:arial;
   font-size: 40px;
   color:#111;
+  line-height:40%;
+  text-align: center;
 }
