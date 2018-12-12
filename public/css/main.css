@@ -106,7 +106,7 @@ input, select {
 
 .main-wrapper{
   margin: 0 auto;
-  width: 1000px;
+  max-width: 1000px;
 }
 
 
@@ -248,16 +248,17 @@ header .nav-login a{
 
 /*question*/
 .question-form {
-  width:80%;
+  width:auto;
   align:center;
   margin:0 auto;
   padding-top: 30px;
 }
 
 .question-form input {
-  position: relative;
-  width:90%;
-  height:30%;
+  position: inherit;
+  align: center;
+  width:auto;
+  height:auto;
   padding:0px 5%;
   border-bottom-style: solid;
   background-color:#fff;
@@ -268,14 +269,16 @@ header .nav-login a{
 }
 
 .question-form button {
-  position: relative;
+  position: inherit;
   display:block;
-  width:30%;
-  height:30%%;
+  width:auto;
+  height:auto;
   border:none;
+  align: center;
   background-color:#222;
   font-family:arial;
   font-size: 16px;
+  padding: 10px;
   color:#fff;
   cursor:pointer;
 
@@ -287,9 +290,8 @@ header .nav-login a{
 }
 
 .main-container h3 {
+  align: center;
   font-family:arial;
   font-size: 40px;
   color:#111;
-  line-height:40%;
-  text-align: center;
 }

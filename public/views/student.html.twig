@@ -3,28 +3,49 @@
 <head>
 
   <title></title>
-  <link rel="stylesheet" type="text/css" href="public/css/main.css">
+  <link href="public/css/lib/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
+<div class="container">
+<br/>
 
+<label>Razlog mog raspoloženja:</label>
+<br/><br/>
+<div class="custom-control custom-radio">
+  <input type="radio" class="custom-control-input" id="btn1" name="razlozi" checked>
+  <label class="custom-control-label" for="digresije">Profesor ima digresije</label>
+</div>
 
-<section class="main-container">
-  <div class="main-wrapper">
-      <h3>Pitanje</h3>
-      <form class="question-form" action="" method="post">
-          <input type="text" name="question" placeholder="Pitanje">
-          <button type="submit" name="submit">Pošalji</button>
-      </form>
+<div class="custom-control custom-radio">
+  <input type="radio" class="custom-control-input" id="btn2" name="razlozi">
+  <label class="custom-control-label" for="nekiRazlog">Neki razlog</label>
+</div>
 
-      <h3>Komentar</h3>
-      <form class="question-form" action="" method="post">
-          <input type="text" name="comment" placeholder="Komentar">
-          <button type="submit" name="submit">Pošalji</button>
-      </form>
-  </div>
-</section>
+<div class="custom-control custom-radio">
+  <input type="radio" class="custom-control-input" id="btn3" name="razlozi">
+  <label class="custom-control-label" for="osobniRazlog">Osobni razlog</label>
+</div>
 
+<br/>
+<form>
+
+  <div class="form-group">
+    <label for="question">Pitanje</label>
+    <input type="textarea" class="form-control" id="studentQuestion" placeholder="Upiši pitanje">
+  </div><button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<form>
+  <div class="form-group">
+    <label for="comment">Komentar</label>
+    <input type="textarea" class="form-control" id="studentComment" placeholder="Upiši komentar">
+  </div><button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
+
+<script src="js/lib/bootstrap.min.js"></script>
 </body>
 
 
