@@ -12,8 +12,8 @@
         <div class="main-wrapper">
           <div class="nav-login">
               <form>
-                    <input type="text" name="uid" placeholder="username/e-mail">
-                    <input type="password" name="pwd" placeholder="password">
+                    <input type="text" name="uid" placeholder="username">
+                    <input type="password" name="pwd" placeholder="lozinka">
                     <button type="submit" name="submit">Prijava</button>
 
               </form>
@@ -28,11 +28,11 @@
 <section class="main-container">
   <div class="main-wrapper">
       <h2>Registracija</h2>
-      <form class="signup-form">
-          <inputtype="text" name="first" placeholder="Ime">
-          <inputtype="text" name="last" placeholder="Prezime">
-          <inputtype="text" name="uid" placeholder="Username">
-          <inputtype="password" name="pwd" placeholder="Lozinka">
+      <form class="signup-form" action="index.inc.php" method="post">
+          <input type="text" name="first" placeholder="Ime">
+          <input type="text" name="last" placeholder="Prezime">
+          <input type="text" name="uid" placeholder="Username">
+          <input type="password" name="pwd" placeholder="Lozinka">
           <button type="submit" name="submit">Registriraj se</button>
       </form>
   </div>
