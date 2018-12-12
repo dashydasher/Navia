@@ -2,7 +2,7 @@
 require_once '../vendor/autoload.php';
 use Models\Comment;
 
-if (!isset($_POST['comment'])) {
+if (!isset($_POST['signature']) || !isset($_POST['comment']) || !isset($_POST['room_id'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
     $signature = $_POST['signature'];
@@ -18,7 +18,8 @@ if (!isset($_POST['comment'])) {
         );
     } else {
         echo json_encode(
-            "success" => false
+            "success" => false,
+            "comment" => null
         );
     }
 }
