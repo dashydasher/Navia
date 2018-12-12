@@ -1,33 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "layouts/master.html.twig" %}
 
-  <title></title>
-  <link rel="stylesheet" type="text/css" href="public/css/main.css">
-</head>
-<body>
+{% block header %}
+{% endblock %}
 
+{% block content %}
 
+<section>
+<div class="container">
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
 
-<section class="main-container">
-  <div class="main-wrapper">
-      <h3>Pitanje</h3>
-      <form class="question-form" action="" method="post">
-          <input type="text" name="question" placeholder="Pitanje">
-          <button type="submit" name="submit">Pošalji</button>
-      </form>
-
-      <h3>Komentar</h3>
-      <form class="question-form" action="" method="post">
-          <input type="text" name="comment" placeholder="Komentar">
-          <button type="submit" name="submit">Pošalji</button>
-      </form>
-  </div>
+   <div class="well">
+         <form action="#">
+          <div class="input-group">
+             <input class="btn btn-lg" name="question" id="questionInput" type="textfield" placeholder="Pitanje">
+             <button class="btn btn-info btn-lg" type="submit">Submit</button>
+          </div>
+         </form>
+         <br/>
+         <form action="#">
+          <div class="input-group">
+             <input class="btn btn-lg" name="comment" id="commentInput" type="textfield" placeholder="Komentar">
+             <button class="btn btn-info btn-lg" type="submit">Submit</button>
+          </div>
+         </form>
+   </div>
+</div>
+</div>
+</div>
 </section>
 
-</body>
+{% endblock %}
 
-
-
-
-</html>
+{% block footer %}
+{% endblock %}
