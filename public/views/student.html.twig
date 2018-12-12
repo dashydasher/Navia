@@ -1,54 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "layouts/master.html.twig" %}
 
-  <title></title>
-  <link href="public/css/lib/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% block header %}
+{% endblock %}
 
-<div class="container">
-<br/>
+{% block content %}
 
-<label>Razlog mog raspoloženja:</label>
-<br/><br/>
-<div class="custom-control custom-radio">
-  <input type="radio" class="custom-control-input" id="btn1" name="razlozi" checked>
-  <label class="custom-control-label" for="digresije">Profesor ima digresije</label>
-</div>
+    <br/>
 
-<div class="custom-control custom-radio">
-  <input type="radio" class="custom-control-input" id="btn2" name="razlozi">
-  <label class="custom-control-label" for="nekiRazlog">Neki razlog</label>
-</div>
+    <label>Razlog mog raspoloženja:</label>
+    <br/><br/>
+    <div class="custom-control custom-radio">
+      <input type="radio" class="custom-control-input" id="btn1" name="razlozi" checked>
+      <label class="custom-control-label" for="digresije">Profesor ima digresije</label>
+    </div>
 
-<div class="custom-control custom-radio">
-  <input type="radio" class="custom-control-input" id="btn3" name="razlozi">
-  <label class="custom-control-label" for="osobniRazlog">Osobni razlog</label>
-</div>
+    <div class="custom-control custom-radio">
+      <input type="radio" class="custom-control-input" id="btn2" name="razlozi">
+      <label class="custom-control-label" for="nekiRazlog">Neki razlog</label>
+    </div>
 
-<br/>
-<form>
+    <div class="custom-control custom-radio">
+      <input type="radio" class="custom-control-input" id="btn3" name="razlozi">
+      <label class="custom-control-label" for="osobniRazlog">Osobni razlog</label>
+    </div>
 
-  <div class="form-group">
-    <label for="question">Pitanje</label>
-    <input type="textarea" class="form-control" id="studentQuestion" placeholder="Upiši pitanje">
-  </div><button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <br/>
+    <form>
 
-<form>
-  <div class="form-group">
-    <label for="comment">Komentar</label>
-    <input type="textarea" class="form-control" id="studentComment" placeholder="Upiši komentar">
-  </div><button type="submit" class="btn btn-primary">Submit</button>
-</form>
+      <div class="form-group">
+        <label for="question">Pitanje</label>
+        <input type="textarea" class="form-control" id="studentQuestion" placeholder="Upiši pitanje">
+      </div><button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-</div>
+    <form>
+      <div class="form-group">
+        <label for="comment">Komentar</label>
+        <input type="textarea" class="form-control" id="studentComment" placeholder="Upiši komentar">
+      </div><button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 
-<script src="js/lib/bootstrap.min.js"></script>
-</body>
+{% endblock %}
 
-
-
-
-</html>
+{% block footer %}
+{% endblock %}
