@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
 
-  <title></title>
-  <script src="js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
-  <script src="public/js/lib/swalSweetAlert.js"></script>
-  <link rel="stylesheet" type="text/css" href="public/css/main.css">
 
-</head>
-<body>
+
+{% extends "layouts/master.html.twig" %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
 
 <header>
     <nav>
@@ -18,7 +16,7 @@
               <form>
                     <input type="text" name="uid" placeholder="username" required>
                     <input type="password" name="pwd" placeholder="lozinka" required>
-                    <button type="submit" name="submit">Prijava</button>
+                    <button class="btn btn-success" type="submit" name="submit">Prijava</button>
 
               </form>
 
@@ -33,18 +31,39 @@
   <div class="main-wrapper">
       <h2>Registracija</h2>
       <form class="signup-form" action="index.inc.php" method="post">
-          <input type="text" name="first" placeholder="Ime" id="name"required>
-          <input type="text" name="last" placeholder="Prezime" id="surname" required>
-          <input type="text" name="uid" placeholder="Username" id="username" required>
-          <input type="password" name="pwd" placeholder="Lozinka" id="password" required>
-          <button onclick="validation()" type="submit" name="submit">Registriraj se</button>
+
+         <div class="controls">
+    
+           <input class="input-xlarge" type="text" name="first" placeholder="Ime" id="name"required>
+        </div>
+
+        <div class="controls">
+               <input class="input-xlarge" type="text" name="last" placeholder="Prezime" id="surname" required>
+             
+        </div>
+
+        <div class="controls">
+               <input class="input-xlarge" type="text" name="uid" placeholder="Username" id="username" required>   
+         
+         </div>
+
+        <div class="controls">
+                 <input class="input-xlarge" type="password" name="pwd" placeholder="Lozinka" id="password" required>
+             
+         </div>
+ 
+          <button class="btn btn-success" onclick="validation()" type="submit" name="submit">Registriraj se</button>
       </form>
   </div>
 </section>
 
-</body>
 
 
 
 
-</html>
+{% endblock %}
+
+{% block footer %}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
+{% endblock %}
+
