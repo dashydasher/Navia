@@ -2,7 +2,7 @@
 namespace Models;
 
 class Mood {
-    private $id;
+    public $id;
     public $time;
     public $signature;
     public $mood;
@@ -14,7 +14,7 @@ class Mood {
         $this->database = new Database;
     }
 
-    private function mapAttr($row) {
+    public function mapAttr($row) {
         $this->id = $row->id;
         $this->time = $row->time;
         $this->signature = $row->signature;
@@ -38,5 +38,5 @@ class Mood {
             return -1;
         }
     }
-    
+
 }

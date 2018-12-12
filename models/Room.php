@@ -1,8 +1,9 @@
 <?php
 namespace Models;
+use \DateTime;
 
 class Room {
-    private $id;
+    public $id;
     public $time;
     public $key;
     public $description;
@@ -18,12 +19,12 @@ class Room {
         $this->database = new Database;
     }
 
-    private function mapAttr($row) {
+    public function mapAttr($row) {
         $this->id = $row->id;
         $this->time = $row->time;
-        $this->signature = $row->signature;
-        $this->mood = $row->mood;
-        $this->reason = $row->reason;
+        $this->key = $row->key;
+        $this->description = $row->description;
+        $this->active = $row->active;
 
         return 1;
     }
@@ -58,17 +59,59 @@ class Room {
 
     function store($description, $teacher_id) {
         $key = $this->getToken(6);
-        $query = "INSERT INTO room (`time`, `key`, description, active, teacher_id) VALUES (NOW(), :key, :description, 1, :teacher_id)";
+        $time = new DateTime();
+        $query = "INSERT INTO room (`time`, `key`, description, active, teacher_id) VALUES (:time, :key, :description, 1, :teacher_id)";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
+                    "time" => $time->format('Y-m-d\TH:i:s.u'),
                     "key" => $key,
                     "description" => $description,
                     "teacher_id" => $teacher_id,
                 ));
+
+                $new_id = $this->database->connection->lastInsertId();
+
+                $this->mapAttr((object)array(
+                    "id" => $new_id,
+                    "time" => $time,
+                    "key" => $key,
+                    "description" => $description,
+                    "active" => 1,
+                ));
+
+                return $new_id;
         } catch(\PDOException $e) {
             return $e;
         }
+    }
+
+    function fetch($id) {
+        $query = "SELECT room.* FROM room WHERE room.id = :id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "id" => $id,
+                ));
+            $row = $result->fetch(\PDO::FETCH_OBJ);
+            if ($row) {
+                return $this->mapAttr($row);
+            }
+        } catch(\PDOException $e) {
+            return -1;
+        }
+    }
+
+    function fetch_moods() {
+
+    }
+
+    function fetch_comments() {
+
+    }
+
+    function fetch_questions() {
+
     }
 
 }

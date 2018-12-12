@@ -2,12 +2,12 @@
 namespace Models;
 
 class Teacher {
-    private $id;
+    public $id;
     public $username;
     private $password;
     public $name;
 
-    public $rooms;
+    public $rooms = array();
 
     private $database;
 
@@ -15,7 +15,7 @@ class Teacher {
         $this->database = new Database;
     }
 
-    private function mapAttr($row) {
+    public function mapAttr($row) {
         $this->id = $row->id;
         $this->username = $row->username;
         $this->password = $row->password;
@@ -33,6 +33,17 @@ class Teacher {
                     "password" => $password,
                     "name" => $name,
                 ));
+
+            $new_id = $this->database->connection->lastInsertId();
+
+            $this->mapAttr((object)array(
+                "id" => $new_id,
+                "username" => $username,
+                "password" => $password,
+                "name" => $name,
+            ));
+
+            return $new_id;
         } catch(\PDOException $e) {
             return -1;
         }
@@ -66,4 +77,41 @@ class Teacher {
         }
     }
 
+    function login_check($username, $password) {
+        $query = "SELECT teacher.* FROM teacher WHERE teacher.username = :username AND teacher.password = SHA2(:password, 256)";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "username" => $username,
+                    "password" => $password,
+                ));
+            $row = $result->fetch(\PDO::FETCH_OBJ);
+            if ($row) {
+                return $this->mapAttr($row);
+            } else {
+                return -1;
+            }
+        } catch(\PDOException $e) {
+            return -1;
+        }
+    }
+
+    function fetch_rooms() {
+        $query = "SELECT room.* FROM room WHERE room.teacher_id = :teacher_id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "teacher_id" => $this->id,
+                ));
+
+            foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
+                $room = new Room;
+                $room->mapAttr($row);
+                array_push($this->rooms, $room);
+            }
+            return $this->rooms;
+        } catch(\PDOException $e) {
+            return $e;
+        }
+    }
 }
