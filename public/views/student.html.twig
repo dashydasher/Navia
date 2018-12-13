@@ -4,11 +4,43 @@
 {% endblock %}
 
 {% block content %}
+<head>
 
+
+
+
+  <link rel="stylesheet" type="text/css" href="public/css/main.css">
+</head>
 <section>
+
+
+</form>
+</div>
+
+
+
+
+
 <div class="container">
+
+
+
+
+
+
   <div class="col-md-7 col-md-offset-4">
   <div class="row">
+
+
+
+<div id="smile">
+
+<button type="button" class="btn btn-success btn-circle btn-xl"><i class="glyphicon glyphicon-link"></i></button>
+
+<button type="button" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-remove"></i></button>
+<button type="button" class="btn btn-danger btn-circle btn-xl"><i class="glyphicon glyphicon-heart"></i></button>
+</div>
+
        <div class="row">
 
            <div class="col-lg-6 ">
@@ -43,12 +75,20 @@
                    </span>
                    <input type="text" class="form-control" value="Osobni razlog" readonly>
               </div>
+              <button id="razlog-submit" class="btn btn-info ">Pošalji</button>
            </div>
        </div>
+
+
+
 
    </div>
 </div>
 </div>
+
+
+
+
 </section>
 <br/>
 <section>
@@ -80,39 +120,39 @@
 {% block footer %}
 
     <script>
-        $("#komentar-submit").on("click", function() {
-            var serializedData = {
-                "comment": $("#commentInput").val(),
-                "signature": "ajax_student",
-                "room_id": 1,
-            };
-            $.post("./php-api/comment-add.php", serializedData)
-                .done(function(data) {
-                    console.log(data);
-                    if (data.success) {
-                        $("#objavljeni-komentari").append( $("li").append(data.comment) );
-                    } else {
-                        alert(data.error);
-                    }
-                });
-        });
+    $("#komentar-submit").on("click", function() {
+        var serializedData = {
+            "comment": $("#commentInput").val(),
+            "signature": "ajax_student",
+            "room_id": 1,
+        };
+        $.post("./php-api/comment-add.php", serializedData)
+            .done(function(data) {
+                console.log(data);
+                if (data.success) {
+                    $("#objavljeni-komentari").append( $("li").append(data.comment) );
+                } else {
+                    alert(data.error);
+                }
+            });
+    });
 
-        $("#pitanje-submit").on("click", function() {
-            var serializedData = {
-                "question": $("#questionInput").val(),
-                "signature": "ajax_student",
-                "room_id": 1,
-            };
-            $.post("./php-api/question-add.php", serializedData)
-                .done(function(data) {
-                    console.log(data);
-                    if (data.success) {
-                        $("#objavljena-pitanja").append( $("li").append(data.question) );
-                    } else {
-                        alert(data.error);
-                    }
-                });
-        });
+    $("#pitanje-submit").on("click", function() {
+        var serializedData = {
+            "question": $("#questionInput").val(),
+            "signature": "ajax_student",
+            "room_id": 1,
+        };
+        $.post("./php-api/question-add.php", serializedData)
+            .done(function(data) {
+                console.log(data);
+                if (data.success) {
+                    $("#objavljena-pitanja").append( $("li").append(data.question) );
+                } else {
+                    alert(data.error);
+                }
+            });
+    });
     </script>
 
 {% endblock %}
