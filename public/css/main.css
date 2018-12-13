@@ -110,7 +110,10 @@ input, select {
   width: 1000px;
 }
 
-
+.center-wrapper{
+  margin: 0 auto;
+  width: 40%;
+}
 
 header nav{
   width:100%;
