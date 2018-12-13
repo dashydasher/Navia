@@ -341,3 +341,10 @@ input[name="emotion"] {
 .raspClass {
   padding: 25px;
 }
+
+.information-display {
+    position: fixed;
+    left: 45%;
+    top: 100px;
+    z-index: 2048;
+}

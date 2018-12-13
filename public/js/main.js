@@ -11,8 +11,8 @@ function validation(){
 
 
 function validateName(){
-	var name = document.getElementById('name').value;
-	var illegalChars = "^[a-zA-Z ]+$";
+	var name = $("#name").val();
+	var legalChars = "^[a-zA-Z ]+$";
 	if (name == "") {
 
         error = "Niste unijeli ime!\n";
@@ -22,7 +22,7 @@ function validateName(){
         return false;
 
 
-    } else if (illegalChars.test(name)) {
+    } else if (!name.match(legalChars)) {
 
         error = "Ime sadrži ilegalne znakove!\n";
         sweetAlert("Oops...",error, "error");
@@ -36,8 +36,8 @@ function validateName(){
 }
 
 function validateSurname(){
-	var surname = document.getElementById('surname').value;
-	var illegalChars = "^[a-zA-Z ]+$";
+	var surname = $("#surname").val();
+	var legalChars = "^[a-zA-Z ]+$";
 	if (surname == "") {
 
         error = "Niste unijeli prezime!\n";
@@ -46,7 +46,7 @@ function validateSurname(){
         return false;
 
 
-    } else if (illegalChars.test(surname)) {
+    } else if (!surname.match(legalChars)) {
 
         error = "Prezime sadrži ilegalne znakove!\n";
         sweetAlert("Oops...",error, "error");
@@ -60,8 +60,8 @@ function validateSurname(){
 }
 
 function validateUsername(){
-	var illegalChars = /\W/; // allow letters, numbers, and underscores
-	var username = document.getElementById('username').value;
+	var legalChars = "^[a-zA-Z0-9_]+$"; // allow letters, numbers, and underscores
+	var username = $("#username").val();
 
 	if (username == "") {
 
@@ -77,7 +77,7 @@ function validateUsername(){
 		//alert(error);
 		return false;
 
-    } else if (illegalChars.test(username)) {
+	} else if (!username.match(legalChars)) {
 
         error = "Korisničko ime sadrži ilegalne znakove!\n";
         sweetAlert("Oops...",error, "error");
@@ -90,7 +90,7 @@ function validateUsername(){
 }
 
 function validatePassword(){
-	var password = document.getElementById('password').value;
+	var password = $("#password").val();
 
 	if (password == "") {
 
@@ -110,3 +110,17 @@ function validatePassword(){
 
     return true;
 }
+
+if ($.cookie('success') !== 'undefined' && $.trim($.cookie('success')) != "") {
+	$("#success-div").html($.cookie('success'));
+	$.removeCookie('success');
+	$("#success-div").show(40);
+	setTimeout(function(){
+        $("#success-div").fadeOut("slow");
+    },2000);
+}
+
+window.addEventListener('beforeunload', function (e) {
+	$.removeCookie('my_name');
+	$.removeCookie('success');
+});
