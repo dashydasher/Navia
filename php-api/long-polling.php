@@ -1,70 +1,53 @@
 <?php
 require_once '../vendor/autoload.php';
-use Models\Database;
+use Models\Room;
 
-session_write_close();
+/*
+TODO prvi dohvat podataka je uvijek set_time_limit zbog nekog razloga, a svaki sljedeci je brzi
+*/
+
+session_start();
 ignore_user_abort(false);
-set_time_limit(30);
+set_time_limit(10);
 
+header('Content-type:application/json;charset=utf-8');
 while (true) {
-    $last_ajax_call = isset($_GET['timestamp']) ? (int)$_GET['timestamp'] : null;
-    $sql_timestamp = date("Y-m-d H:i:s", $last_ajax_call);
-
+    $last_ajax_call = isset($_GET['timestamp']) ? $_GET['timestamp'] : "1970-01-01 00:00:00";
     /*
-    TODO kreiraj klasu comment, mood, question?
+    TODO kaj ako ne postoji??
     */
-    $db = new Database;
-
-    /*
-    TODO dohvati iz cookieja?
-    */
-    $room_id = 1;
-
-    $query = "SELECT * FROM comment WHERE room_id = :room_id AND `time` >= :last_call";
-    $query2 = "SELECT * FROM mood WHERE room_id = :room_id AND `time` >= :last_call";
-    $query3 = "SELECT * FROM question WHERE room_id = :room_id AND `time` >= :last_call";
+    $room_id = $_SESSION["room_id"];
+    $room = new Room;
+    $room->fetch($room_id);
 
     try {
-        $result = $db->connection->prepare($query);
-        $result2 = $db->connection->prepare($query2);
-        $result3 = $db->connection->prepare($query3);
-
         /*
-        probati kak se ponaša kad se ova varijabla računa i nakon izvršavanja queryja
+        TODO probati kak se ponaša kad se ova varijabla računa i nakon izvršavanja queryja
         */
-        $now2 = time();
+        $now2 = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
 
-        $result->execute(array(
-            "room_id" => $room_id,
-            "last_call" => $sql_timestamp,
-        ));
-        $result2->execute(array(
-            "room_id" => $room_id,
-            "last_call" => $sql_timestamp,
-        ));
-        $result3->execute(array(
-            "room_id" => $room_id,
-            "last_call" => $sql_timestamp,
-        ));
+        $comments = $room->fetch_comments($last_ajax_call);
+        $questions = $room->fetch_questions($last_ajax_call);
+        $moods = $room->fetch_moods($last_ajax_call);
         /*
-        probati kak se ponaša kad se ova varijabla računa i prije izvršavanja queryja
+        TODO probati kak se ponaša kad se ova varijabla računa i prije izvršavanja queryja
         */
-		$now = time();
+		$now = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
 
-		if($result->rowCount() > 0 || $result2->rowCount() > 0 || $result3->rowCount() > 0) {
+		if(sizeof($comments) > 0 || sizeof($questions) > 0 || sizeof($moods) > 0) {
 			echo json_encode(array(
 				"success" => true,
                 "error" => null,
-                'comments' => $result->fetchAll(\PDO::FETCH_OBJ),
-                'moods' => $result2->fetchAll(\PDO::FETCH_OBJ),
-	            'questions' => $result3->fetchAll(\PDO::FETCH_OBJ),
-	            'timestamp' => $now,
+                'comments' => $comments,
+                'moods' => $moods,
+	            'questions' => $questions,
+	            'timestamp' => $now->format('Y-m-d H:i:s'),
         	));
-			break;
+			exit();
 		} else {
-			sleep(2);
-		}
-    } catch (\PDOException $e) {
+			sleep(3);
+        }
+	} catch (\PDOException $e) {
 		echo json_encode(array(
 			"success" => false,
 			"error" => $e->getMessage(),
@@ -73,7 +56,6 @@ while (true) {
             'questions' => array(),
             'timestamp' => $last_ajax_call,
     	));
-		break;
+		exit();
     }
-    break;
 }

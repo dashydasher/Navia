@@ -1,31 +1,40 @@
-{% include "layouts/header.html.twig" %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Navia</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 0.9, user-scalable=no" />
 
-{% block header %}
-{% endblock %}
+        {% block header %}
+        {% endblock %}
 
-</head>
-<body>
+        <link href="public/css/lib/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="public/css/main.css">
+    </head>
+    <body>
 
-    {% if error_list is not empty %}
-        <div class="alert alert-danger information-display">
-            {% for greska in error_list %}
-                <p> &nbsp; <span class="glyphicon glyphicon-alert"></span> &nbsp; <strong>{{ greska }}</strong> </p>
-            {% endfor %}
-        </div>
-    {% endif %}
+        {% if error_list %}
+            <div id="error-div" class="alert alert-danger information-display">
+                {% for greska in error_list %}
+                    <p> &nbsp; <span class="glyphicon glyphicon-alert"></span> &nbsp; <strong>{{ greska }}</strong> </p>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-    <div id="success-div" class="alert alert-success information-display" hidden>
-    </div>
+        {% if success %}
+            <div id="success-div" class="alert alert-success information-display">
+                {{ success }}
+            </div>
+        {% endif %}
 
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
 
-    <script src="public/js/lib/jquery-1.11.2.min.js"></script>
-    <script src="public/js/lib/bootstrap.min.js"></script>
-    <script src="public/js/lib/jquery.cookie.js"></script>
-    <script src="public/js/main.js"></script>
-    {% block footer %}
-    {% endblock %}
+        <script src="public/js/lib/jquery-1.11.2.min.js"></script>
+        <script src="public/js/lib/bootstrap.min.js"></script>
+        <script src="public/js/main.js"></script>
+        {% block footer %}
+        {% endblock %}
 
-</body>
+    </body>
 </html>

@@ -111,16 +111,11 @@ function validatePassword(){
     return true;
 }
 
-if ($.cookie('success') !== 'undefined' && $.trim($.cookie('success')) != "") {
-	$("#success-div").html($.cookie('success'));
-	$.removeCookie('success');
-	$("#success-div").show(40);
-	setTimeout(function(){
-        $("#success-div").fadeOut("slow");
-    },2000);
-}
 
-window.addEventListener('beforeunload', function (e) {
-	$.removeCookie('my_name');
-	$.removeCookie('success');
-});
+setTimeout(function(){
+    $("#success-div").fadeOut("slow");
+},2000);
+
+setTimeout(function(){
+    $("#error-div").fadeOut("slow");
+},4000);

@@ -23,9 +23,10 @@ if (empty($_POST)) {
         $result = $teacher->store($username, $password, "$name $last_name");
         // uspjesno kreiran
         if ($result > 0) {
-            // stavi ime u cookie i jođ možda druge stvari
-            setcookie("success", "Uspješno ste se registrirali");
-            setcookie("my_name", $teacher->name);
+            session_start();
+            $_SESSION["success"] = "Uspješno ste se registrirali";
+            $_SESSION["my_id"] = $teacher->id;
+            $_SESSION["my_name"] = $teacher->name;
             header("Location: profesor.php");
             exit();
         } else {
