@@ -355,3 +355,11 @@ header .nav-login a{
   color: #fff;
   background-color: #5bc0de;
 }
+.pdiv1 {
+  display: inline-block;
+  float:left;
+}
+
+.pdiv2 {
+  float:right;
+}
