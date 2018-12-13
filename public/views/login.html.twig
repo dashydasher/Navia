@@ -8,14 +8,28 @@
 
 {% block content %}
 
+<head>
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/lib/swal.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+
+
+<body>
 <header>
     <nav>
         <div class="main-wrapper">
           <div class="nav-login">
               <form>
-                    <input type="text" name="uid" placeholder="username" required>
-                    <input type="password" name="pwd" placeholder="lozinka" required>
+                    <input type="text" name="uid" placeholder="Korisničko ime" class="form-control input-md" required>
+                    <input type="password" name="pwd" placeholder="Lozinka" class="form-control input-md" required>
                     <button class="btn btn-success" type="submit" name="submit">Prijava</button>
 
               </form>
@@ -31,32 +45,34 @@
   <div class="main-wrapper">
       <h2>Registracija</h2>
       <form class="signup-form" action="index.inc.php" method="post">
+           <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+              <input class="form-control input-md" type="text" name="first" placeholder="Ime" id="name"required>
+           </div>
+           <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+              <input class="form-control input-md" type="text" name="last" placeholder="Prezime" id="surname" required>
+           </div>
+           <div class="input-group">
+               <span class="input-group-addon"><i class="fa fa-user-secret fa" aria-hidden="true"></i></span>
+               <input class="form-control input-md" type="text" name="uid" placeholder="Korisničko ime" id="username" required>
+           </div>
+           <div class="input-group">
+               <span class="input-group-addon"><i class="fa fa-key fa" aria-hidden="true"></i></span>
+               <input class="form-control input-md" type="password" name="pwd" placeholder="Lozinka" id="password" required>
+           </div>
 
-         <div class="controls">
-    
-           <input class="input-xlarge" type="text" name="first" placeholder="Ime" id="name"required>
-        </div>
-
-        <div class="controls">
-               <input class="input-xlarge" type="text" name="last" placeholder="Prezime" id="surname" required>
-             
-        </div>
-
-        <div class="controls">
-               <input class="input-xlarge" type="text" name="uid" placeholder="Username" id="username" required>   
-         
-         </div>
-
-        <div class="controls">
-                 <input class="input-xlarge" type="password" name="pwd" placeholder="Lozinka" id="password" required>
-             
-         </div>
- 
-          <button class="btn btn-success" onclick="validation()" type="submit" name="submit">Registriraj se</button>
+           <button class="btn btn-success" onclick="validation()" type="submit" name="submit">Registriraj se</button>
       </form>
-  </div>
+    </div>
 </section>
 
+
+
+
+
+
+</body>
 
 
 
@@ -66,4 +82,3 @@
 {% block footer %}
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.32.2/dist/sweetalert2.all.min.js"></script>
 {% endblock %}
-
