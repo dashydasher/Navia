@@ -1,6 +1,7 @@
 <?php
 namespace Models;
 use \DateTime;
+use \DateTimeZone;
 
 class Room {
     public $id;
@@ -9,9 +10,9 @@ class Room {
     public $description;
     public $active;
 
-    public $moods;
-    public $comments;
-    public $questions;
+    public $moods = array();
+    public $comments = array();
+    public $questions = array();
 
     private $database;
 
@@ -59,7 +60,7 @@ class Room {
 
     function store($description, $teacher_id) {
         $key = $this->getToken(6);
-        $time = new DateTime();
+        $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
         $query = "INSERT INTO room (`time`, `key`, description, active, teacher_id) VALUES (:time, :key, :description, 1, :teacher_id)";
         try {
             $result = $this->database->connection->prepare($query);
@@ -70,15 +71,15 @@ class Room {
                     "teacher_id" => $teacher_id,
                 ));
 
-                $new_id = $this->database->connection->lastInsertId();
+            $new_id = $this->database->connection->lastInsertId();
 
-                $this->mapAttr((object)array(
-                    "id" => $new_id,
-                    "time" => $time,
-                    "key" => $key,
-                    "description" => $description,
-                    "active" => 1,
-                ));
+            $this->mapAttr((object)array(
+                "id" => $new_id,
+                "time" => $time,
+                "key" => $key,
+                "description" => $description,
+                "active" => 1,
+            ));
 
                 return $new_id;
         } catch(\PDOException $e) {
@@ -103,15 +104,85 @@ class Room {
     }
 
     function fetch_moods() {
+        $query = "SELECT mood.* FROM mood WHERE mood.room_id = :room_id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "room_id" => $this->id,
+                ));
 
+            foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
+                $mood = new Mood;
+                $mood->mapAttr($row);
+                array_push($this->moods, $mood);
+            }
+            return $this->moods;
+        } catch(\PDOException $e) {
+            return $e;
+        }
     }
 
     function fetch_comments() {
+        $query = "SELECT comment.* FROM comment WHERE comment.room_id = :room_id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "room_id" => $this->id,
+                ));
 
+            foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
+                $comment = new Comment;
+                $comment->mapAttr($row);
+                array_push($this->comments, $comment);
+            }
+            return $this->comments;
+        } catch(\PDOException $e) {
+            return $e;
+        }
     }
 
     function fetch_questions() {
+        $query = "SELECT question.* FROM question WHERE question.room_id = :room_id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "room_id" => $this->id,
+                ));
 
+            foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
+                $question = new Question;
+                $question->mapAttr($row);
+                array_push($this->questions, $question);
+            }
+            return $this->questions;
+        } catch(\PDOException $e) {
+            return $e;
+        }
     }
 
+    function activate($id) {
+        $query = "UPDATE `room` SET `active` = '1' WHERE `room`.`id` = :id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "id" => $id,
+                ));
+            $this->active = 1;
+        } catch(\PDOException $e) {
+            return -1;
+        }
+    }
+
+    function deactivate($id) {
+        $query = "UPDATE `room` SET `active` = '0' WHERE `room`.`id` = :id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "id" => $id,
+                ));
+            $this->active = 0;
+        } catch(\PDOException $e) {
+            return -1;
+        }
+    }
 }

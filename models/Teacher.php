@@ -18,7 +18,6 @@ class Teacher {
     public function mapAttr($row) {
         $this->id = $row->id;
         $this->username = $row->username;
-        $this->password = $row->password;
         $this->name = $row->name;
 
         return 1;
@@ -39,7 +38,6 @@ class Teacher {
             $this->mapAttr((object)array(
                 "id" => $new_id,
                 "username" => $username,
-                "password" => $password,
                 "name" => $name,
             ));
 

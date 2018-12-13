@@ -1,7 +1,9 @@
 <?php
 namespace Models;
+use \DateTime;
+use \DateTimeZone;
 
-class Comment {
+class Question {
     public $id;
     public $time;
     public $signature;
@@ -23,14 +25,25 @@ class Comment {
     }
 
     function store($signature, $question, $room_id) {
-        $query = "INSERT INTO mood (time, signature, question, room_id) VALUES (NOW(), :signature, :question, :room_id)";
+        $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
+        $query = "INSERT INTO question (time, signature, question, room_id) VALUES (:time, :signature, :question, :room_id)";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
+                    "time" => $time->format('Y-m-d\TH:i:s.u'),
                     "signature" => $signature,
                     "question" => $question,
                     "room_id" => $room_id,
                 ));
+
+            $new_id = $this->database->connection->lastInsertId();
+
+            $this->mapAttr((object)array(
+                "id" => $new_id,
+                "time" => $time,
+                "signature" => $signature,
+                "question" => $question,
+            ));
         } catch(\PDOException $e) {
             return -1;
         }

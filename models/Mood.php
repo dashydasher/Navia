@@ -1,5 +1,6 @@
 <?php
 namespace Models;
+use \DateTime;
 
 class Mood {
     public $id;
