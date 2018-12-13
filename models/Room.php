@@ -9,6 +9,7 @@ class Room {
     public $key;
     public $description;
     public $active;
+    public $teacher_id;
 
     public $moods = array();
     public $comments = array();
@@ -26,6 +27,7 @@ class Room {
         $this->key = $row->key;
         $this->description = $row->description;
         $this->active = $row->active;
+        $this->teacher_id = $row->teacher_id;
 
         return 1;
     }
@@ -79,6 +81,7 @@ class Room {
                 "key" => $key,
                 "description" => $description,
                 "active" => 1,
+                "teacher_id" => $teacher_id,
             ));
 
                 return $new_id;
