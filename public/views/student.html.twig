@@ -111,6 +111,7 @@
 	            <span class="input-group-btn"><button id="komentar-submit" class="btn btn-default" type="submit"><i class="fa fa-paper-plane-o fa-2x"></i></button></span>
               </div>
 
+
           <ul id="objavljeni-komentari">
           </ul>
 
@@ -137,7 +138,7 @@
                 if (data.success) {
                     $("#objavljeni-komentari").append( $("li").append(data.comment) );
                 } else {
-                    alert(data.error);
+                    alert("Neuspješno slanje komentara :(");
                 }
             });
     });
@@ -154,7 +155,7 @@
                 if (data.success) {
                     $("#objavljena-pitanja").append( $("li").append(data.question) );
                 } else {
-                    alert(data.error);
+                    alert("Neuspješno slanje pitanja :(");
                 }
             });
     });
