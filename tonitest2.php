@@ -65,15 +65,15 @@ $mood5->store("Matea", 3, 4, $room1->id);
 $teacher1 = new Teacher;
 $uspjeh_logina1 = $teacher1->login_check("user1", "pass1");
 $teacher1->fetch_rooms();
-$teacher1->rooms[0]->fetch_comments();
-$teacher1->rooms[0]->fetch_questions();
-$teacher1->rooms[0]->fetch_moods();
+$teacher1->rooms[0]->fetch_comments(0);
+$teacher1->rooms[0]->fetch_questions(0);
+$teacher1->rooms[0]->fetch_moods(0);
 var_dump($teacher1);
 
 // Room
 $room = new Room;
 $room->fetch($teacher1->rooms[0]->id);
-$room->fetch_comments();
-$room->fetch_questions();
-$room->fetch_moods();
+$room->fetch_comments(0);
+$room->fetch_questions(0);
+$room->fetch_moods(0);
 var_dump($room);

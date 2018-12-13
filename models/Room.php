@@ -106,12 +106,13 @@ class Room {
         }
     }
 
-    function fetch_comments() {
-        $query = "SELECT comment.* FROM comment WHERE comment.room_id = :room_id";
+    function fetch_comments($time_sel) {
+        $query = "SELECT comment.* FROM comment WHERE comment.room_id = :room_id AND time >= :time_sel";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
                     "room_id" => $this->id,
+                    "time_sel" => $time_sel,
                 ));
 
             foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
@@ -125,12 +126,13 @@ class Room {
         }
     }
 
-    function fetch_questions() {
-        $query = "SELECT question.* FROM question WHERE question.room_id = :room_id";
+    function fetch_questions($time_sel) {
+        $query = "SELECT question.* FROM question WHERE question.room_id = :room_id AND time >= :time_sel";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
                     "room_id" => $this->id,
+                    "time_sel" => $time_sel,
                 ));
 
             foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
@@ -144,12 +146,17 @@ class Room {
         }
     }
 
-    function fetch_moods() {
-        $query = "SELECT `mood`.`id`, `mood`.`time`, `mood`.`signature`, `mood_option`.`mood`, `mood_reason`.`reason` FROM mood JOIN mood_option ON `mood`.`mood_option_id`=`mood_option`.`id` JOIN mood_reason ON `mood`.`mood_reason_id`=`mood_reason`.`id` WHERE mood.room_id = :room_id";
+    function fetch_moods($time_sel) {
+        $query = "SELECT `mood`.`id`, `mood`.`time`, `mood`.`signature`, `mood_option`.`mood`, `mood_reason`.`reason`
+                    FROM mood
+                    JOIN mood_option ON `mood`.`mood_option_id`=`mood_option`.`id`
+                    JOIN mood_reason ON `mood`.`mood_reason_id`=`mood_reason`.`id`
+                    WHERE mood.room_id = :room_id AND time >= :time_sel";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
                     "room_id" => $this->id,
+                    "time_sel" => $time_sel,
                 ));
 
             foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
