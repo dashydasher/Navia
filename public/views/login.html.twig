@@ -27,15 +27,16 @@
 <header>
     <nav>
         <div class="main-wrapper">
-          <div class="nav-login">
-              <form>
-                    <input type="text" name="uid" placeholder="Korisničko ime" class="form-control input-md" required>
-                    <input type="password" name="pwd" placeholder="Lozinka" class="form-control input-md" required>
-                    <button class="btn btn-success" type="submit" name="submit"  >Prijava</button>
 
-              </form>
-
-          </div>
+          <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Korisničko ime">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="password" placeholder="Lozinka">
+                    </div>
+                    <button type="submit" class="btn btn-success">Prijava</button>
+                </form>
 
         </div>
 
@@ -43,34 +44,41 @@
 </header>
 
 <section class="main-container">
-  <div class="center-wrapper">
-      <h2 align="center">Registracija</h2>
+  <div class="center-wrapper"><br><br><br><br><br>
+  <div class="card">
+  <header class="card-header">
+
+    <h2 align="center">Registracija</h2><br>
+</header>
+
       <form class="signup-form" action="index.inc.php" method="post">
+      <br>
            <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
               <input class="form-control input-md" type="text" name="first" placeholder="Ime" id="name"required>
-           </div>
+           </div><br>
            <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
               <input class="form-control input-md" type="text" name="last" placeholder="Prezime" id="surname" required>
-           </div>
+           </div><br>
            <div class="input-group">
                <span class="input-group-addon"><i class="fa fa-user-secret fa" aria-hidden="true"></i></span>
                <input class="form-control input-md" type="text" name="uid" placeholder="Korisničko ime" id="username" required>
-           </div>
+           </div><br>
            <div class="input-group">
                <span class="input-group-addon"><i class="fa fa-key fa" aria-hidden="true"></i></span>
                <input class="form-control input-md" type="password" name="pwd" placeholder="Lozinka" id="password" required>
            </div>
-
-           <button class="btn btn-success" onclick="validation()" type="submit" name="submit">Registriraj se</button>
+<br>       <div align="center">
+  <div class="form-group">
+           <button class="btn btn-success btn-block" onclick="validation()" type="submit" name="submit">Registriraj se</button>
+             </div><br>
+           </div>
       </form>
+      <br><br>
+      </div>
     </div>
 </section>
-
-
-
-
 
 
 </body>
