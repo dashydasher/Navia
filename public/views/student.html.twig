@@ -10,6 +10,7 @@
 
 
   <link rel="stylesheet" type="text/css" href="public/css/main.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 </head>
 <section>
 
@@ -18,13 +19,7 @@
 </div>
 
 
-
-
-
-<div class="container">
-
-
-
+<br><br><br><br><br><br>
 
 
 
@@ -33,60 +28,100 @@
 
 
 
-<div id="smile">
-
-<button type="button" class="btn btn-success btn-circle btn-xl"><i class="glyphicon glyphicon-link"></i></button>
-
-<button type="button" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-remove"></i></button>
-<button type="button" class="btn btn-danger btn-circle btn-xl"><i class="glyphicon glyphicon-heart"></i></button>
-</div>
-
-       <div class="row">
-
+      <div class="row"  id="emoticons" >
+          <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-smile-o fa-5x"></i></button>
+          <button type="button" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-meh-o fa-5x"></i></button>
+          <button type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-frown-o fa-5x"></i></button>
+      </div>
+      <br><br>
+      <div class="row">
            <div class="col-lg-6 ">
-           <h4 align="center">Razlog mog raspoloženja:</h4>
-               <div class="input-group">
-                   <span class="input-group-addon beautiful">
-                      <input type="radio" name="razlog" value="brzo">
-                   </span>
-                   <input type="text" class="form-control" value="Profesor objašnjava prebrzo" readonly>
-              </div>
-              <div class="input-group">
-                  <span class="input-group-addon beautiful">
-                     <input type="radio" name="razlog" value="sporo">
-                  </span>
-                  <input type="text" class="form-control" value="Profesor objašnjava presporo" readonly>
-             </div>
-               <div class="input-group">
-                   <span class="input-group-addon beautiful">
-                       <input type="radio" name="razlog" value="dosadan">
-                   </span>
-                   <input type="text" class="form-control" value="Profesor je dosadan" readonly>
-              </div>
-              <div class="input-group">
-                   <span class="input-group-addon beautiful">
-                       <input type="radio" name="razlog" value="digresija">
-                   </span>
-                   <input type="text" class="form-control" value="Profesor ima previše digresija" readonly>
-              </div>
-              <div class="input-group">
-                   <span class="input-group-addon beautiful">
-                       <input type="radio" name="razlog" value="osobni">
-                   </span>
-                   <input type="text" class="form-control" value="Osobni razlog" readonly>
-              </div>
-              <button id="razlog-submit" class="btn btn-info ">Pošalji</button>
-           </div>
+               <h4 align="center">jer...</h4>
+               <br><br>
+
+                   <div class="input-group">
+                       <span class="input-group-addon beautiful">
+                          <input type="radio" name="razlog" value="brzo">
+                       </span>
+                       <input type="text" class="form-control" value="Profesor objašnjava prebrzo" readonly>
+                  </div>
+                  <div class="input-group">
+                      <span class="input-group-addon beautiful">
+                         <input type="radio" name="razlog" value="sporo">
+                      </span>
+                      <input type="text" class="form-control" value="Profesor objašnjava presporo" readonly>
+                 </div>
+                   <div class="input-group">
+                       <span class="input-group-addon beautiful">
+                           <input type="radio" name="razlog" value="dosadan">
+                       </span>
+                       <input type="text" class="form-control" value="Profesor je dosadan" readonly>
+                  </div>
+                  <div class="input-group">
+                       <span class="input-group-addon beautiful">
+                           <input type="radio" name="razlog" value="digresija">
+                       </span>
+                       <input type="text" class="form-control" value="Profesor ima previše digresija" readonly>
+                  </div>
+
+                  <div class="input-group">
+                       <span class="input-group-addon beautiful">
+                           <input type="radio" name="razlog" value="osobni">
+                       </span>
+                       <input type="text" class="form-control" value="Osobni razlog" readonly>
+                  </div>
+
+
+                  <button id="razlog-submit" class="btn btn-info ">Pošalji</button>
+                  </div>
+
        </div>
-
-
-
 
    </div>
 </div>
+
+<br><br><br>
+
+
+<div class="col-md-7 col-md-offset-4">
+<div class="row">
+
+    <div class="row">
+         <div class="col-lg-6 ">
+             <br><br>
+                 <div class="funkyradio">
+                 <div class="funkyradio-danger">
+                     <input type="radio" name="razlog" id="radio1" value="Profesor objašnjava prebrzo" />
+                     <label for="radio1">Profesor objašnjava prebrzo</label>
+                 </div>
+                 <div class="funkyradio-default">
+                     <input type="radio" name="razlog" id="radio1" value="Profesor objašnjava presporo" />
+                     <label for="radio2">Profesor objašnjava presporo</label>
+                 </div>
+                 <div class="funkyradio-warning">
+                     <input type="radio" name="razlog" id="radio3" value="Profesor je dosadan" />
+                     <label for="radio3">Profesor je dosadan</label>
+                 </div>
+                 <div class="funkyradio-info">
+                     <input type="radio" name="razlog" id="radio4" value="Profesor ima previše digresija" />
+                     <label for="radio4">Profesor ima previše digresija</label>
+                 </div>
+                 <div class="funkyradio-success">
+                     <input type="radio" name="razlog" id="radio5" value="Osobni razlog" />
+                     <label for="radio5">Osobni razlog</label>
+                 </div>
+<br>
+                <button id="razlog-submit" class="btn btn-info ">Pošalji</button>
+                </div>
+                <br><br><br>
+         </div>
+     </div>
+
+ </div>
 </div>
 
 
+</div>
 
 
 </section>
