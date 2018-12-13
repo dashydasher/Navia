@@ -158,6 +158,10 @@ header .nav-login input{
   width: 60%;
 }
 
+input[name="emotion"] {
+    visibility:hidden;
+}
+
 /*question*/
 .question-form {
   width:80%;

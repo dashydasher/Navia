@@ -27,9 +27,16 @@
         <div class="row" align="center">
         <form>
             <div class="col-md-6 align="center"  id="emoticons" >
-                <span class="raspClass"><button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-smile-o fa-5x"></i></button></span>
-                <span class="raspClass"><button type="button" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-meh-o fa-5x"></i></button></span>
-                <span class="raspClass"><button type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-frown-o fa-5x"></i></button></span>
+
+                <input type='radio' value='1' name='emotion' id='radioSmile'/>
+                <span for='radioSmile' class="raspClass"><button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-smile-o fa-5x"></i></button></span>
+
+                <input type='radio' value='2' name='emotion' id='radioMeh'/>
+                <span for='radioMeh' class="raspClass"><button type="button" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-meh-o fa-5x"></i></button></span>
+
+                <input type='radio' value='3' name='emotion' id='radioFrown'/>
+                <span for='radioFrown' class="raspClass"><button type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-frown-o fa-5x"></i></button></span>
+
             </div>
         </form>
         </div>
