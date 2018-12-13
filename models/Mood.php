@@ -1,6 +1,7 @@
 <?php
 namespace Models;
 use \DateTime;
+use \DateTimeZone;
 
 class Mood {
     public $id;
@@ -26,15 +27,17 @@ class Mood {
     }
 
     function store($signature, $mood_id, $reason_id, $room_id) {
-        $query = "INSERT INTO mood (time, signature, mood_option_id, mood_reason_id, room_id) VALUES (NOW(), :signature, :mood_id, :reason_id, :room_id)";
+        $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
+        $query = "INSERT INTO mood (time, signature, mood_option_id, mood_reason_id, room_id) VALUES (:time, :signature, :mood_id, :reason_id, :room_id)";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
-                    "signature" => $signature,
-                    "mood_id" => $mood_id,
-                    "reason_id" => $reason_id,
-                    "room_id" => $room_id,
-                ));
+                "time" => $time->format('Y-m-d\TH:i:s.u'),
+                "signature" => $signature,
+                "mood_id" => $mood_id,
+                "reason_id" => $reason_id,
+                "room_id" => $room_id,
+            ));
         } catch(\PDOException $e) {
             return -1;
         }

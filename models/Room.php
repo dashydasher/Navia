@@ -103,25 +103,6 @@ class Room {
         }
     }
 
-    function fetch_moods() {
-        $query = "SELECT mood.* FROM mood WHERE mood.room_id = :room_id";
-        try {
-            $result = $this->database->connection->prepare($query);
-            $result->execute(array(
-                    "room_id" => $this->id,
-                ));
-
-            foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
-                $mood = new Mood;
-                $mood->mapAttr($row);
-                array_push($this->moods, $mood);
-            }
-            return $this->moods;
-        } catch(\PDOException $e) {
-            return $e;
-        }
-    }
-
     function fetch_comments() {
         $query = "SELECT comment.* FROM comment WHERE comment.room_id = :room_id";
         try {
@@ -155,6 +136,25 @@ class Room {
                 array_push($this->questions, $question);
             }
             return $this->questions;
+        } catch(\PDOException $e) {
+            return $e;
+        }
+    }
+
+    function fetch_moods() {
+        $query = "SELECT `mood`.`id`, `mood`.`time`, `mood`.`signature`, `mood_option`.`mood`, `mood_reason`.`reason` FROM mood JOIN mood_option ON `mood`.`mood_option_id`=`mood_option`.`id` JOIN mood_reason ON `mood`.`mood_reason_id`=`mood_reason`.`id` WHERE mood.room_id = :room_id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "room_id" => $this->id,
+                ));
+
+            foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
+                $mood = new Mood;
+                $mood->mapAttr($row);
+                array_push($this->moods, $mood);
+            }
+            return $this->moods;
         } catch(\PDOException $e) {
             return $e;
         }

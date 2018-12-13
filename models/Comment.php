@@ -30,11 +30,11 @@ class Comment {
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
-                    "time" => $time->format('Y-m-d\TH:i:s.u'),
-                    "signature" => $signature,
-                    "comment" => $comment,
-                    "room_id" => $room_id,
-                ));
+                "time" => $time->format('Y-m-d\TH:i:s.u'),
+                "signature" => $signature,
+                "comment" => $comment,
+                "room_id" => $room_id,
+            ));
 
             $new_id = $this->database->connection->lastInsertId();
 
