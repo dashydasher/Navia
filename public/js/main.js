@@ -2,7 +2,7 @@
 
 function validation(){
 
-	if (validateName() && validateName() &&	validateUsername() && validatePassword()){
+	if (validateName() && validateSurname() &&	validateUsername() && validatePassword()){
 		swal("Bravo!", "Uspješno ste registrirani","uspjeh");
 	}
 
@@ -38,7 +38,7 @@ function validateName(){
 function validateSurname(){
 	var surname = document.getElementById('surname').value;
 	var illegalChars = "^[a-zA-Z ]+$";
-	if (surrname == "") {
+	if (surname == "") {
 
         error = "Niste unijeli prezime!\n";
         sweetAlert("Oops...",error, "error");
