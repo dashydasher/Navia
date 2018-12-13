@@ -6,11 +6,23 @@
 </head>
 <body>
 
+    {% if error_list is not empty %}
+        <div class="alert alert-danger information-display">
+            {% for greska in error_list %}
+                <p> &nbsp; <span class="glyphicon glyphicon-alert"></span> &nbsp; <strong>{{ greska }}</strong> </p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div id="success-div" class="alert alert-success information-display" hidden>
+    </div>
+
     {% block content %}
     {% endblock %}
 
     <script src="public/js/lib/jquery-1.11.2.min.js"></script>
     <script src="public/js/lib/bootstrap.min.js"></script>
+    <script src="public/js/lib/jquery.cookie.js"></script>
     <script src="public/js/main.js"></script>
     {% block footer %}
     {% endblock %}

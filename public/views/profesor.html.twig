@@ -23,7 +23,7 @@
 <div class="pdiv1">
   <h1>NAVIA</h1>
   </div>
-  <div class="pdiv2">Ime Prezime</div>
+  <div id="my-name-div" class="pdiv2"></div>
   <br/>
   <hr/>
   <div class="pdiv1">
@@ -60,13 +60,15 @@
 
 {% block footer %}
 
+    <script src="public/js/profesor.js"></script>
+
 <script>
 
   $("#razlog-submit").on("click", function(){
 
 var donut_chart = Morris.Donut({
  element: 'chart',
- data: <?php echo $data; ?>
+ data: "neki_data_iz_PHPa"
 });
 
 $('#like_form').on('submit', function(event){
