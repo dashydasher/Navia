@@ -20,33 +20,28 @@
 
            <div class="navbar-header">
 
-             <div class="navbar-brand">Navia</div>
+           <div class="navbar-brand">Navia</div>
            </div>
+             {% if username %}
 
-             <?php if(isset($username)): ?>
+                  <ul class="nav navbar-nav navbar-right" name="gumbici">
+                      <li><a class="btn btn-default btn-outline btn-sm" role="button"  href="room-create.php">Izađi iz sobe</a></li>
 
-             <ul class="nav navbar-nav navbar-right" name="gumbici">
-               <li><a class="btn btn-default btn-outline btn-sm" role="button"  href="room-create.php">Izađi iz sobe</a></li>
+                      <li><a class="btn btn-default btn-outline btn-sm" role="button" href="login.php" > <i class="fa fa-sign-out fa" aria-hidden="true"></i>
+                          </a></li>
+                  </ul>
 
-               <li><a class="btn btn-default btn-outline btn-sm" role="button" href="login.php" > <i class="fa fa-sign-out fa" aria-hidden="true"></i>
-</a></li>
-
-
-          </ul>
-            <?php else: ?>
-            <form class="navbar-form navbar-right" role="search" action="login.php" method="post">
-                              <div class="form-group">
-                                  <input type="text" class="form-control" name="username" placeholder="Korisničko ime" value="{{ username ? username : "" }}" required>
-                              </div>
-                              <div class="form-group">
-                                  <input type="password" class="form-control" name="password" placeholder="Lozinka" required>
-                              </div>
-                              <button type="submit" class="btn btn-success"><i class="fa fa-sign-in fa" aria-hidden="true"></i></button>
-                          </form>
-
-            <?php endif; ?>
-
-
+            {% else %}
+                       <form class="navbar-form navbar-right" role="search" action="login.php" method="post">
+                                         <div class="form-group">
+                                             <input type="text" class="form-control" name="username" placeholder="Korisničko ime" value="{{ username ? username : "" }}" required>
+                                         </div>
+                                         <div class="form-group">
+                                             <input type="password" class="form-control" name="password" placeholder="Lozinka" required>
+                                         </div>
+                                         <button type="submit" class="btn btn-success"><i class="fa fa-sign-in fa" aria-hidden="true"></i></button>
+                                     </form>
+            {% endif %}
          </div>
        </nav>
       </header>
