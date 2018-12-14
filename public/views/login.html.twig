@@ -12,24 +12,7 @@
 
 {% block content %}
 <div class="container-fluid">
-<header>
-    <nav>
-        <div class="main-wrapper">
-
-          <form class="navbar-form navbar-right" role="search" action="login.php" method="post">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Korisničko ime" value="{{ username ? username : "" }}" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Lozinka" required>
-                    </div>
-                    <button type="submit" class="btn btn-success"><i class="fa fa-sign-in fa" aria-hidden="true"></i></button>
-                </form>
-
-        </div>
-
-    </nav>
-</header>
+  {% include 'layouts/teacher-navbar.html.twig' %}
 
 <section class="main-container">
   <div class="center-wrapper"><br><br><br><br><br>
