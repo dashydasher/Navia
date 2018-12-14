@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+      <link rel="stylesheet" href="public/css/main.css">
 
 {% endblock %}
 
 {% block content %}
 
 
-<div class="container">
+<div class="container-fluid">
+  <div class="main-wrapper">
 <br/>
 <div class="pdiv1">
   <h1>NAVIA</h1>
@@ -21,16 +23,23 @@
   <br/>
   <hr/>
     <form method="post" action="room-create.php">
-        Kreiraj novu sobu
-        <input name="room-name" required placeholder="Opis sobe">
-        <input type="submit" class="button btn-primary">
+        <h5>Kreiraj novu sobu</h5> <br>
+        <input name="room-name" class="form-control " required placeholder="Opis sobe"><br>
+        <button type="submit" class="button btn-default">Predaj</button>
     </form>
+    <br><br>
+    <div class="mojeSobe">
     Moje sobe:
     <ul>
         {% for room in rooms %}
-            <li><a href="room.php?id={{ room.id }}">Room {{ room.key }} ({{ room.time }})</a></li>
+          <a class="btn btn-default btn-outline btn-sm" role="button" href="room.php?id={{ room.id }}">Room {{ room.key }} ({{ room.time }})</a>
+          <br>
         {% endfor %}
     </ul>
+  </div>
+</div>
+</div>
+</div>
 
 {% endblock %}
 

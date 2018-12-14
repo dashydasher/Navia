@@ -10,6 +10,12 @@
 
 {% block content %}
 
+<div class="container-fluid">
+
+
+  {% include 'layouts/teacher-navbar.html.twig' %}
+
+
 <div class="container">
 <br/>
 <div class="pdiv1">
@@ -36,7 +42,7 @@
     <div class="col-md-4" align="center">
       <i class="fa fa-question-circle-o fa-5x"></i>
       <div class="alert alert-danger">PITANJA </div>
-      <p>Ak sad tu pišem neki veeeeeeeeeeeeeeeeeeliki tekst onda to izgleda kak? aaaaaaaaa aaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa aaaaaaaaaaa</p>
+    
     </div>
 
     <div class="col-md-4" align="center" id="komentari">
@@ -45,7 +51,7 @@
     </div>
 
   </div>
-
+</div>
 
 
 {% endblock %}

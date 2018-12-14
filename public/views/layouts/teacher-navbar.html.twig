@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Navia</title>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale = 0.9, user-scalable=no" />
+
+        {% block header %}
+        {% endblock %}
+
+        <link href="public/css/lib/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="public/css/main.css">
+    </head>
+    <body>
+
+
+      <header>
+        <nav>
+         <div class="container">
+
+           <div class="navbar-header">
+
+             <div class="navbar-brand">Navia</div>
+           </div>
+
+             <ul class="nav navbar-nav navbar-right" name="gumbici">
+               <li><a class="btn btn-default btn-outline btn-sm" role="button"  href="room-create.php">Izađi iz sobe</a></li>
+               <li><a class="btn btn-default btn-outline btn-sm" role="button" href="room-create.php">Stvori novu sobu    <i class="fa fa-plus-square" aria-hidden="true"></i>
+</a></li>
+               <li><a class="btn btn-default btn-outline btn-sm" role="button" href="room-create.php">Sve sobe  <i class="fa fa-list-ol" aria-hidden="true"></i>
+</a></li>
+               <li><a class="btn btn-default btn-outline btn-sm" role="button" href="login.php" > <i class="fa fa-sign-out fa" aria-hidden="true"></i>
+</a></li>
+
+         </div>
+       </nav>
+      </header>
+
+
+        {% block content %}
+        {% endblock %}
+
+        <script src="public/js/lib/jquery-1.11.2.min.js"></script>
+        <script src="public/js/lib/bootstrap.min.js"></script>
+        <script src="public/js/main.js"></script>
+        {% block footer %}
+        {% endblock %}
+
+    </body>
+</html>
