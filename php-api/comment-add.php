@@ -2,9 +2,6 @@
 require_once '../vendor/autoload.php';
 use Models\Comment;
 
-/*
-TODO remove  || !isset($_POST['room_id']) from ajax $_POST
-*/
 if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
@@ -15,8 +12,7 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
     /*
     TODO promjeni ovo?
     */
-    $room_id = $_SESSION["room_id"];
-    $room_id = 5;
+    $room_id = isset($_SESSION["room_id"]) ? $_SESSION["room_id"] : 5;
     $result = $comment->store($signature, $content, $room_id);
     if ($result > 0) {
         echo json_encode(array(

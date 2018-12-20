@@ -139,7 +139,6 @@
         var serializedData = {
             "comment": $("#commentInput").val(),
             "signature": "ajax_student",
-            "room_id": 1,
         };
         $.post("./php-api/comment-add.php", serializedData)
             .done(function(data) {
