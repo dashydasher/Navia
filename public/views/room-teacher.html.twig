@@ -69,7 +69,7 @@
                 if (data.success) {
                     for (var i = 0, len = data.comments.length; i < len; i++) {
                         /*
-                        TODO ovaj "<anonimno>" ne radi !!! 
+                        TODO ovaj "<anonimno>" ne radi !!!
                         */
                         var $signature = data.comments[i].signature;
                         if (!$signature || 0 === $signature.length) {
@@ -78,7 +78,9 @@
                         $("#komentari").append( $("<p>").append($signature + ": " + data.comments[i].comment) );
                     }
                 }
-                poll(data.timestamp);
+                setTimeout(function () {
+                    poll(data.timestamp);
+                }, 1200);
             })
             .fail(function() {
                 poll(timestamp);
