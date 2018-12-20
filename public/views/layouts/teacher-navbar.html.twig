@@ -18,30 +18,30 @@
 <nav>
 <div class="container">
 <div class="navbar-header">
-    <div class="navbar-brand">Navia</div>
+    <div class="navbar-brand" style="font-size:30px">Navia</div>
 </div>
 
 {% if room %}
 <ul class="nav navbar-nav navbar-right" name="gumbici">
     <li>
         <div class="navbar-brand">
-            <i class="fa fa-user fa" aria-hidden="true"></i>    {{name}}
+            <i class="fa fa-user fa" aria-hidden="true" style="font-size:30px"></i>    {{name}}
         </div>
     </li>
 
-    <a class="btn btn-warning" href="profesor.php" role="button">Sobe</a>
-    <a class="btn btn-danger" href="login.php" role="button">Logout</a>
+    <a class="btn btn-warning" href="profesor.php" role="button" style="font-size:25px">Sobe</a>
+    <a class="btn btn-danger" href="login.php" role="button" style="font-size:25px">Logout</a>
 </ul>
 
 {% elseif name %}
 <ul class="nav navbar-nav navbar-right" name="gumbici">
     <li>
         <div class="navbar-brand">
-            <i class="fa fa-user fa" aria-hidden="true"></i>    {{name}}
+            <i class="fa fa-user fa" aria-hidden="true" style="font-size:30px"></i>    {{name}}
         </div>
     </li>
 
-    <a class="btn btn-danger" href="login.php" role="button">Logout</a>
+    <a class="btn btn-danger" href="login.php" role="button"  style="font-size:25px">Logout</a>
 </ul>
 
 {% else %}
