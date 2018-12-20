@@ -60,8 +60,13 @@ class Room {
         return $token;
     }
 
-    function store($description, $teacher_id) {
-        $key = $this->getToken(6);
+    function store($description, $teacher_id, $token) {
+        if ($token) {
+            $key = $token;
+        }
+        else {
+            $key = $this->getToken(6);
+        }
         $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
         $query = "INSERT INTO room (`time`, `key`, description, active, teacher_id) VALUES (:time, :key, :description, 1, :teacher_id)";
         try {
@@ -84,7 +89,7 @@ class Room {
                 "teacher_id" => $teacher_id,
             ));
 
-                return $new_id;
+            return $new_id;
         } catch(\PDOException $e) {
             return $e;
         }

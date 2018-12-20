@@ -8,7 +8,7 @@ if(isset($_SESSION["my_id"])) {
 
     if (isset($_POST['room-name'])) {
         $room = new Room;
-        $room_id = $room->store(Helper::xssafe($_POST['room-name']), $_SESSION["my_id"]);
+        $room_id = $room->store(Helper::xssafe($_POST['room-name']), $_SESSION["my_id"], Helper::xssafe($_POST['room-token']));
 
         // uspjesno
         if ($room_id > 0) {

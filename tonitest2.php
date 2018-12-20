@@ -74,6 +74,6 @@ var_dump($teacher1);
 $room = new Room;
 $room->fetch($teacher1->rooms[0]->id);
 $room->fetch_comments(0);
-$room->fetch_questions(0);
+$room->fetch_questions("2018-12-13 21:52:55");
 $room->fetch_moods(0);
 var_dump($room);
