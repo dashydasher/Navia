@@ -16,7 +16,7 @@
   {% include 'layouts/teacher-navbar.html.twig' %}
 
 
-<div class="container">
+
 <br/>
 <div class="pdiv1">
   <h1>Soba {{ room.key }} ({{ room.time }})</h1>
@@ -29,25 +29,25 @@
   <div class="row">
 
     <div class="col-md-4 " align="center">
-    <i class="fa fa-smile-o fa-5x"></i>
-      <div class="alert alert-info">RASPOLOŽENJA</div>
+    <i class="fa fa-smile-o fa-5x"  style="font-size:150px"></i>
+      <div class="alert alert-info" style="font-size:50px">RASPOLOŽENJA</div>
 
       <div id="chart"></div>
 
     </div>
 
-    <div class="col-md-4" align="center">
-      <i class="fa fa-question-circle-o fa-5x"></i>
-      <div class="alert alert-danger">PITANJA </div>
+    <div class="col-md-4" style="font-size:40px" align="center" id="pitanja">
+      <i class="fa fa-question-circle-o fa-5x"  style="font-size:150px"></i>
+      <div class="alert alert-danger" style="font-size:50px">PITANJA </div>
 
     </div>
 
-    <div class="col-md-4" align="center" id="komentari">
-    <i class="fa fa-commenting-o fa-5x"></i>
-      <div class="alert alert-success">KOMENTARI</div>
+    <div class="col-md-4" align="center" style="font-size:40px" id="komentari">
+    <i class="fa fa-commenting-o fa-5x" style="font-size:150px"></i>
+      <div class="alert alert-success" style="font-size:50px">KOMENTARI</div>
     </div>
 
-  </div>
+
 </div>
 
 
