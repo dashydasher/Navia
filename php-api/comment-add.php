@@ -11,7 +11,7 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
     $content = $_POST['comment'];
 
     $comment = new Comment;
-    
+
     session_start();
     $room_id = $_SESSION["entered_room_id"];
     $result = $comment->store($signature, $content, $room_id);
@@ -26,7 +26,6 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
             "success" => false,
             "error" => "Došlo je do pogreške prilikom dodavanja komentara",
             "comment" => null,
-            "room_id" => $room_id
         ));
     }
 }

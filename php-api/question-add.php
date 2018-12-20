@@ -2,15 +2,19 @@
 require_once '../vendor/autoload.php';
 use Models\Question;
 
-if (!isset($_POST['signature']) || !isset($_POST['question']) || !isset($_POST['room_id'])) {
+if (!isset($_POST['signature']) || !isset($_POST['question'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
-    $signature = $_POST['signature'];
-    $question = $_POST['question'];
-    $room_id = $_POST['room_id'];
+    header('Content-type:application/json;charset=utf-8');
 
-    $comment = new Comment;
-    $result = $comment->store($signature, $question, $room_id);
+    $signature = $_POST['signature'];
+    $question_text = $_POST['question'];
+
+    $question = new Question;
+
+    session_start();
+    $room_id = $_SESSION["entered_room_id"];
+    $result = $question->store($signature, $question_text, $room_id);
     if ($result > 0) {
         echo json_encode(array(
             "success" => true,
