@@ -68,7 +68,14 @@
             .done(function(data) {
                 if (data.success) {
                     for (var i = 0, len = data.comments.length; i < len; i++) {
-                        $("#komentari").append( $("<p>").append(data.comments[i].signature + ": " + data.comments[i].comment) );
+                        /*
+                        TODO ovaj "<anonimno>" ne radi !!! 
+                        */
+                        var $signature = data.comments[i].signature;
+                        if (!$signature || 0 === $signature.length) {
+                            $signature = "<anonimno>";
+                        }
+                        $("#komentari").append( $("<p>").append($signature + ": " + data.comments[i].comment) );
                     }
                 }
                 poll(data.timestamp);

@@ -17,6 +17,8 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
         "error_list" => isset($_SESSION["error"]) ? $_SESSION["error"] : null,
         "room" => $room,
     ));
+    unset($_SESSION["success"]);
+    unset($_SESSION["error"]);
 } else {
     $_SESSION["error"] = array("Nemate prava pristupa toj sobi");
     header("Location: profesor.php");

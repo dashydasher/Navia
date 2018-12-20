@@ -120,9 +120,7 @@
 	            <span class="input-group-btn"><button id="komentar-submit" class="btn btn-default" type="submit"><i class="fa fa-paper-plane-o fa-2x"></i></button></span>
               </div>
 
-
-          <ul id="objavljeni-komentari">
-          </ul>
+          <ul id="objavljeni-komentari"></ul>
 
 </div>
 </div>
@@ -134,40 +132,7 @@
 
 {% block footer %}
 
-    <script>
-    $("#komentar-submit").on("click", function() {
-        var serializedData = {
-            "comment": $("#commentInput").val(),
-            "signature": "ajax_student",
-        };
-        $.post("./php-api/comment-add.php", serializedData)
-            .done(function(data) {
-                console.log(data);
-                if (data.success) {
-                    $("#objavljeni-komentari").append( $("li").append(data.comment) );
-                } else {
-                    alert("Neuspješno slanje komentara :(");
-                }
-            });
-    });
-
-    $("#pitanje-submit").on("click", function() {
-        var serializedData = {
-            "question": $("#questionInput").val(),
-            "signature": "ajax_student",
-            "room_id": 1,
-        };
-        $.post("./php-api/question-add.php", serializedData)
-            .done(function(data) {
-                console.log(data);
-                if (data.success) {
-                    $("#objavljena-pitanja").append( $("li").append(data.question) );
-                } else {
-                    alert("Neuspješno slanje pitanja :(");
-                }
-            });
-    });
-    </script>
+    <script src="public/js/student.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>

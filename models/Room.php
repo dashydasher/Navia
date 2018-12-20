@@ -106,6 +106,25 @@ class Room {
         }
     }
 
+    /*
+    TODO key nije UNIQUE index pa bi nam moglo bilo koju sobu vratiti
+    */
+    function fetch_by_key($key) {
+        $query = "SELECT room.* FROM room WHERE room.key = :key";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "key" => $key,
+                ));
+            $row = $result->fetch(\PDO::FETCH_OBJ);
+            if ($row) {
+                return $this->mapAttr($row);
+            }
+        } catch(\PDOException $e) {
+            return -1;
+        }
+    }
+
     function fetch_comments($time_sel) {
         $query = "SELECT comment.* FROM comment WHERE comment.room_id = :room_id AND time >= :time_sel";
         try {
