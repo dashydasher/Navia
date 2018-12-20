@@ -27,16 +27,32 @@
         <h5>Kreiraj novu sobu</h5> <br>
         <input name="room-name" class="form-control " required placeholder="Opis sobe"><br>
         <input name="room-token" class="form-control "placeholder="Ključ sobe (prazno -> random ključ)"><br>
-        <button type="submit" class="button btn-default">Predaj</button>
+        <button type="submit" class="btn btn-primary">Kreiraj</button>
     </form>
-    <br><br>
+    <br><hr/><br>
     <div class="mojeSobe">
-    Moje sobe:
+    <h5>Moje sobe</h5> <br>
     <ul>
-        {% for room in rooms %}
-          <a class="btn btn-default btn-outline btn-sm" role="button" href="room.php?id={{ room.id }}">Room {{ room.key }} ({{ room.time }})</a>
-          <br>
-        {% endfor %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Opis</th>
+              <th scope="col">Ključ</th>
+              <th scope="col">Vrijeme</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for room in rooms %}
+              <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td><a href="room.php?id={{ room.id }}">{{ room.description }}</a></td>
+                <td>{{ room.key }}</td>
+                <td>{{ room.time }}</td>
+              </tr>
+          {% endfor %}
+          </tbody>
+        </table>
     </ul>
   </div>
 </div>
