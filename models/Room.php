@@ -91,7 +91,7 @@ class Room {
 
             return $new_id;
         } catch(\PDOException $e) {
-            return $e;
+            return -1;
         }
     }
 
