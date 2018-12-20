@@ -3,21 +3,22 @@ require_once '../vendor/autoload.php';
 use Models\Room;
 
 /*
-TODO prvi dohvat podataka je uvijek set_time_limit zbog nekog razloga, a svaki sljedeci je brzi
+-- DONE prvi dohvat podataka je uvijek set_time_limit zbog nekog razloga, a svaki sljedeci je brzi
 TODO kad izlaziš iz sobe moraš pričekati set_time_limit() sekundi na završenje long-pollinga
 */
 
-session_start();
 //ignore_user_abort(false);
-set_time_limit(6);
+set_time_limit(40);
 
-header('Content-type:application/json;charset=utf-8');
 while (true) {
     $last_ajax_call = isset($_GET['timestamp']) ? $_GET['timestamp'] : "1970-01-01 00:00:00";
     /*
     TODO kaj ako ne postoji??
     */
+    session_start();
     $room_id = $_SESSION["room_id"];
+    session_write_close();
+
     $room = new Room;
     $room->fetch($room_id);
 
@@ -36,19 +37,21 @@ while (true) {
 		$now = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
 
 		if(sizeof($comments) > 0 || sizeof($questions) > 0 || sizeof($moods) > 0) {
+            header('Content-type:application/json;charset=utf-8');
 			echo json_encode(array(
 				"success" => true,
                 "error" => null,
                 'comments' => $comments,
                 'moods' => $moods,
 	            'questions' => $questions,
-	            'timestamp' => $now->format('Y-m-d H:i:s'),
+	            'timestamp' => $now2->add(new DateInterval('PT1S'))->format('Y-m-d H:i:s'),
         	));
 			exit();
 		} else {
 			sleep(3);
         }
 	} catch (\PDOException $e) {
+        header('Content-type:application/json;charset=utf-8');
 		echo json_encode(array(
 			"success" => false,
 			"error" => $e->getMessage(),
