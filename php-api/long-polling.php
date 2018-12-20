@@ -4,11 +4,12 @@ use Models\Room;
 
 /*
 TODO prvi dohvat podataka je uvijek set_time_limit zbog nekog razloga, a svaki sljedeci je brzi
+TODO kad izlaziš iz sobe moraš pričekati set_time_limit() sekundi na završenje long-pollinga
 */
 
 session_start();
-ignore_user_abort(false);
-set_time_limit(10);
+//ignore_user_abort(false);
+set_time_limit(6);
 
 header('Content-type:application/json;charset=utf-8');
 while (true) {

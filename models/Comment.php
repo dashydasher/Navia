@@ -26,11 +26,11 @@ class Comment {
 
     function store($signature, $comment, $room_id) {
         $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
-        $query = "INSERT INTO comment (time, signature, comment, room_id) VALUES (:time, :signature, :comment, :room_id)";
+        $query = "INSERT INTO comment (`time`, signature, comment, room_id) VALUES (:time, :signature, :comment, :room_id)";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
-                "time" => $time->format('Y-m-d\TH:i:s.u'),
+                "time" => $time->format('Y-m-d H:i:s'),
                 "signature" => $signature,
                 "comment" => $comment,
                 "room_id" => $room_id,
@@ -44,6 +44,8 @@ class Comment {
                 "signature" => $signature,
                 "comment" => $comment,
             ));
+            
+            return $new_id;
         } catch(\PDOException $e) {
             return -1;
         }
