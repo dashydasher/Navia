@@ -2,11 +2,6 @@
 require_once '../vendor/autoload.php';
 use Models\Room;
 
-/*
--- DONE prvi dohvat podataka je uvijek set_time_limit zbog nekog razloga, a svaki sljedeci je brzi
-TODO kad izlaziš iz sobe moraš pričekati set_time_limit() sekundi na završenje long-pollinga
-*/
-
 //ignore_user_abort(false);
 set_time_limit(40);
 

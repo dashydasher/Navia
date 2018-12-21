@@ -19,13 +19,15 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
         echo json_encode(array(
             "success" => true,
             "error" => null,
-            "comment" => $content
+            "comment" => $comment
         ));
+        exit();
     } else {
         echo json_encode(array(
             "success" => false,
             "error" => "Došlo je do pogreške prilikom dodavanja komentara",
             "comment" => null,
         ));
+        exit();
     }
 }

@@ -111,9 +111,6 @@ class Room {
         }
     }
 
-    /*
-    TODO key nije UNIQUE index pa bi nam moglo bilo koju sobu vratiti
-    */
     function fetch_by_key($key) {
         $query = "SELECT room.* FROM room WHERE room.key = :key";
         try {

@@ -26,7 +26,7 @@ function handleVisibilityChange() {
         pause = true;
     } else {
         pause = false;
-        request = poll_again(last_timestamp);
+        poll_again(last_timestamp);
     }
 }
 
@@ -42,6 +42,30 @@ function poll_again(timestamp) {
     }
 }
 
+function azuriraj_potpis(signature) {
+    /*
+    TODO ovaj "<anonimno>" ne radi !!!
+    */
+    if (!signature || 0 === signature.length) {
+        signature = "<anonimno>";
+    }
+    return signature;
+}
+
+function dodaj_komentare(komentari) {
+    for (var i = 0, len = komentari.length; i < len; i++) {
+        var $signature = azuriraj_potpis(komentari[i].signature);
+        $("#komentari").append( $("<p>").append($signature + ": " + komentari[i].comment) );
+    }
+}
+
+function dodaj_pitanja(pitanja) {
+    for (var i = 0, len = pitanja.length; i < len; i++) {
+        var $signature = azuriraj_potpis(pitanja[i].signature);
+        $("#pitanja").append( $("<p>").append($signature + ": " + pitanja[i].question) );
+    }
+}
+
 
 function poll(timestamp) {
     ajaxInProgress = true;
@@ -52,19 +76,12 @@ function poll(timestamp) {
     return $.get("php-api/long-polling.php", queryString)
         .done(function(data) {
             if (data.success) {
-                for (var i = 0, len = data.comments.length; i < len; i++) {
-                    /*
-                    TODO ovaj "<anonimno>" ne radi !!!
-                    */
-                    var $signature = data.comments[i].signature;
-                    if (!$signature || 0 === $signature.length) {
-                        $signature = "<anonimno>";
-                    }
-                    $("#komentari").append( $("<p>").append($signature + ": " + data.comments[i].comment) );
-                }
+                dodaj_komentare(data.comments);
+                dodaj_pitanja(data.questions);
+
                 ajaxInProgress = false;
-                poll_again(data.timestamp);
                 last_timestamp = data.timestamp;
+                poll_again(data.timestamp);
             } else {
                 ajaxInProgress = false;
                 poll_again(timestamp);

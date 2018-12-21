@@ -21,11 +21,13 @@ if (!isset($_POST['signature']) || !isset($_POST['question'])) {
             "error" => null,
             "question" => $question
         ));
+        exit();
     } else {
         echo json_encode(array(
             "success" => false,
             "error" => "Došlo je do pogreške prilikom dodavanja pitanja",
             "question" => null
         ));
+        exit();
     }
 }

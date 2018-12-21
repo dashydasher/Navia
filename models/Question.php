@@ -44,6 +44,8 @@ class Question {
                 "signature" => $signature,
                 "question" => $question,
             ));
+            
+            return $new_id;
         } catch(\PDOException $e) {
             return -1;
         }
