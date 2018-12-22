@@ -206,7 +206,7 @@ class Room {
     }
 
     function deactivate($id, $teacher_id) {
-        $query = "UPDATE `room` SET `active` = '0' WHERE `room`.`id` = :id" AND `mood_reason`.`teacher_id` = :teacher_id;
+        $query = "UPDATE `room` SET `active` = '0' WHERE `room`.`id` = :id AND `mood_reason`.`teacher_id` = :teacher_id";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
