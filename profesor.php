@@ -9,14 +9,15 @@ if(isset($_SESSION["my_id"])) {
 
     $teacher = new Teacher;
     $teacher->fetch($_SESSION["my_id"]);
-    $teacher->fetch_rooms();
-    $rooms = $teacher->rooms;
+    $rooms = $teacher->fetch_rooms();
+    $mood_reasons = $teacher->fetch_mood_reasons();
 
     echo $twig->render('profesor.html.twig', array(
         "name" => $_SESSION["my_name"],
         "success" => isset($_SESSION["success"]) ? $_SESSION["success"] : null,
         "error_list" => isset($_SESSION["error"]) ? $_SESSION["error"] : null,
         "rooms" => $rooms,
+        "mood_reasons" => $mood_reasons,
     ));
     unset($_SESSION["success"]);
     unset($_SESSION["error"]);
