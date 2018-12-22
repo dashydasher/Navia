@@ -20,6 +20,7 @@ class MoodReason {
         $this->id = $row->id;
         $this->reason = $row->reason;
         $this->type = $row->type;
+        $this->active = $row->active;
         $this->teacher_id = $row->teacher_id;
 
         return 1;
