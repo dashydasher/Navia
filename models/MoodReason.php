@@ -34,6 +34,17 @@ class MoodReason {
                 "type" => $type,
                 "teacher_id" => $teacher_id,
             ));
+            $new_id = $this->database->connection->lastInsertId();
+
+            $this->mapAttr((object)array(
+                "id" => $new_id,
+                "reason" => $reason,
+                "type" => $type,
+                "active" => 1,
+                "teacher_id" => $teacher_id,
+            ));
+
+            return $new_id;
         } catch(\PDOException $e) {
             return -1;
         }
@@ -48,6 +59,8 @@ class MoodReason {
                     "teacher_id" => $teacher_id,
                 ));
             $this->active = 0;
+
+            return 1;
         } catch(\PDOException $e) {
             return -1;
         }

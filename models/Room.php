@@ -200,6 +200,8 @@ class Room {
                     "teacher_id" => $teacher_id,
                 ));
             $this->active = 1;
+
+            return 1;
         } catch(\PDOException $e) {
             return -1;
         }
@@ -214,6 +216,8 @@ class Room {
                     "teacher_id" => $teacher_id,
                 ));
             $this->active = 0;
+
+            return 1;
         } catch(\PDOException $e) {
             return -1;
         }
