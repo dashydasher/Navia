@@ -30,7 +30,7 @@
 
       <div class="row">
 
-        <div class="col-md-4 " align="center" id="divPoz">
+        <div class="col-md-4 " align="center">
           <div class="alert alert-info">Pozitivni:</div>
 <input class="form-control input-lg" type="text" id="tbPoz1" name="pozRazlog" placeholder="Upiši razlog"/>
 <button type="submit" class="btn btn-primary" id="dodajPoz">Dodaj</button>
@@ -38,7 +38,7 @@
 
         </div>
 
-        <div class="col-md-4" align="center" id="divNeg">
+        <div class="col-md-4" align="center">
           <div class="alert alert-danger">Negativni: </div>
           <input class="form-control input-lg" type="text" id="tbNeg1" name="negRazlog" placeholder="Upiši razlog"/>
           <button type="submit" class="btn btn-primary" id="dodajNeg">Dodaj</button>
@@ -76,10 +76,11 @@
                 <td>{{ room.time }}</td>
                 <td><button class="btn btn-info"><i class="fa fa-tasks" aria-hidden="true"></i></button></td>
           <td>
-                                 <div class="material-switch pull-right">
+<button type="submit" class="btn btn-light" id="btnActivate">Aktiviraj</button>
+                                 <!--<div class="material-switch pull-right">
                                      <input id="someSwitchOptionSuccess{{loop.index}}" name="someSwitchOption001" type="checkbox"/>
                                      <label for="someSwitchOptionSuccess{{loop.index}}" class="label-success"></label>
-                                 </div>
+                                 </div>-->
           </td>
           <td><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
               </tr>
@@ -103,12 +104,14 @@ function() {
     }
 );
 
-//$("#dodajPoz").click(
-//function() {
-//  var d = document.getElementById('divPoz');
-// d.innerHTML += "<input class='form-control input-lg' type='text' id='textbox1' name='razlog' placeholder='Upiši razlog'/>";
-//    }
-//);
+$("#btnActivate").click(
+function() {
+  var elem = document.getElementById("btnActivate");
+  if (elem.innerHTML=="Aktiviraj") elem.innerHTML = "Deaktiviraj";
+  else elem.innerHTML = "Aktiviraj";
+    }
+);
+
 
 </script>
 {% endblock %}
