@@ -22,6 +22,30 @@
   </div>
  <div id="my-name-div" class="pdiv2"> {{ name }}</div> -->
   <br/>
+  <button type="submit" class="btn btn-primary" id="btnRazlozi">Uredi razloge raspoloženja</button>
+  <br/><br/>
+<form method="post" action="">
+
+  <div id="textboxdiv" class="hide">
+
+      <div class="row">
+
+        <div class="col-md-4 " align="center" id="divPoz">
+          <div class="alert alert-info">Pozitivni:</div>
+<input class="form-control input-lg" type="text" id="tbPoz1" name="pozRazlog" placeholder="Upiši razlog"/>
+<button type="submit" class="btn btn-primary" id="dodajPoz">Dodaj</button>
+          <div id="chart"></div>
+
+        </div>
+
+        <div class="col-md-4" align="center" id="divNeg">
+          <div class="alert alert-danger">Negativni: </div>
+          <input class="form-control input-lg" type="text" id="tbNeg1" name="negRazlog" placeholder="Upiši razlog"/>
+          <button type="submit" class="btn btn-primary" id="dodajNeg">Dodaj</button>
+        </div>
+      </div>
+  </div>
+</form>
   <hr/>
     <form method="post" action="room-create.php">
         <h5>Kreiraj novu sobu</h5> <br>
@@ -62,4 +86,20 @@
 {% endblock %}
 
 {% block footer %}
+
+<script>
+$("#btnRazlozi").click(
+function() {
+    $("#textboxdiv").toggleClass("hide");
+    }
+);
+
+//$("#dodajPoz").click(
+//function() {
+//  var d = document.getElementById('divPoz');
+// d.innerHTML += "<input class='form-control input-lg' type='text' id='textbox1' name='razlog' placeholder='Upiši razlog'/>";
+//    }
+//);
+
+</script>
 {% endblock %}
