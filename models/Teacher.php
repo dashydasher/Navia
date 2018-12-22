@@ -125,7 +125,7 @@ class Teacher {
             foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
                 $mood_reason = new MoodReason;
                 $mood_reason->mapAttr($row);
-                array_push($this->mood_reasons, $room);
+                array_push($this->mood_reasons, $mood_reason);
             }
             return $this->mood_reasons;
         } catch(\PDOException $e) {
