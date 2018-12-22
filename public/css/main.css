@@ -354,3 +354,5 @@ input[name="emotion"] {
     top: 100px;
     z-index: 2048;
 }
+
+  .hide { display: none; }
