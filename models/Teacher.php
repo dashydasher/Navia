@@ -8,6 +8,7 @@ class Teacher {
     public $name;
 
     public $rooms = array();
+    public $mood_reasons = array();
 
     private $database;
 
@@ -109,7 +110,26 @@ class Teacher {
             }
             return $this->rooms;
         } catch(\PDOException $e) {
-            return $e;
+            return -1;
+        }
+    }
+
+    function fetch_mood_reasons() {
+        $query = "SELECT mood_reason.* FROM mood_reason WHERE mood_reason.teacher_id = :teacher_id";
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "teacher_id" => $this->id,
+                ));
+
+            foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {
+                $room = new Room;
+                $room->mapAttr($row);
+                array_push($this->mood_reasons, $room);
+            }
+            return $this->mood_reasons;
+        } catch(\PDOException $e) {
+            return -1;
         }
     }
 }

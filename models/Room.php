@@ -191,12 +191,13 @@ class Room {
         }
     }
 
-    function activate($id) {
-        $query = "UPDATE `room` SET `active` = '1' WHERE `room`.`id` = :id";
+    function activate($id, $teacher_id) {
+        $query = "UPDATE `room` SET `active` = '1' WHERE `room`.`id` = :id" AND `mood_reason`.`teacher_id` = :teacher_id;
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
                     "id" => $id,
+                    "teacher_id" => $teacher_id,
                 ));
             $this->active = 1;
         } catch(\PDOException $e) {
@@ -204,12 +205,13 @@ class Room {
         }
     }
 
-    function deactivate($id) {
-        $query = "UPDATE `room` SET `active` = '0' WHERE `room`.`id` = :id";
+    function deactivate($id, $teacher_id) {
+        $query = "UPDATE `room` SET `active` = '0' WHERE `room`.`id` = :id" AND `mood_reason`.`teacher_id` = :teacher_id;
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
                     "id" => $id,
+                    "teacher_id" => $teacher_id,
                 ));
             $this->active = 0;
         } catch(\PDOException $e) {
