@@ -115,7 +115,9 @@ class Teacher {
     }
 
     function fetch_mood_reasons() {
-        $query = "SELECT mood_reason.* FROM mood_reason WHERE mood_reason.teacher_id = :teacher_id OR mood_reason.teacher_id IS NULL";
+        $query = "SELECT mood_reason.* FROM mood_reason
+                  WHERE (mood_reason.teacher_id = :teacher_id OR mood_reason.teacher_id IS NULL)
+                        AND active = 1";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(

@@ -33,7 +33,14 @@
           <div class="alert alert-info">Pozitivni:</div>
           <ul id="pozitivni-komentari">
              {% for reason in mood_reasons if reason.type == 1 %}
-                 <li>{{ reason.reason }}</li>
+                 <li data-id="{{ reason.id }}">
+                     {{ reason.reason }}
+                     {% if reason.teacher_id %}
+                        <button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                     {% endif %}
+                 </li>
              {% endfor %}
          </ul>
         <input class="form-control input-lg" type="text" id="tbPoz1" name="pozRazlog" placeholder="Upiši razlog"/>
@@ -46,7 +53,14 @@
           <div class="alert alert-danger">Negativni: </div>
           <ul id="negativni-komentari">
              {% for reason in mood_reasons if reason.type == 0 %}
-                 <li>{{ reason.reason }}</li>
+                 <li data-id="{{ reason.id }}">
+                     {{ reason.reason }}
+                     {% if reason.teacher_id %}
+                        <button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                     {% endif %}
+                 </li>
              {% endfor %}
          </ul>
           <input class="form-control input-lg" type="text" id="tbNeg1" name="negRazlog" placeholder="Upiši razlog"/>
