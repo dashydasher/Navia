@@ -1,3 +1,9 @@
+var trenutna_emocija = 2;
+
+$("#razlog-radio-osobni").click(function() {
+    $("#textboxdiv").toggleClass("hide");
+});
+
 $("#komentar-submit").on("click", function() {
     var serializedData = {
         "comment": $("#commentInput").val(),
@@ -30,45 +36,69 @@ $("#pitanje-submit").on("click", function() {
         });
 });
 
+/*
+data-type = 1 --> pozitivni razlog
+data-type = 0 --> negativni razlog
+emocija = 1 --> sretno
+emocija = 2 --> neutralno
+emocija = 3 --> tužno
+*/
+function filtriraj_razloge_po_emociji(emocija) {
+    if (emocija != trenutna_emocija) {
+        trenutna_emocija = emocija;
+        
+        if (emocija == 1) {
+            $('.ajaxMoodReason').hide().filter(function () {
+                return $(this).data('type') == 1;
+            }).show();
+        } else if (emocija == 2) {
+            $('.ajaxMoodReason').show();
+        } else {
+            $('.ajaxMoodReason').hide().filter(function () {
+                return $(this).data('type') == 0;
+            }).show();
+        }
+        $('input[name=razlog]:checked').prop('checked', false);
+        $('#reasons').show();
+    }
+}
+
 $('#emoticons').on('click', '.btn-success', function() {
     $('input:radio[name=emotion]').filter("[value=1]").prop('checked', true);
+    filtriraj_razloge_po_emociji(1);
 });
 
 $('#emoticons').on('click', '.btn-warning', function() {
     $('input:radio[name=emotion]').filter("[value=2]").prop('checked', true);
+    filtriraj_razloge_po_emociji(2);
 });
 
 $('#emoticons').on('click', '.btn-danger', function() {
     $('input:radio[name=emotion]').filter("[value=3]").prop('checked', true);
+    filtriraj_razloge_po_emociji(3);
 });
+
+function promijeni_boju_i_tekst(boja, tekst) {
+    $('.current-emotion').css({
+        background: boja,
+    });
+    $("#current-emotion-text").text(tekst);
+}
 
 function promijeni_trenutnu_emociju(emocija) {
     switch (emocija) {
         case "1":
-            $('.current-emotion').css({
-                background: "#5cb85c",
-            });
-            $("#current-emotion-text").text("sretno");
+            promijeni_boju_i_tekst("#5cb85c", "sretno");
             break;
         case "2":
-            $('.current-emotion').css({
-                background: "#f0ad4e",
-            });
-            $("#current-emotion-text").text("neutralno");
+            promijeni_boju_i_tekst("#f0ad4e", "neutralno");
             break;
         case "3":
-            $('.current-emotion').css({
-                background: "#d9534f",
-            });
-            $("#current-emotion-text").text("loše");
+            promijeni_boju_i_tekst("#d9534f", "loše");
             break;
         default:
-            $('.current-emotion').css({
-                background: "#f0ad4e",
-            });
-            $("#current-emotion-text").text("neutralno");
+            promijeni_boju_i_tekst("#f0ad4e", "neutralno");
     }
-
 }
 
 $("#razlog-submit").on("click", function() {
@@ -81,7 +111,7 @@ $("#razlog-submit").on("click", function() {
         tekst = "Molimo unsite trenutnu emociju";
         uneseno = false;
     } else if (!razlog) {
-        tekst = "Molimo unsite razlog";
+        tekst = "Molimo unesite razlog";
         uneseno = false;
     }
 
@@ -96,6 +126,7 @@ $("#razlog-submit").on("click", function() {
         console.log(serializedData);
 
         promijeni_trenutnu_emociju(emocija);
+        $('#reasons').hide();
 
 
 
