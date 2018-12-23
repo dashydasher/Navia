@@ -12,8 +12,8 @@ if (empty($_POST)) {
 
     $room = new Room;
     $result = $room->fetch_by_key($room_key);
-    // postoji takav u bazi
-    if ($result > 0) {
+
+    if ($result > 0 && $room->active == 1) {
         session_start();
         $_SESSION["entered_room_id"] = $room->id;
         header("Location: student.php");

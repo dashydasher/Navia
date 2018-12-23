@@ -4,14 +4,6 @@ function() {
     }
 );
 
-$("#btnActivate").click(
-function() {
-  var elem = document.getElementById("btnActivate");
-  if (elem.innerHTML=="Aktiviraj") elem.innerHTML = "Deaktiviraj";
-  else elem.innerHTML = "Aktiviraj";
-    }
-);
-
 function dodaj_novi_razlog(data) {
     return $('<li data-id="' + data.mood_reason.id + '" >')
         .append(data.mood_reason.reason)
@@ -65,6 +57,47 @@ $('#textboxdiv').on('click', '.ajaxRemoveReason', function () {
             .done(function(data) {
                 if (data.success) {
                     li.remove();
+                } else {
+                    alert(data.error);
+                }
+            });
+    }
+});
+
+function promijeni_gumb_za_aktivaciju(tr, button, aktiviran) {
+    // ovo prvo se može obrisat
+    tr.attr('data-activated', aktiviran);
+    tr.data('activated', aktiviran);
+    if (aktiviran == 1) {
+        button.text("Deaktiviraj");
+    } else {
+        button.text("Aktiviraj");
+    }
+}
+
+$('#teacher-rooms').on('click', '.ajaxActivateRoom', function () {
+    var tr = $(this).closest('tr');
+    var button = $(this).closest('button');
+    var activated = tr.data('activated');
+    if (activated == "1") {
+        if (!confirm("Deaktivirati sobu?")) {
+            return false;
+        }
+    } else {
+        if (!confirm("Aktivirati sobu?")) {
+            return false;
+        }
+    }
+    var id = tr.data('id');
+    if (id) {
+        var serializedData = {
+            "room-id": id,
+            "activate": (activated + 1) % 2,
+        };
+        $.post("./php-api/room-activate.php", serializedData)
+            .done(function(data) {
+                if (data.success) {
+                    promijeni_gumb_za_aktivaciju(tr, button, data.active);
                 } else {
                     alert(data.error);
                 }

@@ -80,7 +80,7 @@
     <div class="mojeSobe">
     <h5>Moje sobe</h5> <br>
     <ul>
-        <table class="table">
+        <table class="table" id="teacher-rooms">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -93,13 +93,19 @@
           </thead>
           <tbody>
           {% for room in rooms %}
-              <tr>
+              <tr data-id="{{ room.id }}" data-activated="{{ room.active }}">
                 <th scope="row">{{ loop.index }}</th>
                 <td><a href="room.php?id={{ room.id }}">{{ room.description }}</a></td>
                 <td>{{ room.time }}</td>
-                <td><button class="btn btn-info"><i class="fa fa-tasks" aria-hidden="true"></i></button></td>
-          <td>
-<button type="submit" class="btn btn-light" id="btnActivate">Aktiviraj</button>
+                <td><a href="#"><button class="btn btn-info"><i class="fa fa-tasks" aria-hidden="true"></i></button></a></td>
+                <td>
+                    <button type="submit" class="btn btn-light ajaxActivateRoom">
+                        {% if room.active == 1 %}
+                            Deaktiviraj
+                        {% else %}
+                            Aktiviraj
+                        {% endif %}
+                    </button>
                                  <!--<div class="material-switch pull-right">
                                      <input id="someSwitchOptionSuccess{{loop.index}}" name="someSwitchOption001" type="checkbox"/>
                                      <label for="someSwitchOptionSuccess{{loop.index}}" class="label-success"></label>
