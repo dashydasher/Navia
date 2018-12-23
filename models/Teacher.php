@@ -114,14 +114,17 @@ class Teacher {
         }
     }
 
-    function fetch_mood_reasons() {
+    /*
+    ako je teacher_id postavljen onda koristi njega, inače koristi svoj id
+    */
+    function fetch_mood_reasons($teacher_id = null) {
         $query = "SELECT mood_reason.* FROM mood_reason
                   WHERE (mood_reason.teacher_id = :teacher_id OR mood_reason.teacher_id IS NULL)
                         AND active = 1";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
-                    "teacher_id" => $this->id,
+                    "teacher_id" => $teacher_id ? $teacher_id : $this->id,
                 ));
 
             foreach ($result->fetchAll(\PDO::FETCH_OBJ) as $row) {

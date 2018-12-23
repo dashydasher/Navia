@@ -6,7 +6,7 @@ $("#komentar-submit").on("click", function() {
     $.post("./php-api/comment-add.php", serializedData)
         .done(function(data) {
             if (data.success) {
-                $("#objavljeni-komentari").append( $("<li>").append(data.comment.comment) );
+                $("#objavljeni-komentari").append($("<li>").append(data.comment.comment));
                 $("#commentInput").val("");
             } else {
                 alert(data.error);
@@ -22,7 +22,7 @@ $("#pitanje-submit").on("click", function() {
     $.post("./php-api/question-add.php", serializedData)
         .done(function(data) {
             if (data.success) {
-                $("#objavljena-pitanja").append( $("<li>").append(data.question.question) );
+                $("#objavljena-pitanja").append($("<li>").append(data.question.question));
                 $("#questionInput").val("");
             } else {
                 alert(data.error);
@@ -30,17 +30,46 @@ $("#pitanje-submit").on("click", function() {
         });
 });
 
-$('#emoticons').on('click', '.btn-success', function () {
+$('#emoticons').on('click', '.btn-success', function() {
     $('input:radio[name=emotion]').filter("[value=1]").prop('checked', true);
 });
 
-$('#emoticons').on('click', '.btn-warning', function () {
+$('#emoticons').on('click', '.btn-warning', function() {
     $('input:radio[name=emotion]').filter("[value=2]").prop('checked', true);
 });
 
-$('#emoticons').on('click', '.btn-danger', function () {
+$('#emoticons').on('click', '.btn-danger', function() {
     $('input:radio[name=emotion]').filter("[value=3]").prop('checked', true);
 });
+
+function promijeni_trenutnu_emociju(emocija) {
+    switch (emocija) {
+        case "1":
+            $('.current-emotion').css({
+                background: "#5cb85c",
+            });
+            $("#current-emotion-text").text("sretno");
+            break;
+        case "2":
+            $('.current-emotion').css({
+                background: "#f0ad4e",
+            });
+            $("#current-emotion-text").text("neutralno");
+            break;
+        case "3":
+            $('.current-emotion').css({
+                background: "#d9534f",
+            });
+            $("#current-emotion-text").text("loše");
+            break;
+        default:
+            $('.current-emotion').css({
+                background: "#f0ad4e",
+            });
+            $("#current-emotion-text").text("neutralno");
+    }
+
+}
 
 $("#razlog-submit").on("click", function() {
     var emocija = $('input[name=emotion]:checked').val();
@@ -65,6 +94,8 @@ $("#razlog-submit").on("click", function() {
             "razlog": razlog,
         };
         console.log(serializedData);
+
+        promijeni_trenutnu_emociju(emocija);
 
 
 

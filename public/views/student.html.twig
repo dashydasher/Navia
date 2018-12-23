@@ -2,13 +2,17 @@
 
 {% block header %}
 
-    <link rel="stylesheet" type="text/css" href="public/css/main.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"/>
+    <link rel="stylesheet" type="text/css" href="public/css/student.css">
 
 {% endblock %}
 
 {% block content %}
+
+    <div class="current-emotion">
+        Trenutno se osjećam <span id="current-emotion-text">neutralno</span>
+    </div>
 
     <section>
 
@@ -28,7 +32,7 @@
 
             <div class="row">
                 <div class="col-lg-6 " align="center">
-                    <h2 align="center">Trenutno se osjećam...</h2>
+                    <h2 align="center">Novo raspoloženje:</h2>
                     <br><br><br>
                 </div>
             </div>
@@ -72,8 +76,8 @@
                         <!-- ovo nije točno jer to prikaže i pozitivne i negativne razloge -->
                         {% for reason in reasons %}
                             <div class="funkyradio-danger">
-                                <input type="radio" name="razlog" value="{{ reason.id }}"/>
-                                <label for="radio1">{{ reason.reason }}</label>
+                                <input type="radio" name="razlog" id="razlog-radio-{{ loop.index }}" value="{{ reason.id }}" />
+                                <label for="razlog-radio-{{ loop.index }}">{{ reason.reason }}</label>
                             </div>
                         {% endfor %}
 
