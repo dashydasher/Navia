@@ -49,15 +49,13 @@ emocija = 3 --> tužno
 */
 function filtriraj_razloge_po_emociji(emocija) {
     if (emocija != trenutna_emocija) {
-        if (emocija == 1) {
-            $('.ajaxMoodReason').hide().filter(function () {
-                return $(this).data('type') == 1;
-            }).show();
-        } else if (emocija == 2) {
-            $('.ajaxMoodReason').show();
-        } else {
+        if (emocija > trenutna_emocija) {
             $('.ajaxMoodReason').hide().filter(function () {
                 return $(this).data('type') == 0;
+            }).show();
+        } else {
+            $('.ajaxMoodReason').hide().filter(function () {
+                return $(this).data('type') == 1;
             }).show();
         }
         $('input:radio[name=emotion]').filter("[value=" + emocija + "]").prop('checked', true);
@@ -112,24 +110,23 @@ $("#razlog-submit").on("click", function() {
     if (!razlog || (razlog == "personal" && !razlog_text)) {
         alert("Molimo unesite razlog");
     } else {
-        //$("#razlog-submit").prop("disabled", true);
+        $("#razlog-submit").prop("disabled", true);
         var serializedData = {
             "signature": $("#studentIdInput").val(),
-            "emocija_id": emocija,
-            "razlog_id": razlog,
-            "razlog": razlog_text,
+            "mood_option_id": emocija,
+            "reason_id": razlog,
+            "personal_reason": razlog_text,
         };
-        console.log(serializedData);
-        /*
-        $.post("./php-api/mood-change.php", serializedData)
+        $.post("./php-api/mood-add.php", serializedData)
             .done(function(data) {
+                console.log(data);
                 if (data.success) {
-                    promijeni_trenutnu_emociju(emocija);
+                    promijeni_trenutnu_emociju(data.mood.mood_option_id);
                     $('#reasons').hide();
                     $('input[name=emotion]:checked').prop('checked', false);
                     $('input[name=razlog]:checked').prop('checked', false);
                     $("#razlog_text").val("");
-                    trenutna_emocija = emocija;
+                    trenutna_emocija = data.mood.mood_option_id;
                 } else {
                     alert(data.error);
                 }
@@ -137,7 +134,6 @@ $("#razlog-submit").on("click", function() {
             .always(function() {
                 $("#razlog-submit").prop("disabled", false);
             });
-        */
 
     }
 });

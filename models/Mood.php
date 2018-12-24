@@ -7,8 +7,9 @@ class Mood {
     public $id;
     public $time;
     public $signature;
-    public $mood;
-    public $reason;
+    public $personal_reason;
+    public $mood_option_id;
+    public $mood_reason_id;
 
     private $database;
 
@@ -20,24 +21,39 @@ class Mood {
         $this->id = $row->id;
         $this->time = $row->time;
         $this->signature = $row->signature;
-        $this->mood = $row->mood;
-        $this->reason = $row->reason;
+        $this->personal_reason = $row->personal_reason;
+        $this->mood_option_id = $row->mood_option_id;
+        $this->mood_reason_id = $row->mood_reason_id;
 
         return 1;
     }
 
-    function store($signature, $mood_id, $reason_id, $room_id) {
+    function store($signature, $mood_option_id, $mood_reason_id, $room_id, $personal_reason = null) {
         $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
-        $query = "INSERT INTO mood (time, signature, mood_option_id, mood_reason_id, room_id) VALUES (:time, :signature, :mood_id, :reason_id, :room_id)";
+        $query = "INSERT INTO mood (time, signature, personal_reason, mood_option_id, mood_reason_id, room_id)
+                  VALUES (:time, :signature, :personal_reason, :mood_option_id, :mood_reason_id, :room_id)";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
                 "time" => $time->format('Y-m-d\TH:i:s.u'),
                 "signature" => $signature,
-                "mood_id" => $mood_id,
-                "reason_id" => $reason_id,
+                "personal_reason" => $personal_reason,
+                "mood_option_id" => $mood_option_id,
+                "mood_reason_id" => $mood_reason_id,
                 "room_id" => $room_id,
             ));
+            $new_id = $this->database->connection->lastInsertId();
+
+            $this->mapAttr((object)array(
+                "id" => $new_id,
+                "time" => $time,
+                "signature" => $signature,
+                "personal_reason" => $personal_reason,
+                "mood_option_id" => $mood_option_id,
+                "mood_reason_id" => $mood_reason_id,
+            ));
+
+            return $new_id;
         } catch(\PDOException $e) {
             return -1;
         }
