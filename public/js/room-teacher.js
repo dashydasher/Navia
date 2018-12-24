@@ -42,6 +42,20 @@ function poll_again(timestamp) {
     }
 }
 
+function get_mood_icon_by_id(id) {
+    switch (id) {
+        case 1:
+            return ":)";
+            break;
+        case 2:
+            return ":|";
+            break;
+        case 3:
+            return ":(";
+            break;
+    }
+}
+
 function azuriraj_potpis(signature) {
     /*
     TODO ovaj "<anonimno>" ne radi !!!
@@ -66,6 +80,13 @@ function dodaj_pitanja(pitanja) {
     }
 }
 
+function dodaj_rasposlozenja(moods) {
+    for (var i = 0, len = moods.length; i < len; i++) {
+        var mood = moods[i];
+        $("#raspolozenja").append( $("<p>").append( get_mood_icon_by_id(mood.mood_option_id) ) );
+    }
+}
+
 
 function poll(timestamp) {
     ajaxInProgress = true;
@@ -78,6 +99,7 @@ function poll(timestamp) {
             if (data.success) {
                 dodaj_komentare(data.comments);
                 dodaj_pitanja(data.questions);
+                dodaj_rasposlozenja(data.moods);
 
                 ajaxInProgress = false;
                 last_timestamp = data.timestamp;

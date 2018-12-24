@@ -119,7 +119,6 @@ $("#razlog-submit").on("click", function() {
         };
         $.post("./php-api/mood-add.php", serializedData)
             .done(function(data) {
-                console.log(data);
                 if (data.success) {
                     promijeni_trenutnu_emociju(data.mood.mood_option_id);
                     $('#reasons').hide();

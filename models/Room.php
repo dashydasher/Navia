@@ -168,10 +168,10 @@ class Room {
     }
 
     function fetch_moods($time_sel) {
-        $query = "SELECT `mood`.`id`, `mood`.`time`, `mood`.`signature`, `mood_option`.`mood`, `mood_reason`.`reason`
+        $query = "SELECT mood.id, mood.time, mood.signature, mood.personal_reason, mood_option.id AS mood_option_id, mood_reason.id AS mood_reason_id
                     FROM mood
-                    JOIN mood_option ON `mood`.`mood_option_id`=`mood_option`.`id`
-                    JOIN mood_reason ON `mood`.`mood_reason_id`=`mood_reason`.`id`
+                    JOIN mood_option ON mood.mood_option_id=mood_option.id
+                    JOIN mood_reason ON mood.mood_reason_id=mood_reason.id
                     WHERE mood.room_id = :room_id AND time >= :time_sel";
         try {
             $result = $this->database->connection->prepare($query);
