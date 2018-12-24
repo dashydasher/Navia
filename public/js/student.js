@@ -1,7 +1,11 @@
 var trenutna_emocija = 2;
 
 $("#razlog-radio-osobni").click(function() {
-    $("#textboxdiv").toggleClass("hide");
+    $("#textboxdiv").show();
+});
+
+$('#reasons').on('click', '.ajaxMoodReason', function() {
+    $("#textboxdiv").hide();
 });
 
 $("#komentar-submit").on("click", function() {
@@ -45,8 +49,6 @@ emocija = 3 --> tužno
 */
 function filtriraj_razloge_po_emociji(emocija) {
     if (emocija != trenutna_emocija) {
-        trenutna_emocija = emocija;
-        
         if (emocija == 1) {
             $('.ajaxMoodReason').hide().filter(function () {
                 return $(this).data('type') == 1;
@@ -58,23 +60,24 @@ function filtriraj_razloge_po_emociji(emocija) {
                 return $(this).data('type') == 0;
             }).show();
         }
-        $('input[name=razlog]:checked').prop('checked', false);
+        $('input:radio[name=emotion]').filter("[value=" + emocija + "]").prop('checked', true);
         $('#reasons').show();
+    } else {
+        $('#reasons').hide();
     }
+    $('input[name=razlog]:checked').prop('checked', false);
+    $("#textboxdiv").hide();
 }
 
 $('#emoticons').on('click', '.btn-success', function() {
-    $('input:radio[name=emotion]').filter("[value=1]").prop('checked', true);
     filtriraj_razloge_po_emociji(1);
 });
 
 $('#emoticons').on('click', '.btn-warning', function() {
-    $('input:radio[name=emotion]').filter("[value=2]").prop('checked', true);
     filtriraj_razloge_po_emociji(2);
 });
 
 $('#emoticons').on('click', '.btn-danger', function() {
-    $('input:radio[name=emotion]').filter("[value=3]").prop('checked', true);
     filtriraj_razloge_po_emociji(3);
 });
 
@@ -104,34 +107,37 @@ function promijeni_trenutnu_emociju(emocija) {
 $("#razlog-submit").on("click", function() {
     var emocija = $('input[name=emotion]:checked').val();
     var razlog = $('input[name=razlog]:checked').val();
+    var razlog_text = $("#razlog_text").val();
 
-    var tekst;
-    var uneseno = true;
-    if (!emocija) {
-        tekst = "Molimo unsite trenutnu emociju";
-        uneseno = false;
-    } else if (!razlog) {
-        tekst = "Molimo unesite razlog";
-        uneseno = false;
-    }
-
-    if (!uneseno) {
-        alert(tekst);
+    if (!razlog || (razlog == "personal" && !razlog_text)) {
+        alert("Molimo unesite razlog");
     } else {
+        //$("#razlog-submit").prop("disabled", true);
         var serializedData = {
             "signature": $("#studentIdInput").val(),
-            "emocija": emocija,
-            "razlog": razlog,
+            "emocija_id": emocija,
+            "razlog_id": razlog,
+            "razlog": razlog_text,
         };
         console.log(serializedData);
+        /*
+        $.post("./php-api/mood-change.php", serializedData)
+            .done(function(data) {
+                if (data.success) {
+                    promijeni_trenutnu_emociju(emocija);
+                    $('#reasons').hide();
+                    $('input[name=emotion]:checked').prop('checked', false);
+                    $('input[name=razlog]:checked').prop('checked', false);
+                    $("#razlog_text").val("");
+                    trenutna_emocija = emocija;
+                } else {
+                    alert(data.error);
+                }
+            })
+            .always(function() {
+                $("#razlog-submit").prop("disabled", false);
+            });
+        */
 
-        promijeni_trenutnu_emociju(emocija);
-        $('#reasons').hide();
-
-
-
-
-        $('input[name=emotion]:checked').prop('checked', false);
-        $('input[name=razlog]:checked').prop('checked', false);
     }
 });

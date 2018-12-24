@@ -120,7 +120,7 @@
                     <div class="funkyradio">
 
                         {% for reason in reasons %}
-                            <div class="ajaxMoodReason funkyradio-danger" data-type="{{ reason.type }}">
+                            <div class="ajaxMoodReason {% if reason.type == 1 %} funkyradio-success {% else %} funkyradio-danger {% endif %}" data-type="{{ reason.type }}">
                                 <input type="radio" name="razlog" id="razlog-radio-{{ loop.index }}" value="{{ reason.id }}" />
                                 <label for="razlog-radio-{{ loop.index }}">{{ reason.reason }}</label>
                             </div>
@@ -145,12 +145,12 @@
                             <label for="radio4">Profesor ima previše digresija</label>
                         </div>
                         -->
-                        <div class="funkyradio-success">
-                            <input type="radio" name="razlog" id="razlog-radio-osobni" value="Osobni razlog"/>
+                        <div class="funkyradio-warning">
+                            <input type="radio" name="razlog" id="razlog-radio-osobni" value="personal"/>
                             <label for="razlog-radio-osobni">Osobni razlog</label>
 
-                            <div id="textboxdiv" class="hide">
-                                <input class="form-control input-lg" type="text" id="textbox1" name="razlog" placeholder="Upiši svoj razlog"/>
+                            <div id="textboxdiv" hidden>
+                                <input class="form-control input-lg" type="text" id="razlog_text" name="razlog" placeholder="Upiši svoj razlog"/>
 
                             </div>
 
