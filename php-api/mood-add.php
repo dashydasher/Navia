@@ -23,6 +23,7 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
         $result = $mood->store($signature, $mood_option_id, $reason_id, $room_id);
     }
     if ($result > 0) {
+        $_SESSION["current_mood"] = $mood;
         echo json_encode(array(
             "success" => true,
             "mood" => $mood,

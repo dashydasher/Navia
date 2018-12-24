@@ -1,5 +1,3 @@
-var trenutna_emocija = 2;
-
 $("#razlog-radio-osobni").click(function() {
     $("#textboxdiv").show();
 });
@@ -102,6 +100,32 @@ function promijeni_trenutnu_emociju(emocija) {
     }
 }
 
+function ajax_promijeni_raspolozenje(emocija, razlog, razlog_text) {
+    $("#razlog-submit").prop("disabled", true);
+    var serializedData = {
+        "signature": $("#studentIdInput").val(),
+        "mood_option_id": emocija,
+        "reason_id": razlog,
+        "personal_reason": razlog_text,
+    };
+    $.post("./php-api/mood-add.php", serializedData)
+        .done(function(data) {
+            if (data.success) {
+                promijeni_trenutnu_emociju(data.mood.mood_option_id);
+                $('#reasons').hide();
+                $('input[name=emotion]:checked').prop('checked', false);
+                $('input[name=razlog]:checked').prop('checked', false);
+                $("#razlog_text").val("");
+                trenutna_emocija = data.mood.mood_option_id;
+            } else {
+                alert(data.error);
+            }
+        })
+        .always(function() {
+            $("#razlog-submit").prop("disabled", false);
+        });
+}
+
 $("#razlog-submit").on("click", function() {
     var emocija = $('input[name=emotion]:checked').val();
     var razlog = $('input[name=razlog]:checked').val();
@@ -110,29 +134,6 @@ $("#razlog-submit").on("click", function() {
     if (!razlog || (razlog == "personal" && !razlog_text)) {
         alert("Molimo unesite razlog");
     } else {
-        $("#razlog-submit").prop("disabled", true);
-        var serializedData = {
-            "signature": $("#studentIdInput").val(),
-            "mood_option_id": emocija,
-            "reason_id": razlog,
-            "personal_reason": razlog_text,
-        };
-        $.post("./php-api/mood-add.php", serializedData)
-            .done(function(data) {
-                if (data.success) {
-                    promijeni_trenutnu_emociju(data.mood.mood_option_id);
-                    $('#reasons').hide();
-                    $('input[name=emotion]:checked').prop('checked', false);
-                    $('input[name=razlog]:checked').prop('checked', false);
-                    $("#razlog_text").val("");
-                    trenutna_emocija = data.mood.mood_option_id;
-                } else {
-                    alert(data.error);
-                }
-            })
-            .always(function() {
-                $("#razlog-submit").prop("disabled", false);
-            });
-
+        ajax_promijeni_raspolozenje(emocija, razlog, razlog_text);
     }
 });

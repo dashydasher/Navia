@@ -17,6 +17,21 @@ class Mood {
         $this->database = new Database;
     }
 
+    /*
+    http://us.php.net/manual/en/language.oop5.magic.php#object.sleep
+    služi za serijalizaciju objekta u session varijablu. PDO objekt nebre serijalizirat pa je zato izostavljen
+    */
+    public function __sleep() {
+        return array(
+            'id',
+            'time',
+            'signature',
+            'personal_reason',
+            'mood_option_id',
+            'mood_reason_id',
+        );
+    }
+
     public function mapAttr($row) {
         $this->id = $row->id;
         $this->time = $row->time;

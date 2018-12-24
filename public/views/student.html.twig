@@ -11,7 +11,7 @@
 {% block content %}
 
     <div class="current-emotion">
-        Trenutno se osjećam <span id="current-emotion-text">neutralno</span>
+        Trenutno se osjećam <span id="current-emotion-text"></span>
     </div>
 
     <section>
@@ -175,7 +175,30 @@
 
 {% block footer %}
 
+    {% if current_mood %}
+        <script>
+            var trenutna_emocija = "{{ current_mood.mood_option_id }}";
+        </script>
+    {% else %}
+        <script>
+            var trenutna_emocija = "2";
+        </script>
+    {% endif %}
+
     <script src="public/js/student.js"></script>
+
+    {% if current_mood %}
+        <script>
+            promijeni_trenutnu_emociju(trenutna_emocija);
+        </script>
+    {% else %}
+        <script>
+            $(document).ready(function() {
+                ajax_promijeni_raspolozenje(trenutna_emocija, "personal", "student joined the room");
+            });
+        </script>
+    {% endif %}
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>

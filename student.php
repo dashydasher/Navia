@@ -18,5 +18,6 @@ if (!isset($_SESSION["entered_room_id"])) {
 
     echo $twig->render('student.html.twig', array(
         "reasons" => $reasons,
+        "current_mood" => isset($_SESSION["current_mood"]) ? $_SESSION["current_mood"] : null,
     ));
 }
