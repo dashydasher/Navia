@@ -171,7 +171,7 @@ class Room {
     LEFT JOIN je za dohvaćanje i onih moodova koji imaju mood_reason_id = NULL, tj. imaju personal reason
     */
     function fetch_moods($time_sel) {
-        $query = "SELECT mood.id, mood.time, mood.signature, mood.personal_reason, mood_option.id AS mood_option_id, mood_reason.id AS mood_reason_id
+        $query = "SELECT mood.id, mood.time, mood.signature, mood.personal_reason, mood_option.id AS mood_option_id, mood_reason.id AS mood_reason_id, mood.room_id
                     FROM mood
                     JOIN mood_option ON mood.mood_option_id=mood_option.id
                     LEFT JOIN mood_reason ON mood.mood_reason_id = mood_reason.id

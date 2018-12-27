@@ -175,27 +175,29 @@
 
 {% block footer %}
 
+    {# ako vec postoji trenutno raspoloženje onda spremi ID u js varijablu #}
     {% if current_mood %}
         <script>
-            var trenutna_emocija = "{{ current_mood.mood_option_id }}";
+            var trenutno_rasoplozenje = "{{ current_mood.mood_option_id }}";
         </script>
+    {# inače student počinje neutralno ("2") #}
     {% else %}
         <script>
-            var trenutna_emocija = "2";
+            var trenutno_rasoplozenje = "2";
         </script>
     {% endif %}
 
     <script src="public/js/student.js"></script>
 
+    {# ako vec postoji trenutno raspoloženje onda ga samo prikaži #}
     {% if current_mood %}
         <script>
-            promijeni_trenutnu_emociju(trenutna_emocija);
+            promijeni_trenutno_raspolozenje(trenutno_rasoplozenje);
         </script>
+    {# inače pošalji ajax zahtjev i zabilježi da je student ušao u sobu #}
     {% else %}
         <script>
-            $(document).ready(function() {
-                ajax_promijeni_raspolozenje(trenutna_emocija, "personal", "student joined the room");
-            });
+            ajax_promijeni_raspolozenje(trenutno_rasoplozenje, "personal", "student se priključio sobi");
         </script>
     {% endif %}
 

@@ -20,10 +20,19 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
     if ($reason_id == "personal") {
         $result = $mood->store($signature, $mood_option_id, null, $room_id, $personal_reason);
     } else {
-        $result = $mood->store($signature, $mood_option_id, $reason_id, $room_id);
+        $result = $mood->store($signature, $mood_option_id, $reason_id, $room_id, null);
     }
     if ($result > 0) {
-        $_SESSION["current_mood"] = $mood;
+        /*
+        u session sprema trenutno raspoloženje.
+        array služi da bi se moglo spremiti više raspoloženja (svaki za jednu sobu di je student pristupio)
+        TODO makni prethodno raspoloženje za tu sobu
+        */
+        if (isset($_SESSION["current_mood"])) {
+            //unset($_SESSION["current_mood"][$mood->parent_id]);
+        }
+        $_SESSION["current_mood"][$mood->id] = $mood;
+
         echo json_encode(array(
             "success" => true,
             "mood" => $mood,
