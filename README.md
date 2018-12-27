@@ -1,14 +1,14 @@
 # Navia
 Sustav za potporu edukacijskom osoblju. Cilj projekta je profesorima pružiti jedinstveno sučelje kojim imaju uvid u sve aspekte vođenja nastave (raspoloženje, pitanja, komentari). Ovaj sustav se može koristiti samostalno ali i uz već postojeće sustave online učionica kako bi se kvaliteta same nastave maksimalno poboljšala.
 
-# DOCS
+# Docs
 
-## SESSION varijable za studenta
+## Session varijable za studenta
 
 ### SESSION["current_moods"]
 pamti studentova raspoloženja za svaku sobu di je ušao, a to služi za prikaz zadnjeg raspoloženja studentu kad izađe iz sobe pa se ponovo vrati u nju.
 također je i bitno za pamćenje je li to raspoloženje inicijalno (student se tek pridružio sobi) ili je već mijenjano.
-ključ je ID sobe, a vrijednosti su samo neki atributi klase mood (id, mood_option_id) definirani u modelu
+ključ je ID sobe, a vrijednosti su samo neki atributi klase mood (id, mood_option_id) definirani u modelu.
 ```
 'current_moods' =>
     array (size=2)
@@ -28,4 +28,22 @@ pamti id sobe u kojoj je student trenutno. služi za dodavanje komentara, pitanj
 'entered_room_id' => int 2
 ```
 
-## SESSION varijable za profesora
+## Session varijable za profesora
+
+### SESSION["my_id"]
+ID teachera.
+```
+'my_id' => int 10
+```
+
+### SESSION["my_name"]
+služi za prikaz imena u headeru(navbaru).
+```
+'my_name' => string 'Petar Jalušić' (length=15)
+```
+
+### SESSION["room_id"]
+id sobe u kojoj sam trenutno.
+```
+'room_id' => string '2' (length=1)
+```
