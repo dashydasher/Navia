@@ -1,14 +1,18 @@
 <?php
 require_once '../vendor/autoload.php';
 use Models\Question;
+use Models\Helper;
 
 if (!isset($_POST['signature']) || !isset($_POST['question'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
     header('Content-type:application/json;charset=utf-8');
 
-    $signature = $_POST['signature'];
-    $question_text = $_POST['question'];
+    /*
+    ako je string prazan nemoj ga staviti u bazu, stavi null.
+    */
+    $signature = strlen(trim($_POST['signature'])) > 0 ? Helper::xssafe($_POST['signature']) : null;
+    $question_text = Helper::xssafe($_POST['question']);
 
     $question = new Question;
 

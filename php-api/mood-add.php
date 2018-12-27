@@ -8,7 +8,10 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
 } else {
     header('Content-type:application/json;charset=utf-8');
 
-    $signature = Helper::xssafe($_POST['signature']);
+    /*
+    ako je string prazan nemoj ga staviti u bazu, stavi null.
+    */
+    $signature = strlen(trim($_POST['signature'])) > 0 ? Helper::xssafe($_POST['signature']) : null;
     $mood_option_id = Helper::xssafe($_POST['mood_option_id']);
     $reason_id = Helper::xssafe($_POST['reason_id']);
     $personal_reason = Helper::xssafe($_POST['personal_reason']);

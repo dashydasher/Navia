@@ -1,14 +1,18 @@
 <?php
 require_once '../vendor/autoload.php';
 use Models\Comment;
+use Models\Helper;
 
 if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
     header('Content-type:application/json;charset=utf-8');
 
-    $signature = $_POST['signature'];
-    $content = $_POST['comment'];
+    /*
+    ako je string prazan nemoj ga staviti u bazu, stavi null.
+    */
+    $signature = strlen(trim($_POST['signature'])) > 0 ? Helper::xssafe($_POST['signature']) : null;
+    $content = Helper::xssafe($_POST['comment']);
 
     $comment = new Comment;
 

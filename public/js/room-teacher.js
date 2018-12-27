@@ -83,7 +83,10 @@ function dodaj_pitanja(pitanja) {
 function dodaj_rasposlozenja(moods) {
     for (var i = 0, len = moods.length; i < len; i++) {
         var mood = moods[i];
-        $("#raspolozenja").append( $("<p>").append( get_mood_icon_by_id(mood.mood_option_id) ) );
+        if (mood.parent_mood_id) {
+            $('#raspolozenja p[data-id="' + mood.parent_mood_id + '"]').remove();
+        }
+        $("#raspolozenja").append( $('<p data-id="' + mood.id + '">').append( get_mood_icon_by_id(mood.mood_option_id) ) );
     }
 }
 
