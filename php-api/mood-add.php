@@ -16,22 +16,24 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
     session_start();
     $room_id = $_SESSION["entered_room_id"];
 
+    /*
+    u session sprema trenutno raspoloženje za neku sobu.
+    dictionary služi da bi se moglo spremiti više raspoloženja (svaki za jednu sobu di je student pristupio).
+    $current_mood_id postaje parent_mood_id novom raspoloženju.
+    */
+    $current_mood_id = null;
+    if (isset($_SESSION["current_moods"][$room_id])) {
+        $current_mood_id = $_SESSION["current_moods"][$room_id]->id;
+    }
+
     $mood = new Mood;
     if ($reason_id == "personal") {
-        $result = $mood->store($signature, $mood_option_id, null, $room_id, $personal_reason);
+        $result = $mood->store($signature, $mood_option_id, null, $room_id, $current_mood_id, $personal_reason);
     } else {
-        $result = $mood->store($signature, $mood_option_id, $reason_id, $room_id, null);
+        $result = $mood->store($signature, $mood_option_id, $reason_id, $room_id, $current_mood_id, null);
     }
     if ($result > 0) {
-        /*
-        u session sprema trenutno raspoloženje.
-        array služi da bi se moglo spremiti više raspoloženja (svaki za jednu sobu di je student pristupio)
-        TODO makni prethodno raspoloženje za tu sobu
-        */
-        if (isset($_SESSION["current_mood"])) {
-            //unset($_SESSION["current_mood"][$mood->parent_id]);
-        }
-        $_SESSION["current_mood"][$mood->id] = $mood;
+        $_SESSION["current_moods"][$room_id] = $mood;
 
         echo json_encode(array(
             "success" => true,
