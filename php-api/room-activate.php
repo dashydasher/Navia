@@ -1,20 +1,19 @@
 <?php
 require_once '../vendor/autoload.php';
 use Models\Room;
+use Models\Helper;
 
 if (!isset($_POST['room-id']) || !isset($_POST['activate'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
+    $teacher_id = Helper::provjeri_prava_profesora_vrati_id();
+
     header('Content-type:application/json;charset=utf-8');
 
     $room_id = $_POST['room-id'];
     $activate = $_POST['activate'];
 
     $room = new Room;
-
-    session_start();
-    $teacher_id = $_SESSION["my_id"];
-    session_write_close();
 
     if ($activate == 1) {
         $result = $room->activate($room_id, $teacher_id);
@@ -29,10 +28,12 @@ if (!isset($_POST['room-id']) || !isset($_POST['activate'])) {
         ));
         exit();
     } else {
+        $errors = include(__DIR__ . '/../config/errors.php');
+
         echo json_encode(array(
             "success" => false,
             "active" => null,
-            "error" => "Došlo je do pogreške prilikom aktivacije sobe",
+            "error" => $errors->neuspjesna_aktivacija_sobe,
         ));
         exit();
     }

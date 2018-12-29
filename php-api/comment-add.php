@@ -6,18 +6,15 @@ use Models\Helper;
 if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
-    header('Content-type:application/json;charset=utf-8');
+    // on vec postavlja Content-type:application/json u header
+    $room_id = Helper::provjeri_aktivnost_sobe_vrati_id();
 
-    /*
-    ako je string prazan nemoj ga staviti u bazu, stavi null.
-    */
+    // ako je string prazan nemoj ga staviti u bazu, stavi null.
     $signature = strlen(trim($_POST['signature'])) > 0 ? Helper::xssafe($_POST['signature']) : null;
     $content = Helper::xssafe($_POST['comment']);
 
     $comment = new Comment;
 
-    session_start();
-    $room_id = $_SESSION["entered_room_id"];
     $result = $comment->store($signature, $content, $room_id);
     if ($result > 0) {
         echo json_encode(array(
@@ -27,10 +24,11 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
         ));
         exit();
     } else {
+        $errors = include(__DIR__ . '/../config/errors.php');
+
         echo json_encode(array(
             "success" => false,
-            "error" => "Došlo je do pogreške prilikom dodavanja komentara",
-            "comment" => null,
+            "error" => $errors->neuspjesno_dodavanje_kometara,
         ));
         exit();
     }

@@ -2,22 +2,19 @@
 require_once '../vendor/autoload.php';
 use Models\Mood;
 use Models\Helper;
+use Models\Room;
 
 if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_POST['reason_id']) || !isset($_POST['personal_reason'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
-    header('Content-type:application/json;charset=utf-8');
+    // on vec postavlja Content-type:application/json u header
+    $room_id = Helper::provjeri_aktivnost_sobe_vrati_id();
 
-    /*
-    ako je string prazan nemoj ga staviti u bazu, stavi null.
-    */
+    // ako je string prazan nemoj ga staviti u bazu, stavi null.
     $signature = strlen(trim($_POST['signature'])) > 0 ? Helper::xssafe($_POST['signature']) : null;
-    $mood_option_id = Helper::xssafe($_POST['mood_option_id']);
-    $reason_id = Helper::xssafe($_POST['reason_id']);
+    $mood_option_id = $_POST['mood_option_id'];
+    $reason_id = $_POST['reason_id'];
     $personal_reason = Helper::xssafe($_POST['personal_reason']);
-
-    session_start();
-    $room_id = $_SESSION["entered_room_id"];
 
     /*
     u session sprema trenutno raspoloženje za neku sobu.
@@ -36,6 +33,7 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
         $result = $mood->store($signature, $mood_option_id, $reason_id, $room_id, $current_mood_id, null);
     }
     if ($result > 0) {
+        // ako već postoji zapis s tim ključem onda ga prepiši. inače unesi novo raspoloženje za tu sobu.
         $_SESSION["current_moods"][$room_id] = $mood;
 
         echo json_encode(array(
@@ -45,10 +43,12 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
         ));
         exit();
     } else {
+        $errors = include(__DIR__ . '/../config/errors.php');
+
         echo json_encode(array(
             "success" => false,
             "mood" => null,
-            "error" => "Došlo je do pogreške prilikom promjene raspoloženja",
+            "error" => $errors->neuspjesna_promjena_raspolozenja,
         ));
         exit();
     }

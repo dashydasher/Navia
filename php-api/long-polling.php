@@ -1,21 +1,35 @@
 <?php
 require_once '../vendor/autoload.php';
 use Models\Room;
+use Models\Helper;
 
-//ignore_user_abort(false);
-set_time_limit(40);
+// How often to poll, in seconds
+$MESSAGE_POLL_SECONDS = 3;
 
+// How long to keep the Long Poll open, in seconds
+$MESSAGE_TIMEOUT_SECONDS = 30;
+
+// Timeout padding in seconds, to avoid a premature timeout in case the last call in the loop is taking a while
+$MESSAGE_TIMEOUT_SECONDS_BUFFER = 5;
+
+// Automatically die after timeout (plus buffer)
+set_time_limit($MESSAGE_TIMEOUT_SECONDS + $MESSAGE_TIMEOUT_SECONDS_BUFFER);
+
+// id trenutne sobe
+$room_id = Helper::provjeri_prava_profesora_vrati_id_sobe();
+// instanciraj novu sobu, ali nemoj dohvaćati njezine varijable iz baze
+$room = new Room;
+// malo glupo rješenje, ali samo nam je id sobe potreban, a njega imamo u sesiji
+$room->id = $room_id;
+
+/*
+vrti ovu petlju beskonačno (ali maksimalno set_time_limit sekundi).
+probaj dohvatiti nove komentare, pitanja i raspoloženja.
+ako ima čega novog, vrati JSON i završi izvođenje. inače, čekaj $MESSAGE_POLL_SECONDS i pokušaj ponovo.
+*/
 while (true) {
+    // ako nije postavljen parametar, vrati sve komentare, pitanja i raspoloženja jer su svi sigurno noviji od 1970.
     $last_ajax_call = isset($_GET['timestamp']) ? $_GET['timestamp'] : "1970-01-01 00:00:00";
-    /*
-    TODO kaj ako ne postoji??
-    */
-    session_start();
-    $room_id = $_SESSION["room_id"];
-    session_write_close();
-
-    $room = new Room;
-    $room->fetch($room_id);
 
     try {
         /*
@@ -31,29 +45,27 @@ while (true) {
         */
 		$now = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
 
-		if(sizeof($comments) > 0 || sizeof($questions) > 0 || sizeof($moods) > 0) {
+		if (sizeof($comments) > 0 || sizeof($questions) > 0 || sizeof($moods) > 0) {
             header('Content-type:application/json;charset=utf-8');
 			echo json_encode(array(
 				"success" => true,
-                "error" => null,
+                'timestamp' => $now2->add(new DateInterval('PT1S'))->format('Y-m-d H:i:s'),
                 'comments' => $comments,
                 'moods' => $moods,
 	            'questions' => $questions,
-	            'timestamp' => $now2->add(new DateInterval('PT1S'))->format('Y-m-d H:i:s'),
         	));
 			exit();
 		} else {
-			sleep(3);
+			sleep($MESSAGE_POLL_SECONDS);
         }
 	} catch (\PDOException $e) {
         header('Content-type:application/json;charset=utf-8');
+        $errors = include(__DIR__ . '/../config/errors.php');
+
 		echo json_encode(array(
 			"success" => false,
-			"error" => $e->getMessage(),
-            'comments' => array(),
-            'moods' => array(),
-            'questions' => array(),
             'timestamp' => $last_ajax_call,
+            "error" => $errors->long_polling_error,
     	));
 		exit();
     }
