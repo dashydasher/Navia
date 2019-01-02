@@ -10,8 +10,7 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
     // on vec postavlja Content-type:application/json u header
     $room_id = Helper::provjeri_aktivnost_sobe_vrati_id();
 
-    // ako je string prazan nemoj ga staviti u bazu, stavi null.
-    $signature = strlen(trim($_POST['signature'])) > 0 ? Helper::xssafe($_POST['signature']) : null;
+    $signature = Helper::xssafe($_POST['signature']);
     $mood_option_id = $_POST['mood_option_id'];
     $reason_id = $_POST['reason_id'];
     $personal_reason = Helper::xssafe($_POST['personal_reason']);
