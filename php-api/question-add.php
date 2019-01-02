@@ -9,7 +9,7 @@ if (!isset($_POST['signature']) || !isset($_POST['question'])) {
     // on vec postavlja Content-type:application/json u header
     $room_id = Helper::provjeri_aktivnost_sobe_vrati_id();
 
-    $signature = Helper::xssafe($_POST['signature'];
+    $signature = Helper::xssafe($_POST['signature']);
     $question_text = Helper::xssafe($_POST['question']);
 
     $question = new Question;
