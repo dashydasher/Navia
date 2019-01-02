@@ -26,7 +26,6 @@ class Helper {
         header('Content-type:application/json;charset=utf-8');
 
         $room_id = $_SESSION["entered_room_id"];
-        session_write_close();
 
         $room = new Room;
         $room->fetch($room_id);
