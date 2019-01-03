@@ -1,8 +1,35 @@
-$("#btnRazlozi").click(
-function() {
+$(document).ready(function() {
+    $('#teacher-rooms').DataTable({
+        "dom":' <"row search"f><"top"l>rt<"bottom"ip>',
+        "order": [[ 2, 'desc' ]],
+        "columns": [
+            null,
+            null,
+            null,
+            { "orderable": false },
+            null
+        ],
+        "lengthMenu": [[10, 15, 25, 50, 100], [10, 15, 25, 50, 100]],
+        "language": {
+            "lengthMenu": "Prikaži _MENU_ rezultata po stranici",
+            "zeroRecords": "Nema rezultata",
+            "info": "Prikazujem _START_ do _END_ (_TOTAL_ ukupno)",
+            "infoEmpty": "Nema rezultata",
+            "infoFiltered": "(filtrirano iz _MAX_ rezultata)",
+            "search": "Pretraži:",
+            "paginate": {
+                "first":      "Prva",
+                "last":       "Zadnja",
+                "next":       "Sljedeća",
+                "previous":   "Prethodna"
+            }
+        },
+    });
+});
+
+$("#btnRazlozi").click(function() {
     $("#textboxdiv").toggleClass("hide");
-    }
-);
+});
 
 function dodaj_novi_razlog(data) {
     return $('<li data-id="' + data.mood_reason.id + '" >')
