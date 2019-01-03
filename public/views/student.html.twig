@@ -48,9 +48,11 @@
                             </div>
                         </div>
 
-                        <br/>
-
                         <ul id="objavljena-pitanja" type="1" class="list-group"><!-- class="list-unstyled">-->
+
+                            {% for question in questions %}
+                                <li class='list-group-item list-group-item-success' style='margin: 10px'>{{ question.question }}</li>
+                            {% endfor %}
 
                         </ul>
 
@@ -66,6 +68,11 @@
                             </div>
                         </div>
                         <ul id="objavljeni-komentari" type="1" class="list-group" ><!-- class="list-unstyled">-->
+
+                            {% for comment in comments %}
+                                <li class='list-group-item list-group-item-success' style='margin: 10px'>{{ comment.comment }}</li>
+                            {% endfor %}
+
                         </ul>
 
                     </div>

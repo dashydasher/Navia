@@ -23,8 +23,27 @@ if (!isset($_SESSION["entered_room_id"])) {
     if (isset($_SESSION["current_moods"][$room->id])) {
         $current_room_mood = $_SESSION["current_moods"][$room->id];
     }
+
+    /*
+    ako postoji, dohvati objavljene komentare za sobu kojoj pokušavaš pristupiti
+    */
+    $comments = null;
+    if (isset($_SESSION["comments"][$room->id])) {
+        $comments = $_SESSION["comments"][$room->id];
+    }
+
+    /*
+    ako postoji, dohvati postavljena pitanja za sobu kojoj pokušavaš pristupiti
+    */
+    $questions = null;
+    if (isset($_SESSION["questions"][$room->id])) {
+        $questions = $_SESSION["questions"][$room->id];
+    }
+
     echo $twig->render('student.html.twig', array(
         "reasons" => $reasons,
         "current_mood" => $current_room_mood,
+        "comments" => $comments,
+        "questions" => $questions,
     ));
 }

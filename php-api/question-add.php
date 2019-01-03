@@ -16,6 +16,15 @@ if (!isset($_POST['signature']) || !isset($_POST['question'])) {
 
     $result = $question->store($signature, $question_text, $room_id);
     if ($result > 0) {
+        /*
+        u session sprema pitanja za neku sobu.
+        dictionary služi da bi se moglo spremiti više soba (poseban array za svaku sobu di je student pristupio).
+        */
+        if (!isset($_SESSION["questions"][$room_id])) {
+            $_SESSION["questions"][$room_id] = array();
+        }
+        array_unshift($_SESSION["questions"][$room_id], $question);
+
         echo json_encode(array(
             "success" => true,
             "error" => null,

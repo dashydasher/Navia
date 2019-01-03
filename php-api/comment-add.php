@@ -16,6 +16,15 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
 
     $result = $comment->store($signature, $content, $room_id);
     if ($result > 0) {
+        /*
+        u session sprema komentare za neku sobu.
+        dictionary služi da bi se moglo spremiti više soba (poseban array za svaku sobu di je student pristupio).
+        */
+        if (!isset($_SESSION["comments"][$room_id])) {
+            $_SESSION["comments"][$room_id] = array();
+        }
+        array_unshift($_SESSION["comments"][$room_id], $comment);
+
         echo json_encode(array(
             "success" => true,
             "error" => null,

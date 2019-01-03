@@ -15,6 +15,16 @@ class Comment {
         $this->database = new Database;
     }
 
+    /*
+    http://us.php.net/manual/en/language.oop5.magic.php#object.sleep
+    služi za serijalizaciju objekta u session varijablu.
+    */
+    public function __sleep() {
+        return array(
+            'comment',
+        );
+    }
+
     public function mapAttr($row) {
         $this->id = $row->id;
         $this->time = $row->time;
