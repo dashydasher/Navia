@@ -69,14 +69,15 @@ function azuriraj_potpis(signature) {
 function dodaj_komentare(komentari) {
     for (var i = 0, len = komentari.length; i < len; i++) {
         var $signature = azuriraj_potpis(komentari[i].signature);
-        $("#komentari").prepend( $("<p>").append($signature + ": " + komentari[i].comment) );
+        $("#komentari").prepend( $("<li class='list-group-item list-group-item-success' style='margin: 10px'>").append($signature + ": " + komentari[i].comment) );
     }
 }
 
 function dodaj_pitanja(pitanja) {
     for (var i = 0, len = pitanja.length; i < len; i++) {
         var $signature = azuriraj_potpis(pitanja[i].signature);
-        $("#pitanja").prepend( $("<p>").append($signature + ": " + pitanja[i].question) );
+        $("#pitanja").prepend( $("<li class='list-group-item list-group-item-danger' style='margin: 10px'>").append($signature+": "+ pitanja[i].question) );
+
     }
 }
 
