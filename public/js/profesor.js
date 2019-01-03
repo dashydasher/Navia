@@ -38,36 +38,53 @@ function dodaj_novi_razlog(data) {
             .append($('<span class="glyphicon glyphicon-trash">')));
 }
 
+function provjeri_je_li_razlog_prazan(razlog) {
+    if (!razlog) {
+        alert("Molimo unesite razlog promjene raspoloženja");
+        return true;
+    }
+    return false;
+}
+
 $("#dodajPoz").on("click", function() {
-    var serializedData = {
-        "mood-reason": $("#tbPoz1").val(),
-        "type": 1,
-    };
-    $.post("./php-api/mood-reason-add.php", serializedData)
-        .done(function(data) {
-            if (data.success) {
-                $("#pozitivni-komentari").append( dodaj_novi_razlog(data) );
-                $("#tbPoz1").val("");
-            } else {
-                alert(data.error);
-            }
-        });
+    var razlog = $("#tbPoz1").val();
+    
+    if (!provjeri_je_li_razlog_prazan(razlog)) {
+        var serializedData = {
+            "mood-reason": razlog,
+            "type": 1,
+        };
+        $.post("./php-api/mood-reason-add.php", serializedData)
+            .done(function(data) {
+                if (data.success) {
+                    $("#pozitivni-komentari").append( dodaj_novi_razlog(data) );
+                    $("#tbPoz1").val("");
+                } else {
+                    alert(data.error);
+                }
+            });
+    }
+
 });
 
 $("#dodajNeg").on("click", function() {
-    var serializedData = {
-        "mood-reason": $("#tbNeg1").val(),
-        "type": 0,
-    };
-    $.post("./php-api/mood-reason-add.php", serializedData)
-        .done(function(data) {
-            if (data.success) {
-                $("#negativni-komentari").append( dodaj_novi_razlog(data) );
-                $("#tbNeg1").val("");
-            } else {
-                alert(data.error);
-            }
-        });
+    var razlog = $("#tbNeg1").val();
+
+    if (!provjeri_je_li_razlog_prazan(razlog)) {
+        var serializedData = {
+            "mood-reason": razlog,
+            "type": 0,
+        };
+        $.post("./php-api/mood-reason-add.php", serializedData)
+            .done(function(data) {
+                if (data.success) {
+                    $("#negativni-komentari").append( dodaj_novi_razlog(data) );
+                    $("#tbNeg1").val("");
+                } else {
+                    alert(data.error);
+                }
+            });
+    }
 });
 
 $('#textboxdiv').on('click', '.ajaxRemoveReason', function () {
