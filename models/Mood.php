@@ -48,6 +48,9 @@ class Mood {
     inače, mood_reason_id ima neku vrijednost, a personal_reason je null (jer je funkcija pozvana bez tog parametra)
     */
     function store($signature, $mood_option_id, $mood_reason_id, $room_id, $parent_mood_id, $personal_reason) {
+        if (empty($signature)) {
+            $signature = 'Anon';
+        }
         $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
         $query = "INSERT INTO mood (time, signature, personal_reason, mood_option_id, mood_reason_id, room_id, parent_mood_id)
                   VALUES (:time, :signature, :personal_reason, :mood_option_id, :mood_reason_id, :room_id, :parent_mood_id)";

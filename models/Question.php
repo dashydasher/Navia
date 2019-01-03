@@ -25,6 +25,9 @@ class Question {
     }
 
     function store($signature, $question, $room_id) {
+        if (empty($signature)) {
+            $signature = 'Anon';
+        }
         $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
         $query = "INSERT INTO question (time, signature, question, room_id) VALUES (:time, :signature, :question, :room_id)";
         try {
@@ -44,7 +47,7 @@ class Question {
                 "signature" => $signature,
                 "question" => $question,
             ));
-            
+
             return $new_id;
         } catch(\PDOException $e) {
             return -1;

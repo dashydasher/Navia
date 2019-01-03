@@ -25,6 +25,9 @@ class Comment {
     }
 
     function store($signature, $comment, $room_id) {
+        if (empty($signature)) {
+            $signature = 'Anon';
+        }
         $time = new DateTime(null, new DateTimeZone('Europe/Zagreb'));
         $query = "INSERT INTO comment (`time`, signature, comment, room_id) VALUES (:time, :signature, :comment, :room_id)";
         try {
@@ -44,7 +47,7 @@ class Comment {
                 "signature" => $signature,
                 "comment" => $comment,
             ));
-            
+
             return $new_id;
         } catch(\PDOException $e) {
             return -1;
