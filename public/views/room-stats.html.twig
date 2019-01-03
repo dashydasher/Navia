@@ -32,26 +32,30 @@
         var sretni=0;
         var neutralni=0;
         var losi=0;
-        /*for (var mood in room.moods) {
-        switch(mood) {
-            case 1:
-                sretni++;
-                break;
-            case 2:
-                neutralni++;
-                break;
-            default:
-                losi++;
-              }
-          }*/
+        var test ={{ room.moods|json_encode|raw }};
+        for (var mood in test) {
+          switch(mood.mood_option_id) {
+              case 1:
+                  sretni++;
+                  break;
+              case 2:
+                  neutralni++;
+                  break;
+              case 3:
+                  losi++;
+                  break;
+              default:
+            }
+          }
 
-          data.addRows([['Sretno',5],['Neutralno',3],['Loše',4]]);
-          //data.addRows([['Sretno',$sretni],['Neutralno',$neutralni],['Loše',$losi]]);
+          data.addRows([['Sretno',7],['Neutralno',3],['Loše',4]]);
+          //data.addRows([['Sretno', sretni],['Neutralno', neutralni],['Loše', losi]]);
 
-        // Set chart options
+          // Set chart options
         var options = {'title':'Raspoloženja',
                        'width':700,
-                       'height':500};
+                       'height':500,
+                       'colors': ['#5cb85c', '#f0ad4e', '#d9534f']};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -64,6 +68,7 @@
     <!--Div that will hold the pie chart-->
     <h2>Raspoloženja</h2>
     <div id="chart_div"></div>
+    <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>
   </body>
 
 {% endblock %}
