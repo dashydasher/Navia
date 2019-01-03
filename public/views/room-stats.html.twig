@@ -1,0 +1,73 @@
+{% extends "layouts/master.html.twig" %}
+
+{% block header %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"/>
+    <link rel="stylesheet" type="text/css" href="public/css/student.css">
+
+{% endblock %}
+
+{% block content %}
+<head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Raspolozenja');
+        data.addColumn('number', 'Ljudi');
+        var sretni=0;
+        var neutralni=0;
+        var losi=0;
+        /*for (var mood in room.moods) {
+        switch(mood) {
+            case 1:
+                sretni++;
+                break;
+            case 2:
+                neutralni++;
+                break;
+            default:
+                losi++;
+              }
+          }*/
+
+          data.addRows([['Sretno',5],['Neutralno',3],['Loše',4]]);
+          //data.addRows([['Sretno',$sretni],['Neutralno',$neutralni],['Loše',$losi]]);
+
+        // Set chart options
+        var options = {'title':'Raspoloženja',
+                       'width':700,
+                       'height':500};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <h2>Raspoloženja</h2>
+    <div id="chart_div"></div>
+  </body>
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
