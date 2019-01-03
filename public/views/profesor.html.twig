@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="public/css/lib/datatables.min.css" />
-    <link rel="stylesheet" type="text/css" href="public/css/profesor.css" />
+    <link rel="stylesheet" type="text/css" href="public/css/lib/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="public/css/profesor.css"/>
 
 {% endblock %}
 
@@ -27,32 +27,33 @@
                 <div class="row">
 
                     <div class="col-md-4 ">
-                        <div class="alert alert-success" align="center"><i class="fa fa-plus-square" aria-hidden="true"></i> Pozitivni</div>
-
+                        <div class="alert alert-success" align="center">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            Pozitivni</div>
 
                         <ul id="pozitivni-komentari" class="list-unstyled">
 
                             {% for reason in mood_reasons if reason.type == 1 %}
-                                <div class="alert alert-success">   <li data-id="{{ reason.id }}">
+                                <li data-id="{{ reason.id }}" class="alert alert-success">
 
                                     {{ reason.reason }}
 
-
+                                    {# ako postoji teacher_id onda može obrisati taj razlog #}
                                     {% if reason.teacher_id %}
                                         <button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">
-                                          <i class="fa fa-times" aria-hidden="true"></i>
+                                            <i class="fa fa-times" aria-hidden="true"></i>
                                         </button>
                                     {% endif %}
 
-                                </li></div>
+                                </li>
                             {% endfor %}
                         </ul>
 
                         <div class="input-group">
-                        <input class="form-control input" type="text" id="tbPoz1" name="pozRazlog" placeholder="Upiši razlog"/>
-                        <span class="input-group-btn">
-                        <button class="btn btn-primary " id="dodajPoz">Dodaj</button>
-                      </span>
+                            <input class="form-control input" type="text" id="tbPoz1" name="pozRazlog" placeholder="Upiši razlog"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary " id="dodajPoz">Dodaj</button>
+                            </span>
                         </div>
 
                         <div id="chart"></div>
@@ -60,27 +61,30 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="alert alert-danger" align="center"><i class="fa fa-minus-square" aria-hidden="true"></i> Negativni
+                        <div class="alert alert-danger" align="center">
+                            <i class="fa fa-minus-square" aria-hidden="true"></i>
+                            Negativni
                         </div>
                         <ul id="negativni-komentari" class="list-unstyled">
                             {% for reason in mood_reasons if reason.type == 0 %}
-                            <div class="alert alert-danger">    <li data-id="{{ reason.id }}">
+                                <li data-id="{{ reason.id }}" class="alert alert-danger">
                                     {{ reason.reason }}
+                                    {# ako postoji teacher_id onda može obrisati taj razlog #}
                                     {% if reason.teacher_id %}
                                         <button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">
-                                          <i class="fa fa-times" aria-hidden="true"></i>
+                                            <i class="fa fa-times" aria-hidden="true"></i>
 
                                         </button>
                                     {% endif %}
-                                </li></div>
+                                </li>
                             {% endfor %}
                         </ul>
-                          <div class="input-group">
-                        <input class="form-control input" type="text" id="tbNeg1" name="negRazlog" placeholder="Upiši razlog"/>
-                          <span class="input-group-btn">
-                        <button class="btn btn-primary btn" id="dodajNeg">Dodaj</button>
-                          </span>
-                         </div>
+                        <div class="input-group">
+                            <input class="form-control input" type="text" id="tbNeg1" name="negRazlog" placeholder="Upiši razlog"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn" id="dodajNeg">Dodaj</button>
+                            </span>
+                        </div>
 
                     </div>
                 </div>
@@ -148,7 +152,7 @@
 
 {% block footer %}
 
-    <script type="text/javascript" src="public/js/lib/datatables.min.js"></script>
-    <script src="public/js/profesor.js"></script>
+<script type="text/javascript" src="public/js/lib/datatables.min.js"></script>
+<script src="public/js/profesor.js"></script>
 
 {% endblock %}

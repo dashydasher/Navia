@@ -1,13 +1,13 @@
 $(document).ready(function() {
     $('#teacher-rooms').DataTable({
-        "dom":' <"row search"f><"top"l>rt<"bottom"ip>',
+        "dom":' <"search"f><"top"l>rt<"bottom"ip>',
         "order": [[ 2, 'desc' ]],
         "columns": [
             null,
             null,
             null,
             { "orderable": false },
-            null
+            { "orderable": false },
         ],
         "lengthMenu": [[10, 15, 25, 50, 100], [10, 15, 25, 50, 100]],
         "language": {
@@ -31,13 +31,6 @@ $("#btnRazlozi").click(function() {
     $("#textboxdiv").toggleClass("hide");
 });
 
-function dodaj_novi_razlog(data) {
-    return $('<li data-id="' + data.mood_reason.id + '" >')
-        .append(data.mood_reason.reason)
-        .append($('<button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">')
-            .append($('<span class="glyphicon glyphicon-trash">')));
-}
-
 function provjeri_je_li_razlog_prazan(razlog) {
     if (!razlog) {
         alert("Molimo unesite razlog promjene raspoloženja");
@@ -48,7 +41,7 @@ function provjeri_je_li_razlog_prazan(razlog) {
 
 $("#dodajPoz").on("click", function() {
     var razlog = $("#tbPoz1").val();
-    
+
     if (!provjeri_je_li_razlog_prazan(razlog)) {
         var serializedData = {
             "mood-reason": razlog,
@@ -57,7 +50,11 @@ $("#dodajPoz").on("click", function() {
         $.post("./php-api/mood-reason-add.php", serializedData)
             .done(function(data) {
                 if (data.success) {
-                    $("#pozitivni-komentari").append( dodaj_novi_razlog(data) );
+                    $("#pozitivni-komentari")
+                        .append($('<li data-id="' + data.mood_reason.id + '" class="alert alert-success">')
+                            .append(data.mood_reason.reason)
+                            .append($('<button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">')
+                                .append($('<i class="fa fa-times" aria-hidden="true">'))));
                     $("#tbPoz1").val("");
                 } else {
                     alert(data.error);
@@ -78,7 +75,11 @@ $("#dodajNeg").on("click", function() {
         $.post("./php-api/mood-reason-add.php", serializedData)
             .done(function(data) {
                 if (data.success) {
-                    $("#negativni-komentari").append( dodaj_novi_razlog(data) );
+                    $("#negativni-komentari")
+                        .append($('<li data-id="' + data.mood_reason.id + '" class="alert alert-danger">')
+                            .append(data.mood_reason.reason)
+                            .append($('<button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">')
+                                .append($('<i class="fa fa-times" aria-hidden="true">'))));
                     $("#tbNeg1").val("");
                 } else {
                     alert(data.error);
