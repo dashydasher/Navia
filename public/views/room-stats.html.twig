@@ -15,10 +15,13 @@
     <script type="text/javascript">
 
       // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {
+          packages: ['corechart'],
+          callback: drawChart
+      });
 
       // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+    //  google.charts.setOnLoadCallback(drawChart);
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
@@ -27,8 +30,21 @@
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Raspolozenja');
-        data.addColumn('number', 'Ljudi');
+
+
+        var data = new google.visualization.DataTable({
+              cols: [
+                { label: 'Raspolozenja', type: 'string' },
+                { label: 'Ljudi', type: 'number' }
+              ]
+          });
+
+      //  data.addColumn('string', 'Raspolozenja');
+        //data.addColumn('number', 'Ljudi');
+        // get html table rows
+        var raspolozenja = document.getElementById('raspolozenja');
+
+
         var sretni=0;
         var neutralni=0;
         var losi=0;
