@@ -36,8 +36,23 @@ if (typeof document.addEventListener === "undefined" || hidden === undefined) {
     document.addEventListener(visibilityChange, handleVisibilityChange, false);
 }
 
+
+function oznaci_neprocitane() {
+    $("#komentari > li[data-seen='0'], #pitanja > li[data-seen='0']").each(function() {
+        // flashaj lol
+        $(this).delay(100).fadeIn(350).fadeOut(350).fadeIn(350).fadeOut(350).fadeIn(350).fadeOut(350).fadeIn(350);
+        // ovo drugo se može obrisat
+        $(this).attr('data-seen', "1");
+        $(this).data('seen', "1");
+    });
+}
+
+/*
+ovdje se oznacuju neprocitani jer se to izvodi kad se profesor vrati na taj tab
+*/
 function poll_again(timestamp) {
     if (!pause && !ajaxInProgress) {
+        oznaci_neprocitane();
         request = poll(timestamp);
     }
 }
@@ -56,28 +71,15 @@ function get_mood_icon_by_id(id) {
     }
 }
 
-function azuriraj_potpis(signature) {
-    /*
-    TODO ovaj "<anonimno>" ne radi !!!
-    */
-    if (!signature || 0 === signature.length) {
-        signature = "<anonimno>";
-    }
-    return signature;
-}
-
 function dodaj_komentare(komentari) {
     for (var i = 0, len = komentari.length; i < len; i++) {
-        var $signature = azuriraj_potpis(komentari[i].signature);
-        $("#komentari").prepend( $("<li class='list-group-item list-group-item-success' style='margin: 10px'>").append($signature + ": " + komentari[i].comment) );
+        $("#komentari").prepend( $("<li data-seen='0' class='list-group-item list-group-item-success' style='margin: 10px'>").append(komentari[i].signature + ": " + komentari[i].comment) );
     }
 }
 
 function dodaj_pitanja(pitanja) {
     for (var i = 0, len = pitanja.length; i < len; i++) {
-        var $signature = azuriraj_potpis(pitanja[i].signature);
-        $("#pitanja").prepend( $("<li class='list-group-item list-group-item-danger' style='margin: 10px'>").append($signature+": "+ pitanja[i].question) );
-
+        $("#pitanja").prepend( $("<li data-seen='0' class='list-group-item list-group-item-danger' style='margin: 10px'>").append(pitanja[i].signature+": "+ pitanja[i].question) );
     }
 }
 
