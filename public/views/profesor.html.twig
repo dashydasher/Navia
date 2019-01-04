@@ -34,13 +34,13 @@
                         <ul id="pozitivni-komentari" class="list-unstyled">
 
                             {% for reason in mood_reasons if reason.type == 1 %}
-                                <li data-id="{{ reason.id }}" class="alert alert-success">
+                                <li data-id="{{ reason.id }}" class="alert alert-success" style="max-height: 48px;">
 
                                     {{ reason.reason }}
 
                                     {# ako postoji teacher_id onda može obrisati taj razlog #}
                                     {% if reason.teacher_id %}
-                                        <button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">
+                                        <button class="btn btn-default btn-xs ajaxRemoveReason btn-danger" style="float: right;">
                                             <i class="fa fa-times" aria-hidden="true"></i>
                                         </button>
                                     {% endif %}
@@ -67,11 +67,11 @@
                         </div>
                         <ul id="negativni-komentari" class="list-unstyled">
                             {% for reason in mood_reasons if reason.type == 0 %}
-                                <li data-id="{{ reason.id }}" class="alert alert-danger">
+                                <li data-id="{{ reason.id }}" class="alert alert-danger" style="max-height: 48px;">
                                     {{ reason.reason }}
                                     {# ako postoji teacher_id onda može obrisati taj razlog #}
                                     {% if reason.teacher_id %}
-                                        <button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">
+                                        <button class="btn btn-default btn-xs ajaxRemoveReason btn-danger" style="float: right;">
                                             <i class="fa fa-times" aria-hidden="true"></i>
 
                                         </button>

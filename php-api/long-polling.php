@@ -4,7 +4,7 @@ use Models\Room;
 use Models\Helper;
 
 // How often to poll, in seconds
-$MESSAGE_POLL_SECONDS = 3;
+$MESSAGE_POLL_SECONDS = 2;
 
 // How long to keep the Long Poll open, in seconds
 $MESSAGE_TIMEOUT_SECONDS = 30;
