@@ -21,6 +21,7 @@ $("#slider-range").slider({
             $(this).html(hours + ':' + mins);
 
             filtriraj_tablicu(hours + ':' + mins);
+            filtriraj_chart(hours + ':' + mins);
         });
     }
 });
@@ -28,9 +29,26 @@ $("#slider-range").slider({
 function filtriraj_tablicu(vrijeme) {
     $("#pozRazlozi > table tr:gt(0), #neutrRazlozi > table tr:gt(0), #negRazlozi > table tr:gt(0)").hide().each(function () {
         var id = $(this).data("id");
-        if (moods_intervals[vrijeme][id]) {
+        if (vrijeme in moods_intervals && id in moods_intervals[vrijeme]) {
             $(this).closest("tr").show();
         }
+    });
+}
+
+function filtriraj_chart(vrijeme) {
+    $("#proba tr").each(function (i) {
+        var id = $(this).data("id");
+        if (vrijeme in moods_intervals && id in moods_intervals[vrijeme]) {
+            $(this).data("hidden", "false");
+            $(this).attr('data-hidden', "false");
+        } else {
+            $(this).data("hidden", "true");
+            $(this).attr('data-hidden', "true");
+        }
+    });
+    google.charts.load('current', {
+        packages: ['corechart'],
+        callback: drawChart
     });
 }
 
@@ -74,6 +92,19 @@ function drawChart() {
     // get html table rows
     var raspolozenja = document.getElementById('proba');
 
+    $("#proba tr").each(function (i) {
+        // exclude column heading
+        if (i > 0 && ($(this).data("hidden") == false || $(this).data("hidden") == "false")) {
+            data.addRow([{
+                    v: ($(this).children().first().text().trim())
+                },
+                {
+                    v: 1
+                }
+            ]);
+        }
+    });
+    /*
     Array.prototype.forEach.call(raspolozenja.rows, function(row) {
         // exclude column heading
         if (row.rowIndex > 0) {
@@ -86,6 +117,7 @@ function drawChart() {
             ]);
         }
     });
+    */
 
     var dataSummary = google.visualization.data.group(
         data,

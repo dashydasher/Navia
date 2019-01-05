@@ -30,12 +30,12 @@
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
     <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>
-    <table id="proba" hidden="hidden">
+    <table id="proba" >
         <tr>
             <th>Naziv stupca</th>
         </tr>
         {% for mood in room.moods %}
-            <tr>
+            <tr data-id="{{ mood.id }}" data-hidden="false">
                 <td>
                     {% if mood.mood_option_id == 1 %}
                         Sretno

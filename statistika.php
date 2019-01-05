@@ -96,7 +96,8 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
         "room" => $room,
         "moods_intervals" => $moods_intervals,
         "time_start" => $pocetno_vrijeme->format('H:i'),
-        "time_end" => $maksimalno_vrijeme->format('H:i'),
+        // $trenutno_vrijeme na kraju poprima maksimalno vrijeme
+        "time_end" => $trenutno_vrijeme->format('H:i'),
     ));
 
     unset($_SESSION["success"]);
