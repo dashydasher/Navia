@@ -85,6 +85,15 @@
     <h2>Raspoloženja</h2>
     <div id="chart_div"></div>
     <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>
+    <div>
+      <ul>
+        {% for mood in room.moods %}
+        <li>
+          {{ mood.mood_option_id }}
+        </li>
+        {% endfor %}
+     </ul>
+    </div>
   </body>
 
 {% endblock %}
