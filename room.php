@@ -11,6 +11,7 @@ $result = $room->fetch($room_id);
 session_start();
 if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
     $_SESSION["room_id"] = $room_id;
+    $room->fetch_moods(0);
     echo $twig->render('room-teacher.html.twig', array(
         "name" => $_SESSION["my_name"],
         "success" => isset($_SESSION["success"]) ? $_SESSION["success"] : null,

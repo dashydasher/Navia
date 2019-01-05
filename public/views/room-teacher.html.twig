@@ -23,6 +23,80 @@
       <div class="alert alert-info" style="font-size:50px">RASPOLOŽENJA</div>
 
       <div id="chart"></div>
+      <table id="proba" hidden>
+        <ul>
+          {% for mood in room.moods %}
+          <tr><td>
+            {{ mood.mood_option_id }}
+          </td></tr>
+          {% endfor %}
+       </ul>
+      </table>
+      <div id="razlozi" style="font-size:20px" align="center">
+       <div id="pozRazlozi" hidden>
+         <h4 style="background:#5cb85c">Raspoloženje: Sretno </h4>
+         <table class="table table-striped table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Vrijeme</th>
+                        <th>Razlog</th>
+                    </tr>
+                </thead>
+                <tbody>
+             {% for mood in room.moods if mood.mood_option_id == 1 %}
+             <tr>
+               <td> {{ mood.time }} </td>
+               <td>
+               {{ mood.mood_reason_id }}
+             </td></tr>
+
+             {% endfor %}
+           </tbody>
+        </table>
+       </div>
+       <div id="negRazlozi" hidden>
+         <h4 style="background:#f0ad4e">Raspoloženje: Neutralno </h4>
+         <table class="table table-striped table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Vrijeme</th>
+                        <th>Razlog</th>
+                    </tr>
+                </thead>
+                <tbody>
+             {% for mood in room.moods if mood.mood_option_id == 2 %}
+             <tr>
+               <td> {{ mood.time }} </td>
+               <td>
+               {{ mood.mood_reason_id }}
+             </td></tr>
+
+             {% endfor %}
+           </tbody>
+        </table>
+       </div>
+       <div id="neutrRazlozi" hidden>
+         <h4 style="background:#d9534f">Raspoloženje: Tužno </h4>
+         <table class="table table-striped table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Vrijeme</th>
+                        <th>Razlog</th>
+                    </tr>
+                </thead>
+                <tbody>
+             {% for mood in room.moods if mood.mood_option_id == 3 %}
+             <tr>
+               <td> {{ mood.time }} </td>
+               <td>
+               {{ mood.mood_reason_id }}
+             </td></tr>
+
+             {% endfor %}
+           </tbody>
+        </table>
+       </div>
+      </div>
 
     </div>
 
@@ -49,6 +123,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="public/js/room-teacher.js"></script>
 
 {% endblock %}

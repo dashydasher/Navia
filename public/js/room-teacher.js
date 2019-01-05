@@ -125,6 +125,91 @@ $("document").ready(function () {
     poll_again();
 });
 
+
+  google.charts.load('current', {
+      packages: ['corechart'],
+      callback: drawChart
+  });
+
+  function drawChart() {
+
+    var data = new google.visualization.DataTable({
+          cols: [
+            { label: 'Raspolozenja', type: 'string' },
+            { label: 'Ljudi', type: 'number' }
+          ]
+      });
+
+    // get html table rows
+    var raspolozenja = document.getElementById('proba');
+
+    Array.prototype.forEach.call(raspolozenja.rows, function(row) {
+// exclude column heading
+        if (row.rowIndex > 0) {
+            data.addRow([
+      { v: (row.cells[0].textContent || row.cells[0].innerHTML).trim() },
+      { v: 1 }
+    ]);
+  }
+  });
+
+var dataSummary = google.visualization.data.group(
+data,
+[0],
+[{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
+);
+
+      // Set chart options
+    var options = {'title':'Raspoloženja',
+                   'width':800,
+                   'height':550,
+                   'fontSize':30,
+                   'colors': ['#5cb85c', '#f0ad4e', '#d9534f']};
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart'));
+
+   function selectHandler()
+   {
+        var selectedItem = chart.getSelection()[0];
+
+       if (selectedItem)
+       {
+          var mood = data.getValue(selectedItem.row, 0);
+          //alert('The user selected ' + mood);
+          switch(mood) {
+            case '1':
+              $('#pozRazlozi').show();
+              $('#negRazlozi').hide();
+              $('#neutrRazlozi').hide();
+              break;
+            case '2':
+              $('#pozRazlozi').hide();
+              $('#negRazlozi').show();
+              $('#neutrRazlozi').hide();
+              break;
+            case '3':
+              $('#pozRazlozi').hide();
+              $('#negRazlozi').hide();
+              $('#neutrRazlozi').show();
+              break;
+            default:
+              $('#pozRazlozi').hide();
+              $('#negRazlozi').hide();
+              $('#neutrRazlozi').hide();
+              break;
+          }
+      }
+   }
+
+    // Instantiate and draw our chart, passing in some options.
+      google.visualization.events.addListener(chart, 'select', selectHandler);
+    chart.draw(dataSummary, options);
+  }
+
+
+
+
+
 $("#razlog-submit").on("click", function(){
 
 var donut_chart = Morris.Donut({
