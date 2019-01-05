@@ -51,9 +51,9 @@ $("#dodajPoz").on("click", function() {
             .done(function(data) {
                 if (data.success) {
                     $("#pozitivni-komentari")
-                        .append($('<li data-id="' + data.mood_reason.id + '" class="alert alert-success">')
+                        .append($('<li data-id="' + data.mood_reason.id + '" class="alert alert-success" style="max-height: 48px;">')
                             .append(data.mood_reason.reason)
-                            .append($('<button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">')
+                            .append($('<button class="btn btn-default btn-xs ajaxRemoveReason btn-danger" style="float: right;">')
                                 .append($('<i class="fa fa-times" aria-hidden="true">'))));
                     $("#tbPoz1").val("");
                 } else {
@@ -76,9 +76,9 @@ $("#dodajNeg").on("click", function() {
             .done(function(data) {
                 if (data.success) {
                     $("#negativni-komentari")
-                        .append($('<li data-id="' + data.mood_reason.id + '" class="alert alert-danger">')
+                        .append($('<li data-id="' + data.mood_reason.id + '" class="alert alert-danger" style="max-height: 48px;">')
                             .append(data.mood_reason.reason)
-                            .append($('<button class="btn btn-default btn-sm ajaxRemoveReason btn-danger">')
+                            .append($('<button class="btn btn-default btn-xs ajaxRemoveReason btn-danger" style="float: right;">')
                                 .append($('<i class="fa fa-times" aria-hidden="true">'))));
                     $("#tbNeg1").val("");
                 } else {
