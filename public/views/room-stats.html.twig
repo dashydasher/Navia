@@ -73,20 +73,19 @@
 
            if (selectedItem)
            {
-              var mood = data.getValue(selectedItem.row, 0);
-              console.log(data);
-              switch(mood) {
-                case 'Sretno':
+              //console.log(selectedItem);
+              switch(selectedItem.row) {
+                case 1:
                   $('#pozRazlozi').show();
                   $('#neutrRazlozi').hide();
                   $('#negRazlozi').hide();
                   break;
-                case 'Neutralno':
+                case 0:
                   $('#pozRazlozi').hide();
                   $('#neutrRazlozi').show();
                   $('#negRazlozi').hide();
                   break;
-                case 'Tužno':
+                case 2:
                   $('#pozRazlozi').hide();
                   $('#neutrRazlozi').hide();
                   $('#negRazlozi').show();
