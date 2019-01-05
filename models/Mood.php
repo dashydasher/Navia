@@ -9,7 +9,9 @@ class Mood {
     public $signature;
     public $personal_reason;
     public $mood_option_id;
+    public $mood_option;
     public $mood_reason_id;
+    public $mood_reason;
     public $room_id;
     public $parent_mood_id;
 
@@ -36,7 +38,9 @@ class Mood {
         $this->signature = $row->signature;
         $this->personal_reason = $row->personal_reason;
         $this->mood_option_id = $row->mood_option_id;
+        $this->mood_option = $row->mood_option;
         $this->mood_reason_id = $row->mood_reason_id;
+        $this->mood_reason = $row->mood_reason;
         $this->room_id = $row->room_id;
         $this->parent_mood_id = $row->parent_mood_id;
 
