@@ -42,15 +42,31 @@
       //  data.addColumn('string', 'Raspolozenja');
         //data.addColumn('number', 'Ljudi');
         // get html table rows
-        var raspolozenja = document.getElementById('raspolozenja');
+        var raspolozenja = document.getElementById('proba');
+
+        Array.prototype.forEach.call(raspolozenja.rows, function(row) {
+    // exclude column heading
+            if (row.rowIndex > 0) {
+                data.addRow([
+          { v: (row.cells[0].textContent || row.cells[0].innerHTML).trim() },
+          { v: 1 }
+        ]);
+      }
+      });
+
+  var dataSummary = google.visualization.data.group(
+    data,
+    [0],
+    [{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
+  );
 
 
         var sretni=0;
         var neutralni=0;
         var losi=0;
         var test ={{ room.moods|json_encode|raw }};
-        for (var mood in test) {
-          switch(mood.mood_option_id) {
+        for (var mood in raspolozenja) {
+          switch(mood) {
               case 1:
                   sretni++;
                   break;
@@ -64,8 +80,8 @@
             }
           }
 
-          data.addRows([['Sretno',7],['Neutralno',3],['Loše',4]]);
-          //data.addRows([['Sretno', sretni],['Neutralno', neutralni],['Loše', losi]]);
+          //data.addRows([['Sretno',7],['Neutralno',3],['Loše',4]]);
+          data.addRows([['Sretno', sretni],['Neutralno', neutralni],['Loše', losi]]);
 
           // Set chart options
         var options = {'title':'Raspoloženja',
@@ -75,7 +91,7 @@
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+        chart.draw(dataSummary, options);
       }
     </script>
   </head>
@@ -85,15 +101,15 @@
     <h2>Raspoloženja</h2>
     <div id="chart_div"></div>
     <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>
-    <div>
+    <table id="proba" hidden>
       <ul>
         {% for mood in room.moods %}
-        <li>
+        <tr><td>
           {{ mood.mood_option_id }}
-        </li>
+        </td></tr>
         {% endfor %}
      </ul>
-    </div>
+   </table>
   </body>
 
 {% endblock %}
