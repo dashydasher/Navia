@@ -99,14 +99,12 @@ function poll(timestamp) {
 
     last_timestamp = timestamp;
     var queryString = {'timestamp' : timestamp};
-
-    return $.get("php-api/long-polling.php", queryString)
+      return $.get("php-api/long-polling.php", queryString)
         .done(function(data) {
             if (data.success) {
                 dodaj_komentare(data.comments);
                 dodaj_pitanja(data.questions);
                 dodaj_rasposlozenja(data.moods);
-
                 ajaxInProgress = false;
                 last_timestamp = data.timestamp;
                 poll_again(data.timestamp);
@@ -125,13 +123,13 @@ $("document").ready(function () {
     poll_again();
 });
 
-
-  google.charts.load('current', {
+google.charts.load('current', {
       packages: ['corechart'],
       callback: drawChart
-  });
+});
 
-  function drawChart() {
+
+function drawChart() {
 
     var data = new google.visualization.DataTable({
           cols: [
@@ -160,10 +158,10 @@ data,
 );
 
       // Set chart options
-    var options = {'title':'Raspoloženja',
-                   'width':800,
-                   'height':550,
-                   'fontSize':30,
+    var options = {'width':550,
+                   'height':500,
+                   'legend':'bottom',
+                   'fontSize':32,
                    'colors': ['#5cb85c', '#f0ad4e', '#d9534f']};
 
   var chart = new google.visualization.PieChart(document.getElementById('chart'));
