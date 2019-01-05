@@ -70,7 +70,7 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
 
             if ($mood_time > $prethodni_interval && $mood_time <= $trenutno_vrijeme) {
                 #$prikazi_moodove[$mood->id] = $mood;
-                $prikazi_moodove[$mood->id] = $mood->parent_mood_id;
+                $prikazi_moodove[$mood->id] = $mood->id;
 
                 // ako ima roditelja onda roditelja nemoj u budućim intervalima prikazivati jer
                 // je on preuzeo njegovu ulogu
@@ -85,9 +85,9 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
         $moods_intervals[$interval_key] = $prikazi_moodove;
     }
 
-    var_dump($pocetno_vrijeme->format('H:i'));
-    var_dump($maksimalno_vrijeme->format('H:i'));
-    var_dump($moods_intervals);
+    #var_dump($pocetno_vrijeme->format('H:i'));
+    #var_dump($maksimalno_vrijeme->format('H:i'));
+    #var_dump($moods_intervals);
 
     echo $twig->render('room-stats.html.twig', array(
         "name" => $_SESSION["my_name"],

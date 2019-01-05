@@ -20,14 +20,21 @@ $("#slider-range").slider({
             hours %= 24;
             $(this).html(hours + ':' + mins);
 
-            $("#pozRazlozi > table tr:gt(0)").each(function () {
-                var id = $(this).data("id");
-                var parent_id = $(this).data("parent-mood-id");
-                console.log(id + " " + parent_id);
-            });
+            filtriraj_tablicu(hours + ':' + mins);
         });
     }
 });
+
+function filtriraj_tablicu(vrijeme) {
+    $("#pozRazlozi > table tr:gt(0), #neutrRazlozi > table tr:gt(0), #negRazlozi > table tr:gt(0)").hide().each(function () {
+        var id = $(this).data("id");
+        if (moods_intervals[vrijeme][id]) {
+            $(this).closest("tr").show();
+        }
+    });
+}
+
+filtriraj_tablicu($("#time-end").text());
 
 $("#end").on("click", function() {
     $("#slider-range").slider("values", 0, time_end);
