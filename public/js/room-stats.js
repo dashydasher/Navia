@@ -1,3 +1,10 @@
+//ponovo_iscrtaj_chart($("#time-end").text());
+
+google.charts.load('current', {
+    packages: ['corechart'],
+    callback: filtriraj_chart
+});
+
 var hour_start = parseInt($("#time-start").text().split(":")[0]);
 var time_start = hour_start * 60 + parseInt($("#time-start").text().split(":")[1]);
 
@@ -27,7 +34,7 @@ $("#slider-range").slider({
 });
 
 function filtriraj_tablicu(vrijeme) {
-    $("#pozRazlozi > table tr:gt(0), #neutrRazlozi > table tr:gt(0), #negRazlozi > table tr:gt(0)").hide().each(function () {
+    $("#pozRazlozi > table tr:gt(0), #neutrRazlozi > table tr:gt(0), #negRazlozi > table tr:gt(0)").hide().each(function() {
         var id = $(this).data("id");
         if (vrijeme in moods_intervals && id in moods_intervals[vrijeme]) {
             $(this).closest("tr").show();
@@ -35,44 +42,43 @@ function filtriraj_tablicu(vrijeme) {
     });
 }
 
+// document ready
+filtriraj_tablicu($("#time-end").text());
+
 function filtriraj_chart(vrijeme) {
-    $("#proba tr").each(function (i) {
+    if (!vrijeme) {
+        vrijeme = $("#time-end").text();
+    }
+    var postoji_pozitivan = false;
+    var postoji_neutralan = false;
+    var postoji_negativan = false;
+
+    $("#proba tr").each(function(i) {
         var id = $(this).data("id");
         if (vrijeme in moods_intervals && id in moods_intervals[vrijeme]) {
             $(this).data("hidden", "false");
             $(this).attr('data-hidden', "false");
+
+            switch ($(this).text().trim()) {
+                case "Sretno":
+                    postoji_pozitivan = true;
+                    break;
+                case "Neutralno":
+                    postoji_neutralan = true;
+                    break;
+                case "Tužno":
+                    postoji_negativan = true;
+                    break;
+            }
         } else {
             $(this).data("hidden", "true");
             $(this).attr('data-hidden', "true");
         }
     });
-    google.charts.load('current', {
-        packages: ['corechart'],
-        callback: drawChart
-    });
+    drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan);
 }
 
-filtriraj_tablicu($("#time-end").text());
-
-$("#end").on("click", function() {
-    $("#slider-range").slider("values", 0, time_end);
-    $(".slider-time").html(hour_end % 24 + ":" + time_end % 60);
-});
-
-// Load the Visualization API and the corechart package.
-google.charts.load('current', {
-    packages: ['corechart'],
-    callback: drawChart
-});
-
-// Set a callback to run when the Google Visualization API is loaded.
-//  google.charts.setOnLoadCallback(drawChart);
-
-// Callback that creates and populates a data table,
-// instantiates the pie chart, passes in the data and
-// draws it.
-function drawChart() {
-
+function drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan) {
     // Create the data table.
     var data = new google.visualization.DataTable();
 
@@ -92,7 +98,7 @@ function drawChart() {
     // get html table rows
     var raspolozenja = document.getElementById('proba');
 
-    $("#proba tr").each(function (i) {
+    $("#proba tr").each(function(i) {
         // exclude column heading
         if (i > 0 && ($(this).data("hidden") == false || $(this).data("hidden") == "false")) {
             data.addRow([{
@@ -104,20 +110,6 @@ function drawChart() {
             ]);
         }
     });
-    /*
-    Array.prototype.forEach.call(raspolozenja.rows, function(row) {
-        // exclude column heading
-        if (row.rowIndex > 0) {
-            data.addRow([{
-                    v: (row.cells[0].textContent || row.cells[0].innerHTML).trim()
-                },
-                {
-                    v: 1
-                }
-            ]);
-        }
-    });
-    */
 
     var dataSummary = google.visualization.data.group(
         data,
@@ -129,13 +121,29 @@ function drawChart() {
         }]
     );
 
+    var boje = [];
+    if (!postoji_pozitivan && postoji_neutralan && !postoji_negativan) {
+        boje = ['#f0ad4e'];
+    } else if (postoji_pozitivan && !postoji_neutralan && !postoji_negativan) {
+        boje = ['#5cb85c'];
+    } else if (!postoji_pozitivan && !postoji_neutralan && postoji_negativan) {
+        boje = ['#d9534f'];
+    } else if (postoji_pozitivan && postoji_neutralan && !postoji_negativan) {
+        boje = ['#f0ad4e', '#5cb85c'];
+    } else if (!postoji_pozitivan && postoji_neutralan && postoji_negativan) {
+        boje = ['#f0ad4e', '#d9534f'];
+    } else if (postoji_pozitivan && !postoji_neutralan && postoji_negativan) {
+        boje = ['#5cb85c', '#d9534f'];
+    } else if (postoji_pozitivan && postoji_neutralan && postoji_negativan) {
+        boje = ['#f0ad4e', '#5cb85c', '#d9534f'];
+    }
     // Set chart options
     var options = {
         'title': 'Raspoloženja',
         'width': 700,
         'height': 500,
         'fontSize': 25,
-        'colors': ['#f0ad4e', '#5cb85c', '#d9534f']
+        'colors': boje
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -144,33 +152,131 @@ function drawChart() {
         var selectedItem = chart.getSelection()[0];
 
         if (selectedItem) {
-            //console.log(selectedItem);
-            switch (selectedItem.row) {
-                case 1:
-                    $('#pozRazlozi').show();
-                    $('#neutrRazlozi').hide();
-                    $('#negRazlozi').hide();
-                    break;
-                case 0:
-                    $('#pozRazlozi').hide();
-                    $('#neutrRazlozi').show();
-                    $('#negRazlozi').hide();
-                    break;
-                case 2:
-                    $('#pozRazlozi').hide();
-                    $('#neutrRazlozi').hide();
-                    $('#negRazlozi').show();
-                    break;
-                default:
-                    $('#pozRazlozi').hide();
-                    $('#neutrRazlozi').hide();
-                    $('#negRazlozi').hide();
-                    break;
+            if (!postoji_pozitivan && postoji_neutralan && !postoji_negativan) {
+                switch (selectedItem.row) {
+                    case 0:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').show();
+                        $('#negRazlozi').hide();
+                        break;
+                    default:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                }
+            } else if (postoji_pozitivan && !postoji_neutralan && !postoji_negativan) {
+                switch (selectedItem.row) {
+                    case 0:
+                        $('#pozRazlozi').show();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                    default:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                }
+            } else if (!postoji_pozitivan && !postoji_neutralan && postoji_negativan) {
+                switch (selectedItem.row) {
+                    case 0:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').show();
+                        break;
+                    default:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                }
+            } else if (postoji_pozitivan && postoji_neutralan && !postoji_negativan) {
+                switch (selectedItem.row) {
+                    case 0:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').show();
+                        $('#negRazlozi').hide();
+                        break;
+                    case 1:
+                        $('#pozRazlozi').show();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                    default:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                }
+            } else if (!postoji_pozitivan && postoji_neutralan && postoji_negativan) {
+                switch (selectedItem.row) {
+                    case 0:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').show();
+                        $('#negRazlozi').hide();
+                        break;
+                    case 1:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').show();
+                        break;
+                    default:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                }
+            } else if (postoji_pozitivan && !postoji_neutralan && postoji_negativan) {
+                switch (selectedItem.row) {
+                    case 0:
+                        $('#pozRazlozi').show();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                    case 1:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').show();
+                        break;
+                    default:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                }
+            } else if (postoji_pozitivan && postoji_neutralan && postoji_negativan) {
+                switch (selectedItem.row) {
+                    case 0:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').show();
+                        $('#negRazlozi').hide();
+                        break;
+                    case 1:
+                        $('#pozRazlozi').show();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                    case 2:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').show();
+                        break;
+                    default:
+                        $('#pozRazlozi').hide();
+                        $('#neutrRazlozi').hide();
+                        $('#negRazlozi').hide();
+                        break;
+                }
             }
         }
     }
-
     // Instantiate and draw our chart, passing in some options.
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(dataSummary, options);
 }
+
+$("#end").on("click", function() {
+    $("#slider-range").slider("values", 0, time_end);
+    $(".slider-time").html(hour_end % 24 + ":" + time_end % 60);
+});
