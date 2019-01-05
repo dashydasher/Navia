@@ -63,7 +63,7 @@
                        'width':700,
                        'height':500,
                        'fontSize':25,
-                       'colors': ['#5cb85c', '#f0ad4e', '#d9534f']};
+                       'colors': ['#f0ad4e', '#5cb85c', '#d9534f']};
 
       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
 
@@ -76,25 +76,25 @@
               var mood = data.getValue(selectedItem.row, 0);
               //alert('The user selected ' + mood);
               switch(mood) {
-                case '1':
+                case 'Sretno':
                   $('#pozRazlozi').show();
-                  $('#negRazlozi').hide();
                   $('#neutrRazlozi').hide();
-                  break;
-                case '2':
-                  $('#pozRazlozi').hide();
-                  $('#negRazlozi').show();
-                  $('#neutrRazlozi').hide();
-                  break;
-                case '3':
-                  $('#pozRazlozi').hide();
                   $('#negRazlozi').hide();
+                  break;
+                case 'Neutralno':
+                  $('#pozRazlozi').hide();
                   $('#neutrRazlozi').show();
+                  $('#negRazlozi').hide();
+                  break;
+                case 'Tužno':
+                  $('#pozRazlozi').hide();
+                  $('#neutrRazlozi').hide();
+                  $('#negRazlozi').show();
                   break;
                 default:
                   $('#pozRazlozi').hide();
-                  $('#negRazlozi').hide();
                   $('#neutrRazlozi').hide();
+                  $('#negRazlozi').hide();
                   break;
               }
           }
@@ -115,7 +115,13 @@
       <ul>
         {% for mood in room.moods %}
         <tr><td>
-          {{ mood.mood_option_id }}
+          {% if mood.mood_option_id == 1 %}
+            Sretno
+          {% elseif mood.mood_option_id == 2 %}
+            Neutralno
+          {% else %}
+            Tužno
+          {% endif %}
         </td></tr>
         {% endfor %}
      </ul>
