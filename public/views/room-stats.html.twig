@@ -10,6 +10,10 @@
 {% endblock %}
 
 {% block content %}
+<div class="container-fluid">
+
+
+  {% include 'layouts/teacher-navbar.html.twig' %}
 
     <div id="time-range" style="width:50%;">
         <p>Time Range: <span id="time-start">{{ time_start }}</span> - <span id="time-end">{{ time_end }}</span></p>
@@ -134,6 +138,7 @@
         </div>
     </div>
 
+</div>
 {% endblock %}
 
 {% block footer %}
