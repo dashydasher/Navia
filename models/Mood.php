@@ -77,7 +77,9 @@ class Mood {
                 "signature" => $signature,
                 "personal_reason" => $personal_reason,
                 "mood_option_id" => $mood_option_id,
+                "mood_option" => null,
                 "mood_reason_id" => $mood_reason_id,
+                "mood_reason" => null,
                 "room_id" => $room_id,
                 "parent_mood_id" => $parent_mood_id,
             ));
