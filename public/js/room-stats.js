@@ -1,5 +1,3 @@
-//ponovo_iscrtaj_chart($("#time-end").text());
-
 google.charts.load('current', {
     packages: ['corechart'],
     callback: filtriraj_chart
@@ -275,11 +273,6 @@ function drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan) {
     google.visualization.events.addListener(chart, 'select', selectHandler);
     chart.draw(dataSummary, options);
 }
-
-$("#end").on("click", function() {
-    $("#slider-range").slider("values", 0, time_end);
-    $(".slider-time").html(hour_end % 24 + ":" + time_end % 60);
-});
 
 $(document).ready(function() {
     $('#stats-questions').DataTable({
