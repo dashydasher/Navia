@@ -280,3 +280,46 @@ $("#end").on("click", function() {
     $("#slider-range").slider("values", 0, time_end);
     $(".slider-time").html(hour_end % 24 + ":" + time_end % 60);
 });
+
+$(document).ready(function() {
+    $('#stats-questions').DataTable({
+        "dom":' <"row search"f><"top"l>rt<"bottom"ip>',
+        "order": [[ 0, 'desc' ]],
+        "lengthMenu": [[10, 15, 25, 50, 100], [10, 15, 25, 50, 100]],
+        "language": {
+            "lengthMenu": "Prikaži _MENU_ rezultata po stranici",
+            "zeroRecords": "Nema rezultata",
+            "info": "Prikazujem _START_ do _END_ (_TOTAL_ ukupno)",
+            "infoEmpty": "Nema rezultata",
+            "infoFiltered": "(filtrirano iz _MAX_ rezultata)",
+            "search": "Pretraži:",
+            "paginate": {
+                "first":      "Prva",
+                "last":       "Zadnja",
+                "next":       "Sljedeća",
+                "previous":   "Prethodna"
+            }
+        },
+    });
+});
+$(document).ready(function() {
+    $('#stats-comments').DataTable({
+        "dom":' <"row search"f><"top"l>rt<"bottom"ip>',
+        "order": [[ 0, 'desc' ]],
+        "lengthMenu": [[10, 15, 25, 50, 100], [10, 15, 25, 50, 100]],
+        "language": {
+            "lengthMenu": "Prikaži _MENU_ rezultata po stranici",
+            "zeroRecords": "Nema rezultata",
+            "info": "Prikazujem _START_ do _END_ (_TOTAL_ ukupno)",
+            "infoEmpty": "Nema rezultata",
+            "infoFiltered": "(filtrirano iz _MAX_ rezultata)",
+            "search": "Pretraži:",
+            "paginate": {
+                "first":      "Prva",
+                "last":       "Zadnja",
+                "next":       "Sljedeća",
+                "previous":   "Prethodna"
+            }
+        },
+    });
+});

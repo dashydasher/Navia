@@ -5,7 +5,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="public/css/lib/datatables.min.css" />
     <link rel="stylesheet" type="text/css" href="public/css/student.css">
+    <link rel="stylesheet" type="text/css" href="public/css/profesor.css">
 
 {% endblock %}
 
@@ -142,6 +144,59 @@
             </div>
         </div>
 
+        <br><hr/><br>
+
+        <div class="pitanjaTable">
+                <h5>Pitanja</h5>
+                <br>
+                <ul>
+                    <table class="table" id="stats-questions">
+                        <thead>
+                                <tr>
+                                    <th scope="col">Vrijeme</th>
+                                    <th scope="col">Potpis</th>
+                                    <th scope="col">Pitanje</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            {% for question in room.questions %}
+                                <tr>
+                                    <td>{{ question.time }}</td>
+                                    <td>{{ question.signature }}</td>
+                                    <td>{{ question.question }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </ul>
+            </div>
+
+            <br><hr/><br>
+
+            <div class="komentariTable">
+                <h5>Komentari</h5>
+                <br>
+                <ul>
+                    <table class="table" id="stats-comments">
+                        <thead>
+                                <tr>
+                                    <th scope="col">Vrijeme</th>
+                                    <th scope="col">Potpis</th>
+                                    <th scope="col">Komentar</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            {% for comment in room.comments %}
+                                <tr>
+                                    <td>{{ comment.time }}</td>
+                                    <td>{{ comment.signature }}</td>
+                                    <td>{{ comment.comment }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </ul>
+            </div>
     </div>
 {% endblock %}
 
@@ -153,6 +208,7 @@
     <script>
         var moods_intervals = {{ moods_intervals|json_encode|raw }};
     </script>
+    <script type="text/javascript" src="public/js/lib/datatables.min.js"></script>
     <script src="public/js/room-stats.js"></script>
 
 {% endblock %}
