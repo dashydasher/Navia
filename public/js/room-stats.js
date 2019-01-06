@@ -96,8 +96,6 @@ function filtriraj_chart(vrijeme) {
 
 function drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan) {
     // Create the data table.
-    var data = new google.visualization.DataTable();
-
 
     var data = new google.visualization.DataTable({
         cols: [{
@@ -156,8 +154,8 @@ function drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan) {
     // Set chart options
     var options = {
         'title': 'Raspoloženja',
-        'width': 700,
-        'height': 500,
+        'width': 800,
+        'height': 400,
         'fontSize': 25,
         'colors': boje
     };

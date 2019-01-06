@@ -16,8 +16,13 @@
 
         {% include 'layouts/teacher-navbar.html.twig' %}
 
+
+
+        <!--Div that will hold the pie chart-->
+        <div id="chart_div"></div>
+
         <div id="time-range" style="width:50%;">
-            <p>Time Range:
+            <p>Vremenski raspon:
                 <span id="time-start">{{ time_start }}</span>
                 -
                 <span id="time-end">{{ time_end }}</span>
@@ -29,10 +34,7 @@
                 <div id="slider-range"></div>
             </div>
         </div>
-
-        <!--Div that will hold the pie chart-->
-        <div id="chart_div"></div>
-        <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>
+      <!--  <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>-->
         <table id="proba" hidden="hidden">
             <tr>
                 <th>Naziv stupca</th>
@@ -144,8 +146,8 @@
         <br><hr/><br>
 
         <div class="pitanjaTable">
-                <h5>Pitanja</h5>
-                <br>
+                <h1><b>Pitanja</b></h1>
+                <br><br>
                 <ul>
                     <table class="table" id="stats-questions">
                         <thead>
@@ -171,8 +173,8 @@
             <br><hr/><br>
 
             <div class="komentariTable">
-                <h5>Komentari</h5>
-                <br>
+                <h1><b>  Komentari</b></h1>
+                <br><br>
                 <ul>
                     <table class="table" id="stats-comments">
                         <thead>
