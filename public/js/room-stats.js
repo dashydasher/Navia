@@ -3,6 +3,8 @@ google.charts.load('current', {
     callback: filtriraj_chart
 });
 
+var tablica_pitanja, tablica_komentari;
+
 var hour_start = parseInt($("#time-start").text().split(":")[0]);
 var time_start = hour_start * 60 + parseInt($("#time-start").text().split(":")[1]);
 
@@ -25,11 +27,29 @@ $("#slider-range").slider({
             hours %= 24;
             $(this).html(hours + ':' + mins);
 
-            filtriraj_tablicu(hours + ':' + mins);
-            filtriraj_chart(hours + ':' + mins);
+            var vrijeme = hours + ':' + mins;
+            filtriraj_chart(vrijeme);
+            filtriraj_komentare(vrijeme);
+            filtriraj_pitanja(vrijeme);
         });
     }
 });
+
+function filtriraj_pitanja(vrijeme) {
+    /*
+    $.fn.dataTable.ext.search.push(
+      function(settings, data, dataIndex) {
+          console.log(new Date($(tablica_pitanja.row(dataIndex).node()).attr('data-time')));
+          //return $(tablica_pitanja.row(dataIndex).node()).attr('data-time') == 5;
+        }
+    );
+    tablica_pitanja.draw();
+    */
+}
+
+function filtriraj_komentare(vrijeme) {
+
+}
 
 function filtriraj_tablicu(vrijeme) {
     $("#pozRazlozi > table tr:gt(0), #neutrRazlozi > table tr:gt(0), #negRazlozi > table tr:gt(0)").hide().each(function() {
@@ -39,9 +59,6 @@ function filtriraj_tablicu(vrijeme) {
         }
     });
 }
-
-// document ready
-filtriraj_tablicu($("#time-end").text());
 
 function filtriraj_chart(vrijeme) {
     if (!vrijeme) {
@@ -74,6 +91,7 @@ function filtriraj_chart(vrijeme) {
         }
     });
     drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan);
+    filtriraj_tablicu(vrijeme);
 }
 
 function drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan) {
@@ -275,7 +293,7 @@ function drawChart2(postoji_pozitivan, postoji_neutralan, postoji_negativan) {
 }
 
 $(document).ready(function() {
-    $('#stats-questions').DataTable({
+    tablica_pitanja = $('#stats-questions').DataTable({
         "dom":' <"row search"f><"top"l>rt<"bottom"ip>',
         "order": [[ 0, 'desc' ]],
         "lengthMenu": [[10, 15, 25, 50, 100], [10, 15, 25, 50, 100]],
@@ -296,7 +314,7 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $('#stats-comments').DataTable({
+    tablica_komentari = $('#stats-comments').DataTable({
         "dom":' <"row search"f><"top"l>rt<"bottom"ip>',
         "order": [[ 0, 'desc' ]],
         "lengthMenu": [[10, 15, 25, 50, 100], [10, 15, 25, 50, 100]],

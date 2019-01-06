@@ -157,7 +157,7 @@
                         </thead>
                         <tbody>
                             {% for question in room.questions %}
-                                <tr>
+                                <tr data-time="{{ question.time|date("Y-m-d H:i:s") }}">
                                     <td>{{ question.time }}</td>
                                     <td>{{ question.signature }}</td>
                                     <td>{{ question.question }}</td>
@@ -184,7 +184,7 @@
                         </thead>
                         <tbody>
                             {% for comment in room.comments %}
-                                <tr>
+                                <tr data-time="{{ comment.time|date("Y-m-d H:i:s") }}">
                                     <td>{{ comment.time }}</td>
                                     <td>{{ comment.signature }}</td>
                                     <td>{{ comment.comment }}</td>
