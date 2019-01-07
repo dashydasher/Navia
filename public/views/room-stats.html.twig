@@ -21,19 +21,23 @@
         <!--Div that will hold the pie chart-->
         <div id="chart_div"></div>
 
-        <div id="time-range" style="width:50%;">
-            <p>Vremenski raspon:
-                <span id="time-start">{{ time_start }}</span>
-                -
-                <span id="time-end">{{ time_end }}</span>
-                (vrijeme pojavljivanja prvog i zadnjeg raspoloženja)
-            </p>
-            <p>Trenutno je:
-                <span class="slider-time">{{ time_end }}</span></p>
-            <div class="sliders_step1">
-                <div id="slider-range"></div>
+        {% if postoje_podaci %}
+            <div id="time-range" style="width:50%;">
+                <p>Vremenski raspon:
+                    <span id="time-start">{{ time_start }}</span>
+                    -
+                    <span id="time-end">{{ time_end }}</span>
+                    (vrijeme pojavljivanja prvog i zadnjeg raspoloženja)
+                </p>
+                <p>Trenutno je:
+                    <span class="slider-time">{{ time_end }}</span></p>
+                <div class="sliders_step1">
+                    <div id="slider-range"></div>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <p>Trenutno nema podataka za ovu sobu</p>
+        {% endif %}
       <!--  <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>-->
         <table id="proba" hidden="hidden">
             <tr>
