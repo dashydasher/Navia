@@ -5,32 +5,31 @@ google.charts.load('current', {
 
 var tablica_pitanja, tablica_komentari;
 
-var hour_start = parseInt($("#time-start").text().split(":")[0]);
-var time_start = hour_start * 60 + parseInt($("#time-start").text().split(":")[1]);
-
-var hour_end = parseInt($("#time-end").text().split(":")[0]);
-var time_end = hour_end * 60 + parseInt($("#time-end").text().split(":")[1]);
-
 $("#slider-range").slider({
-    min: time_start,
-    max: time_end,
-    step: 15,
+    min: 0,
+    max: razlika_vremena_u_minutama,
+    step: step,
     values: [
-        time_end
+        razlika_vremena_u_minutama
     ],
+
     slide: function(e, ui) {
         $('.slider-time').each(function(i) {
-            var hours = ("00" + Math.floor(ui.values[i] / 60)).slice(-2);
-            var mins = ("00" + (
-                ui.values[i] - (hours * 60)
-            )).slice(-2);
-            hours %= 24;
-            $(this).html(hours + ':' + mins);
+            var time_selected = new Date(time_start.getTime() + ui.values[i]*60*1000);
 
-            var vrijeme = hours + ':' + mins;
-            filtriraj_chart(vrijeme);
-            filtriraj_komentare(vrijeme);
-            filtriraj_pitanja(vrijeme);
+            var year_selected = time_selected.getFullYear();
+            var month_selected = time_selected.getMonth() + 1;
+            var day_selected = time_selected.getDate();
+            var hour_selected = ("00" + time_selected.getHours()).slice(-2);
+            var minutes_selected = ("00" + time_selected.getMinutes()).slice(-2);
+
+            var time_formatted = day_selected + "." + month_selected + "." + year_selected + ". " + hour_selected + ":" + minutes_selected;
+
+            $(this).html(time_formatted);
+
+            filtriraj_chart(time_formatted);
+            filtriraj_komentare(time_formatted);
+            filtriraj_pitanja(time_formatted);
         });
     }
 });

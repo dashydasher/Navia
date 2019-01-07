@@ -66,7 +66,7 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
             }
             $trenutno_vrijeme->add(new DateInterval('PT' . $minute_interval . 'M'));
 
-            $interval_key = $trenutno_vrijeme->format('H:i');
+            $interval_key = $trenutno_vrijeme->format('j.n.Y. H:i');
 
             foreach ($my_moods as $mood_key => $mood) {
                 $mood_time = new DateTime($mood->time);
@@ -95,9 +95,10 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
             "room" => $room,
             "postoje_podaci" => true,
             "moods_intervals" => $moods_intervals,
-            "time_start" => $pocetno_vrijeme->format('H:i'),
+            "time_start" => $pocetno_vrijeme,
             // $trenutno_vrijeme na kraju poprima maksimalno vrijeme
-            "time_end" => $trenutno_vrijeme->format('H:i'),
+            "time_end" => $trenutno_vrijeme,
+            "minute_interval" => $minute_interval,
         ));
         exit();
     // ako ne postoje podaci

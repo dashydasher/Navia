@@ -16,21 +16,19 @@
 
         {% include 'layouts/teacher-navbar.html.twig' %}
 
-
-
         <!--Div that will hold the pie chart-->
         <div id="chart_div"></div>
 
         {% if postoje_podaci %}
             <div id="time-range" style="width:50%;">
                 <p>Vremenski raspon:
-                    <span id="time-start">{{ time_start }}</span>
+                    <span id="time-start">{{ time_start|date("j.n.Y. H:i") }}</span>
                     -
-                    <span id="time-end">{{ time_end }}</span>
+                    <span id="time-end">{{ time_end|date("j.n.Y. H:i") }}</span>
                     (vrijeme pojavljivanja prvog i zadnjeg raspoloženja)
                 </p>
                 <p>Trenutno je:
-                    <span class="slider-time">{{ time_end }}</span></p>
+                    <span class="slider-time">{{ time_end|date("j.n.Y. H:i") }}</span></p>
                 <div class="sliders_step1">
                     <div id="slider-range"></div>
                 </div>
@@ -38,6 +36,7 @@
         {% else %}
             <p>Trenutno nema podataka za ovu sobu</p>
         {% endif %}
+
       <!--  <div id="test" data-is-test="{{ room.moods|json_encode }}"></div>-->
         <table id="proba" hidden="hidden">
             <tr>
@@ -208,10 +207,22 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-    <script>
-        var moods_intervals = {{ moods_intervals|json_encode|raw }};
-    </script>
     <script type="text/javascript" src="public/js/lib/datatables.min.js"></script>
+    <script>
+
+        {% if postoje_podaci %}
+            var moods_intervals = {{ moods_intervals|json_encode|raw }};
+
+            var time_start = new Date("{{ time_start|date() }}");
+            var time_end = new Date("{{ time_end|date() }}");
+
+            var step = {{ minute_interval }};
+
+            var razlika_vremena_u_minutama = (time_end.getTime() - time_start.getTime()) / 1000 / 60;
+
+        {% endif %}
+
+    </script>
     <script src="public/js/room-stats.js"></script>
 
 {% endblock %}
