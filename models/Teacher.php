@@ -25,7 +25,17 @@ class Teacher {
     }
 
     function store($username, $password, $name) {
+        // Dodavanje nastavnika
         $query = "INSERT INTO teacher (username, password, name) VALUES (:username, SHA2(:password, 256), :name)";
+        // Dodavanje nastavnikovih default razloga
+        $query2 = "INSERT INTO mood_reason (reason, type, teacher_id) VALUES
+                        ('dobro objašnjavanje', 1, :teacher_id1),
+                        ('zanimljiva tema', 1, :teacher_id2),
+                        ('primjena multimedija u nastavi', 1, :teacher_id3),
+                        ('previše digresija', 0, :teacher_id4),
+                        ('prebrzo objašnjavanje', 0, :teacher_id5),
+                        ('presporo objašnjavanje', 0, :teacher_id6)";
+
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
@@ -41,6 +51,17 @@ class Teacher {
                 "username" => $username,
                 "name" => $name,
             ));
+
+
+            $result2 = $this->database->connection->prepare($query2);
+            $result2->execute(array(
+                    "teacher_id1" => $new_id,
+                    "teacher_id2" => $new_id,
+                    "teacher_id3" => $new_id,
+                    "teacher_id4" => $new_id,
+                    "teacher_id5" => $new_id,
+                    "teacher_id6" => $new_id,
+                ));
 
             return $new_id;
         } catch(\PDOException $e) {
@@ -119,7 +140,7 @@ class Teacher {
     */
     function fetch_mood_reasons($teacher_id = null) {
         $query = "SELECT mood_reason.* FROM mood_reason
-                  WHERE (mood_reason.teacher_id = :teacher_id OR mood_reason.teacher_id IS NULL)
+                  WHERE (mood_reason.teacher_id = :teacher_id)
                         AND active = 1";
         try {
             $result = $this->database->connection->prepare($query);
