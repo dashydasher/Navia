@@ -6,7 +6,7 @@ $('#reasons').on('click', '.ajaxMoodReason', function() {
     $("#textboxdiv").hide();
 });
 
-$("#komentar-submit").on("click", function() {
+function spremi_komentar() {
     var serializedData = {
         "comment": $("#commentInput").val(),
         "signature": $("#studentIdInput").val(),
@@ -20,9 +20,9 @@ $("#komentar-submit").on("click", function() {
                 alert(data.error);
             }
         });
-});
+}
 
-$("#pitanje-submit").on("click", function() {
+function spremi_pitanje() {
     var serializedData = {
         "question": $("#questionInput").val(),
         "signature": $("#studentIdInput").val(),
@@ -36,13 +36,21 @@ $("#pitanje-submit").on("click", function() {
                 alert(data.error);
             }
         });
+}
+
+$("#komentar-submit").on("click", function() {
+    spremi_komentar();
+});
+
+$("#pitanje-submit").on("click", function() {
+    spremi_pitanje();
 });
 
 var input1 = document.getElementById("questionInput");
 input1.addEventListener("keyup", function(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
-    document.getElementById("pitanje-submit").click();
+      spremi_pitanje();
   }
 });
 
@@ -50,7 +58,7 @@ var input2 = document.getElementById("commentInput");
 input2.addEventListener("keyup", function(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
-    document.getElementById("komentar-submit").click();
+      spremi_komentar();
   }
 });
 
