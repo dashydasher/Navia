@@ -33,7 +33,7 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
     $maksimalno_vrijeme = $max_time;
 
     // kolko česti da budu intervali
-    $minute_interval = 15;
+    $minute_interval = 3;
 
     // ako postoje podaci
     if ($pocetno_vrijeme !== null && $maksimalno_vrijeme !== null) {
