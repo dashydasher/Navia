@@ -64,4 +64,20 @@ class Question {
         }
     }
 
+    function delete($question_id, $room_id) {
+        $query = "DELETE FROM question WHERE question.id = :question_id AND question.room_id = :room_id";
+
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "question_id" => $question_id,
+                    "room_id" => $room_id,
+                ));
+
+            return 1;
+        } catch(\PDOException $e) {
+            return -1;
+        }
+    }
+
 }

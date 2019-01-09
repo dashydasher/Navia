@@ -64,4 +64,21 @@ class Comment {
         }
     }
 
+
+    function delete($comment_id, $room_id) {
+        $query = "DELETE FROM comment WHERE comment.id = :comment_id AND comment.room_id = :room_id";
+
+        try {
+            $result = $this->database->connection->prepare($query);
+            $result->execute(array(
+                    "comment_id" => $comment_id,
+                    "room_id" => $room_id,
+                ));
+
+            return 1;
+        } catch(\PDOException $e) {
+            return -1;
+        }
+    }
+
 }
