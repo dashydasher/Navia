@@ -6,10 +6,17 @@ $('#reasons').on('click', '.ajaxMoodReason', function() {
     $("#textboxdiv").hide();
 });
 
+function dohvati_potpis() {
+    if ($('input[name=anoniman]')[0].checked) {
+        return "";
+    }
+    return $("#studentIdInput").val();
+}
+
 function spremi_komentar() {
     var serializedData = {
         "comment": $("#commentInput").val(),
-        "signature": $("#studentIdInput").val(),
+        "signature": dohvati_potpis(),
     };
     $.post("./php-api/comment-add.php", serializedData)
         .done(function(data) {
@@ -25,7 +32,7 @@ function spremi_komentar() {
 function spremi_pitanje() {
     var serializedData = {
         "question": $("#questionInput").val(),
-        "signature": $("#studentIdInput").val(),
+        "signature": dohvati_potpis(),
     };
     $.post("./php-api/question-add.php", serializedData)
         .done(function(data) {
@@ -151,7 +158,7 @@ function promijeni_trenutno_raspolozenje(rasoplozenje) {
 function ajax_promijeni_raspolozenje(rasoplozenje, razlog, razlog_text) {
     $("#razlog-submit").prop("disabled", true);
     var serializedData = {
-        "signature": $("#studentIdInput").val(),
+        "signature": dohvati_potpis(),
         "mood_option_id": rasoplozenje,
         "reason_id": razlog,
         "personal_reason": razlog_text,
