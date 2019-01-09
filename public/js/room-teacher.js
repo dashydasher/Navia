@@ -57,18 +57,29 @@ function poll_again(timestamp) {
     }
 }
 
-function get_mood_icon_by_id(mood_id, mood_option_id) {
-    switch (mood_option_id) {
+function get_mood_icon_by_id(mood) {
+    var element_string = '<i data-id="' + mood.id + '"';
+
+    switch (mood.mood_option_id) {
         case 1:
-            return '<i data-id="' + mood_id + '" class="fa fa-smile-o fa-1x" style="color: #00ff00;"></i> ';
+            element_string += ' class="fa fa-smile-o fa-1x" style="color: #00ff00;"';
             break;
         case 2:
-            return '<i data-id="' + mood_id + '" class="fa fa-meh-o fa-1x" style="color: #ff7f00;"></i> ';
+            element_string += ' class="fa fa-meh-o fa-1x" style="color: #ff7f00;"';
             break;
         case 3:
-            return '<i data-id="' + mood_id + '" class="fa fa-frown-o fa-1x" style="color: #ff0000;"></i> ';
+            element_string += ' class="fa fa-frown-o fa-1x" style="color: #ff0000;"';
             break;
     }
+    element_string += ' title="' + mood.signature + ': ';
+
+    if (mood.mood_reason_id) {
+        element_string += mood.mood_reason;
+    } else {
+        element_string += mood.personal_reason;
+    }
+    element_string += '"></i>';
+    return element_string;
 }
 
 function dodaj_komentare(komentari) {
@@ -89,7 +100,7 @@ function dodaj_rasposlozenja(moods) {
         if (mood.parent_mood_id) {
             $('#raspolozenja i[data-id="' + mood.parent_mood_id + '"]').remove();
         }
-        $("#raspolozenja").append( get_mood_icon_by_id(mood.id, mood.mood_option_id) );
+        $("#raspolozenja").append( get_mood_icon_by_id(mood) );
     }
 }
 
