@@ -13,4 +13,6 @@ return (object) array(
     "neuspjesno_dodavanje_razloga_raspolozenja" => "Došlo je do pogreške prilikom dodavanja razloga promjene raspoloženja",
     "neuspjesno_brisanje_razloga_raspolozenja" => "Došlo je do pogreške prilikom brisanja razloga promjene raspoloženja",
     "neuspjesna_aktivacija_sobe" => "Došlo je do pogreške prilikom aktivacije sobe",
+    "neuspjesno_brisanje_pitanja" => "Došlo je do pogreške prilikom brisanja pitanja",
+    "neuspjesno_brisanje_komentara" => "Došlo je do pogreške prilikom brisanja komentara",
 );
