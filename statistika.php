@@ -38,12 +38,9 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
     // ako postoje podaci
     if ($pocetno_vrijeme !== null && $maksimalno_vrijeme !== null) {
 
-        $minutes = date('i', strtotime($min_time->format('Y-m-d H:i:s')));
-        $oduzmi_minute = intval($minutes - intval($minutes / $minute_interval) * $minute_interval);
-        // prvi interval je ustvari n*15 minuta od punog sata, ali tako da to obuhvaća prvo raspoloženje
-        // ako je prvo raspoloženje u 18:31 onda je prvi interval u 18:45
-        // ovjde samo dobivamo 18:30, a tek u petlji to povećavamo za 15 min
-        $pocetno_vrijeme->sub(new DateInterval('PT' . $oduzmi_minute . 'M'));
+        // ako je prvo raspoloženje u 18:31 onda ovdje samo dobivamo 18:32, a to je
+        // prvo vrijeme kad se to raspoloženje prikazuje
+        $pocetno_vrijeme->add(new DateInterval('PT1M'));
 
         // sluzi za petlju
         $trenutno_vrijeme = new DateTime($pocetno_vrijeme->format('Y-m-d H:i:s'));
@@ -56,15 +53,15 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
 
         $prva_petlja = true;
         while($trenutno_vrijeme < $maksimalno_vrijeme) {
-            if (!$prva_petlja) {
-                $prethodni_interval = new DateTime($trenutno_vrijeme->format('Y-m-d H:i:s'));
-            } else {
+            if ($prva_petlja) {
                 // donji interval je "beskonačan"
                 $prethodni_interval = new DateTime('1970-01-01 00:00:00');
-                $pocetno_vrijeme->add(new DateInterval('PT' . $minute_interval . 'M'));
                 $prva_petlja = false;
+            } else {
+                $prethodni_interval = new DateTime($trenutno_vrijeme->format('Y-m-d H:i:s'));
+                // pomakni interval za $minute_interval minuta
+                $trenutno_vrijeme->add(new DateInterval('PT' . $minute_interval . 'M'));
             }
-            $trenutno_vrijeme->add(new DateInterval('PT' . $minute_interval . 'M'));
 
             $interval_key = $trenutno_vrijeme->format('j.n.Y. H:i');
 
@@ -90,8 +87,6 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
 
         echo $twig->render('room-stats.html.twig', array(
             "name" => $_SESSION["my_name"],
-            "success" => isset($_SESSION["success"]) ? $_SESSION["success"] : null,
-            "error_list" => isset($_SESSION["error"]) ? $_SESSION["error"] : null,
             "room" => $room,
             "postoje_podaci" => true,
             "moods_intervals" => $moods_intervals,
@@ -105,18 +100,11 @@ if ($result > 0 && $_SESSION["my_id"] == $room->teacher_id) {
     } else {
         echo $twig->render('room-stats.html.twig', array(
             "name" => $_SESSION["my_name"],
-            "success" => isset($_SESSION["success"]) ? $_SESSION["success"] : null,
-            "error_list" => isset($_SESSION["error"]) ? $_SESSION["error"] : null,
             "room" => $room,
             "postoje_podaci" => false,
         ));
         exit();
     }
-
-    #var_dump($pocetno_vrijeme->format('H:i'));
-    #var_dump($maksimalno_vrijeme->format('H:i'));
-    #var_dump($moods_intervals);
-
 } else {
     $_SESSION["error"] = array("Nemate prava pristupa toj sobi");
     header("Location: profesor.php");
