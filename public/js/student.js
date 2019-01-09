@@ -38,6 +38,22 @@ $("#pitanje-submit").on("click", function() {
         });
 });
 
+var input1 = document.getElementById("questionInput");
+input1.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    document.getElementById("pitanje-submit").click();
+  }
+});
+
+var input2 = document.getElementById("commentInput");
+input2.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    document.getElementById("komentar-submit").click();
+  }
+});
+
 /*
 data-type = 1 --> pozitivni razlog
 data-type = 0 --> negativni razlog
