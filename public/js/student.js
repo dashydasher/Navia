@@ -38,12 +38,28 @@ function spremi_pitanje() {
         });
 }
 
+function spremi_razlog() {
+  var rasoplozenje = $('input[name=emotion]:checked').val();
+  var razlog = $('input[name=razlog]:checked').val();
+  var razlog_text = $("#razlog_text").val();
+
+  if (!razlog || (razlog == "personal" && !razlog_text)) {
+      alert("Molimo unesite razlog");
+  } else {
+      ajax_promijeni_raspolozenje(rasoplozenje, razlog, razlog_text);
+  }
+}
+
 $("#komentar-submit").on("click", function() {
     spremi_komentar();
 });
 
 $("#pitanje-submit").on("click", function() {
     spremi_pitanje();
+});
+
+$("#razlog-submit").on("click", function() {
+    spremi_razlog();
 });
 
 var input1 = document.getElementById("questionInput");
@@ -59,6 +75,14 @@ input2.addEventListener("keyup", function(event) {
   event.preventDefault();
   if (event.keyCode === 13) {
       spremi_komentar();
+  }
+});
+
+var input3 = document.getElementById("razlog_text");
+input3.addEventListener("keyup", function(event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+      spremi_razlog();
   }
 });
 
@@ -149,15 +173,3 @@ function ajax_promijeni_raspolozenje(rasoplozenje, razlog, razlog_text) {
             $("#razlog-submit").prop("disabled", false);
         });
 }
-
-$("#razlog-submit").on("click", function() {
-    var rasoplozenje = $('input[name=emotion]:checked').val();
-    var razlog = $('input[name=razlog]:checked').val();
-    var razlog_text = $("#razlog_text").val();
-
-    if (!razlog || (razlog == "personal" && !razlog_text)) {
-        alert("Molimo unesite razlog");
-    } else {
-        ajax_promijeni_raspolozenje(rasoplozenje, razlog, razlog_text);
-    }
-});
