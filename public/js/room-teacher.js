@@ -4,8 +4,8 @@ var pause = false;
 var last_timestamp;
 var hidden, visibilityChange;
 
-window.onunload = function() {
-    if (typeof request !== 'undefined') {
+window.onunload = function(){
+    if(typeof request !=='undefined') {
         request.abort();
     }
 }
@@ -41,14 +41,14 @@ function oznaci_neprocitane() {
     $("#komentari > li[data-seen='0'], #pitanja > li[data-seen='0']").each(function() {
         // flashaj lol
         $(this).delay(100).fadeIn(350).fadeOut(350).fadeIn(350).fadeOut(350).fadeIn(350).fadeOut(350).fadeIn(350);
+        // ovo drugo se može obrisat
         $(this).attr('data-seen', "1");
-        // ovo se može obrisat valjda
         $(this).data('seen', "1");
     });
 }
 
 /*
-ovdje se oznacuju neprocitani jer se to izvodi tek kad se profesor vrati na taj tab (ako je bio odsutan)
+ovdje se oznacuju neprocitani jer se to izvodi kad se profesor vrati na taj tab
 */
 function poll_again(timestamp) {
     if (!pause && !ajaxInProgress) {
@@ -84,24 +84,44 @@ function get_mood_icon_by_id(mood) {
 
 function dodaj_komentare(komentari) {
     for (var i = 0, len = komentari.length; i < len; i++) {
-        $("#komentari")
-            .prepend($("<li data-seen='0' data-id='" + komentari[i].id + "' class='list-group-item list-group-item-success' style='margin: 10px'>")
-                .append(komentari[i].signature + ": " + komentari[i].comment)
-                .append($('<button class="btn btn-default btn-md ajaxRemoveComment btn-danger" style="float: right; margin-top: 4px;">')
-                    .append($('<i class="fa fa-times" aria-hidden="true">')))
-            );
+        $("#komentari").prepend( $("<li data-seen='0' class='list-group-item list-group-item-success' style='margin: 10px'>").append(komentari[i].signature + ": " + komentari[i].comment) );
     }
 }
 
 function dodaj_pitanja(pitanja) {
     for (var i = 0, len = pitanja.length; i < len; i++) {
-        $("#pitanja")
-            .prepend($("<li data-seen='0' data-id='" + pitanja[i].id + "' class='list-group-item list-group-item-danger' style='margin: 10px'>")
-                .append(pitanja[i].signature + ": " + pitanja[i].question)
-                .append($('<button class="btn btn-default btn-md ajaxRemoveQuestion btn-danger" style="float: right; margin-top: 4px;">')
-                    .append($('<i class="fa fa-times" aria-hidden="true">')))
-            );
+        $("#pitanja").prepend( $("<li data-seen='0' class='list-group-item list-group-item-danger' style='margin: 10px'>").append(pitanja[i].signature+": "+ pitanja[i].question) );
     }
+}
+
+function dodaj_razloge(moods) {
+    var dict =[];
+    for (var i = 0, len = moods.length; i < len; i++) {
+        var mood = moods[i];
+        if (dict[mood.mood_reason]!=null) {
+          dict[mood.mood_reason]++;
+        }
+        else {
+          dict.push({
+            key: mood.mood_reason,
+            value: 1
+          });
+      }
+    }
+
+    var items = Object.keys(dict).map(function(key) {
+      return [key, dict[key]];
+    });
+    items.sort(function(first, second) {
+      return second[1] - first[1];
+    });
+    var res = items.slice(0, 3);
+
+    Object.keys(res).forEach(function(key) {
+      console.log(key, res[key]);
+      $("#razlozi").append( key + " " + res[key] );
+    });
+
 }
 
 function dodaj_rasposlozenja(moods) {
@@ -110,24 +130,22 @@ function dodaj_rasposlozenja(moods) {
         if (mood.parent_mood_id) {
             $('#raspolozenja i[data-id="' + mood.parent_mood_id + '"]').remove();
         }
-        $("#raspolozenja").append(get_mood_icon_by_id(mood));
+        $("#raspolozenja").append( get_mood_icon_by_id(mood) );
     }
 }
-
 
 function poll(timestamp) {
     ajaxInProgress = true;
 
     last_timestamp = timestamp;
-    var queryString = {
-        'timestamp': timestamp
-    };
-    return $.get("php-api/long-polling.php", queryString)
+    var queryString = {'timestamp' : timestamp};
+      return $.get("php-api/long-polling.php", queryString)
         .done(function(data) {
             if (data.success) {
                 dodaj_komentare(data.comments);
                 dodaj_pitanja(data.questions);
                 dodaj_rasposlozenja(data.moods);
+                dodaj_razloge(data.moods);
                 ajaxInProgress = false;
                 last_timestamp = data.timestamp;
                 poll_again(data.timestamp);
@@ -142,48 +160,40 @@ function poll(timestamp) {
         })
 }
 
-$("document").ready(function() {
+$("document").ready(function () {
     poll_again();
 });
 
-$('#pitanja').on('click', '.ajaxRemoveQuestion', function() {
-    if (!confirm("Obrisati zapis?")) {
-        return false;
-    }
-    var li = $(this).closest('li');
-    var id = li.data('id');
-    if (id) {
-        var serializedData = {
-            "question_id": id,
-        };
-        $.post("./php-api/question-remove.php", serializedData)
-            .done(function(data) {
-                if (data.success) {
-                    li.remove();
-                } else {
-                    alert(data.error);
-                }
-            });
-    }
+
+$("#razlog-submit").on("click", function(){
+
+var donut_chart = Morris.Donut({
+element: 'chart',
+data: "neki_data_iz_PHPa"
 });
 
-$('#komentari').on('click', '.ajaxRemoveComment', function() {
-    if (!confirm("Obrisati zapis?")) {
-        return false;
-    }
-    var li = $(this).closest('li');
-    var id = li.data('id');
-    if (id) {
-        var serializedData = {
-            "comment_id": id,
-        };
-        $.post("./php-api/comment-remove.php", serializedData)
-            .done(function(data) {
-                if (data.success) {
-                    li.remove();
-                } else {
-                    alert(data.error);
-                }
-            });
-    }
+$('#like_form').on('submit', function(event){
+event.preventDefault();
+var checked = $('input[name=emotion]:checked', '#like_form').val();
+if(checked == undefined)
+{
+alert("Molim odaberite neku od emocija!");
+return false;
+}
+else
+{
+var form_data = $(this).serialize();
+$.ajax({
+url:"action.php",
+method:"POST",
+data:form_data,
+dataType:"json",
+success:function(data)
+{
+$('#like_form')[0].reset();
+donut_chart.setData(data);
+}
+});
+}
+});
 });
