@@ -195,7 +195,7 @@
     {# inače student počinje neutralno ("2") #}
     {% else %}
         <script>
-            var trenutno_rasoplozenje = "2";
+            var trenutno_rasoplozenje = "{{ default_mood_id }}";
         </script>
     {% endif %}
 
