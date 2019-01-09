@@ -3,7 +3,7 @@ require_once '../vendor/autoload.php';
 use Models\Question;
 use Models\Helper;
 
-if (!isset($_POST['mood-reason-id'])) {
+if (!isset($_POST['question_id'])) {
     header('HTTP/1.1 400 Bad Request');
 } else {
     $room_id = Helper::provjeri_prava_profesora_vrati_id_sobe();
