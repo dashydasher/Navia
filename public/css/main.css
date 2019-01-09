@@ -283,12 +283,14 @@ input[name="emotion"] {
   color: #888;
 }
 
+
 .funkyradio input[type="radio"]:hover:not(:checked) ~ label:before
  {
   content: '\2714';
   text-indent: .9em;
   color: #C2C2C2;
 }
+
 
 .funkyradio input[type="radio"]:checked ~ label
 {
@@ -305,6 +307,70 @@ input[name="emotion"] {
 .funkyradio input[type="radio"]:focus ~ label:before {
   box-shadow: 0 0 0 3px #999;
 }
+
+.funkyradio input[type="checkbox"]:empty
+ {
+  display: none;
+}
+
+.funkyradio input[type="checkbox"]:empty ~ label
+ {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 0.5em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.funkyradio input[type="checkbox"]:empty ~ label:before
+ {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 3px 0 0 3px;
+}
+
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label
+ {
+  color: #888;
+}
+
+
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before
+ {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+
+.funkyradio input[type="checkbox"]:checked ~ label
+{
+  color: #777;
+}
+
+.funkyradio input[type="checkbox"]:checked ~ label:before{
+  content: '\2714';
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+
+
 
 .funkyradio-default input[type="radio"]:checked ~ label:before{
   color: #333;
@@ -324,6 +390,11 @@ input[name="emotion"] {
 .funkyradio-danger input[type="radio"]:checked ~ label:before {
   color: #fff;
   background-color: #d9534f;
+}
+
+.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #f0ad4e;
 }
 
 .funkyradio-warning input[type="radio"]:checked ~ label:before {
@@ -401,4 +472,30 @@ input[name="emotion"] {
 .material-switch > input[type="checkbox"]:checked + label::after {
     background: inherit;
     left: 20px;
+}
+
+
+
+
+/* checkbox anoniman student*/
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 20px;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;
 }
