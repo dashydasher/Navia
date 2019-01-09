@@ -112,7 +112,7 @@ class Room {
     }
 
     function fetch_by_key($key) {
-        $query = "SELECT room.* FROM room WHERE room.key = :key";
+        $query = "SELECT room.* FROM room WHERE BINARY room.key = :key";
         try {
             $result = $this->database->connection->prepare($query);
             $result->execute(array(
