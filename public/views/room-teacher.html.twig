@@ -2,47 +2,52 @@
 
 {% block header %}
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
 {% endblock %}
 
 {% block content %}
 
-<div class="container-fluid">
+    <div class="container-fluid">
+
+        {% include 'layouts/teacher-navbar.html.twig' %}
+
+        <div class="row">
+
+            <div class="col-md-4 " style="font-size:40px" align="center">
+                <i class="fa fa-smile-o fa-5x" style="font-size:150px"></i>
+                <div class="alert alert-info" style="font-size:50px">RASPOLOŽENJA</div>
+
+                <div id="raspolozenja"></div>
+
+                <div style="font-size:40px; margin-top:50px;" align="center">
+                    Top 3 razloga
+                    <ul id="razlozi" style="font-size:40px; margin-top:30px;"></ul>
+                </div>
+
+            </div>
 
 
-  {% include 'layouts/teacher-navbar.html.twig' %}
+            <div class="col-md-4" style="font-size:40px" align="center">
+                <i class="fa fa-question-circle-o fa-5x" style="font-size:150px"></i>
+                <div class="alert alert-danger" style="font-size:50px">PITANJA
+                </div>
+                <ul id="pitanja"></ul>
+            </div>
 
+            <div class="col-md-4" align="center" style="font-size:40px">
+                <i class="fa fa-commenting-o fa-5x" style="font-size:150px"></i>
+                <div class="alert alert-success" style="font-size:50px">KOMENTARI</div>
+                <ul id="komentari"></ul>
+            </div>
 
-  <div class="row">
+        </div>
 
-    <div class="col-md-4 " style="font-size:40px" align="center" id="raspolozenja">
-    <i class="fa fa-smile-o fa-5x"  style="font-size:150px"></i>
-      <div class="alert alert-info" style="font-size:50px">RASPOLOŽENJA</div>
+    {% endblock %}
 
-    </div>
-<div id="razlozi" class="col-md-4 " style="font-size:40px" align="center"></div>
-    <div class="col-md-4" style="font-size:40px" align="center">
-      <i class="fa fa-question-circle-o fa-5x"  style="font-size:150px"></i>
-      <div class="alert alert-danger" style="font-size:50px">PITANJA </div>
-      <ul id="pitanja"></ul>
-    </div>
+    {% block footer %}
 
-    <div class="col-md-4" align="center" style="font-size:40px">
-    <i class="fa fa-commenting-o fa-5x" style="font-size:150px"></i>
-      <div class="alert alert-success" style="font-size:50px">KOMENTARI</div>
-      <ul id="komentari"></ul>
-    </div>
+        <script src="public/js/room-teacher.js"></script>
 
-
-</div>
-
-
-{% endblock %}
-
-{% block footer %}
-
-    <script src="public/js/room-teacher.js"></script>
-
-{% endblock %}
+    {% endblock %}
