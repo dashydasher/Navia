@@ -5,7 +5,6 @@ Last Updated: 2010-09-17
 Author: Richard Clark - http://richclarkdesign.com
 Twitter: @rich_clark
 */
-
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -18,61 +17,60 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-    margin:0;
-    padding:0;
-    border:0;
-    outline:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
-
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
 }
 
 body {
-    line-height:1;
+    line-height: 1;
     font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section {
-    display:block;
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
 }
 
 nav ul {
-    list-style:none;
+    list-style: none;
 }
 
 blockquote, q {
-    quotes:none;
+    quotes: none;
 }
 
 blockquote:before, blockquote:after,
 q:before, q:after {
-    content:'';
-    content:none;
+    content: '';
+    content: none;
 }
 
 a {
-    margin:0;
-    padding:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
 }
 
 /* change colours to suit your needs */
 ins {
-    background-color:#ff9;
-    color:#000;
-    text-decoration:none;
+    background-color: #ff9;
+    color: #000;
+    text-decoration: none;
 }
 
 /* change colours to suit your needs */
 mark {
-    background-color:#ff9;
-    color:#000;
-    font-style:italic;
-    font-weight:bold;
+    background-color: #ff9;
+    color: #000;
+    font-style: italic;
+    font-weight: bold;
 }
 
 del {
@@ -80,114 +78,121 @@ del {
 }
 
 abbr[title], dfn[title] {
-    border-bottom:1px dotted;
-    cursor:help;
+    border-bottom: 1px dotted;
+    cursor: help;
 }
 
 table {
-    border-collapse:collapse;
-    border-spacing:0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* change border colour to suit your needs */
 hr {
-    display:block;
-    height:1px;
-    border:0;
-    border-top:1px solid #cccccc;
-    margin:1em 0;
-    padding:0;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 1em 0;
+    padding: 0;
 }
 
 input, select {
-    vertical-align:middle;
+    vertical-align: middle;
 }
-
 
 /*my code*/
-
-.main-wrapper{
-  margin: 0 auto;
-  width: 1000px;
+.main-wrapper {
+    margin: 0 auto;
+    width: 1000px;
 }
 
-.center-wrapper{
-  margin: 0 auto;
-  width: 30%;
+.center-wrapper {
+    margin: 0 auto;
+    width: 30%;
 }
 
-.navbar-brand { position: relative; z-index: 2; }
-
-.nav.navbar-nav.navbar-right .btn { position: relative; z-index: 2; margin: 5px auto; }
-
-.nav.navbar-nav.navbar-right[name="gumbici"]{ position: relative; z-index: 2; margin-right: : 20px auto; }
-
-header nav{
-  width:100%;
-  height: 60px;
-  background-color: #696969;
-  color: #fff;
+.navbar-brand {
+    position: relative;
+    z-index: 2;
 }
 
-header .nav-login{
-  float:right;
+.nav.navbar-nav.navbar-right .btn {
+    position: relative;
+    z-index: 2;
+    margin: 5px auto;
 }
 
-header .nav-login form{
-  float:left;
-  padding-top: 15px;
+.nav.navbar-nav.navbar-right[name="gumbici"] {
+    position: relative;
+    z-index: 2;
+    margin-right: : 20px auto;
 }
 
-header .nav-login input{
-  float:left;
-  width:140px;
-  height:30px;
-  padding:0px 10px;
-  margin-right: 10px;
-  border:none;
-  background-color:#fff;
-  font-family:arial;
-  font-size: 14px;
-  color:#111;
-  line-height:30px;
-
+header nav {
+    width: 100%;
+    height: 60px;
+    background-color: #696969;
+    color: #fff;
 }
 
+header .nav-login {
+    float: right;
+}
+
+header .nav-login form {
+    float: left;
+    padding-top: 15px;
+}
+
+header .nav-login input {
+    float: left;
+    width: 140px;
+    height: 30px;
+    padding: 0px 10px;
+    margin-right: 10px;
+    border: none;
+    background-color: #fff;
+    font-family: arial;
+    font-size: 14px;
+    color: #111;
+    line-height: 30px;
+}
 
 .main-container main-wrapper {
-  align:center;
-  padding-top: 300px;
-  width:400px;
+    align: center;
+    padding-top: 300px;
+    width: 400px;
 }
 
-.form-group[name="questions"]{
-  width: 60%;
+.form-group[name="questions"] {
+    width: 60%;
 }
 
 input[name="emotion"] {
-    visibility:hidden;
+    visibility: hidden;
 }
 
 /*question*/
 .question-form {
-  width:80%;
-  align:center;
-  margin:0 auto;
-  padding-top: 30px;
+    width: 80%;
+    align: center;
+    margin: 0 auto;
+    padding-top: 30px;
 }
 
 .question-form input {
-  position: relative;
-  width:90%;
-  height:30%;
-  padding:0px 5%;
-  border-bottom-style: solid;
-  background-color:#fff;
-  font-family:arial;
-  font-size: 16px;
-  color:#111;
-
+    position: relative;
+    width: 90%;
+    height: 30%;
+    padding: 0px 5%;
+    border-bottom-style: solid;
+    background-color: #fff;
+    font-family: arial;
+    font-size: 16px;
+    color: #111;
 }
+
 /*
 .question-form button {
   position: relative;
@@ -207,153 +212,146 @@ input[name="emotion"] {
   background-color: #111;
 
 }*/
-
 .main-container h3 {
-  font-family:arial;
-  font-size: 40px;
-  color:#111;
-  line-height:40%;
-  text-align: center;
+    font-family: arial;
+    font-size: 40px;
+    color: #111;
+    line-height: 40%;
+    text-align: center;
 }
-
-
-
-
 
 /* button circle*/
 .btn-circle {
-  width: 70px;
-  height: 70px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.42;
-  border-radius: 35px;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 35px;
 }
 
 /*funky radio buttons*/
-
-@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css')
-
-.funkyradio div {
-  clear: both;
-  overflow: hidden;
+@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') .funkyradio div {
+    clear: both;
+    overflow: hidden;
 }
 
 .funkyradio label {
-  width: 100%;
-  border-radius: 3px;
-  border: 1px solid #D1D3D4;
-  font-weight: normal;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #D1D3D4;
+    font-weight: normal;
 }
 
 .funkyradio input[type="radio"]:empty,
 .funkyradio input[type="checkbox"]:empty {
-  display: none;
+    display: none;
 }
 
-.funkyradio input[type="radio"]:empty ~ label,
-.funkyradio input[type="checkbox"]:empty ~ label {
-  position: relative;
-  line-height: 2.5em;
-  text-indent: 3.25em;
-  margin-top: 2em;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+.funkyradio input[type="radio"]:empty~label,
+.funkyradio input[type="checkbox"]:empty~label {
+    position: relative;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    margin-top: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.funkyradio input[type="radio"]:empty ~ label:before,
-.funkyradio input[type="checkbox"]:empty ~ label:before {
-  position: absolute;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  content: '';
-  width: 2.5em;
-  background: #D1D3D4;
-  border-radius: 3px 0 0 3px;
+.funkyradio input[type="radio"]:empty~label:before,
+.funkyradio input[type="checkbox"]:empty~label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
 }
 
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
-  color: #888;
+.funkyradio input[type="radio"]:hover:not(:checked)~label,
+.funkyradio input[type="checkbox"]:hover:not(:checked)~label {
+    color: #888;
 }
 
-.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
-.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
-  content: '\2714';
-  text-indent: .9em;
-  color: #C2C2C2;
+.funkyradio input[type="radio"]:hover:not(:checked)~label:before,
+.funkyradio input[type="checkbox"]:hover:not(:checked)~label:before {
+    content: '\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
 }
 
-.funkyradio input[type="radio"]:checked ~ label,
-.funkyradio input[type="checkbox"]:checked ~ label {
-  color: #777;
+.funkyradio input[type="radio"]:checked~label,
+.funkyradio input[type="checkbox"]:checked~label {
+    color: #777;
 }
 
-.funkyradio input[type="radio"]:checked ~ label:before,
-.funkyradio input[type="checkbox"]:checked ~ label:before {
-  content: '\2714';
-  text-indent: .9em;
-  color: #333;
-  background-color: #ccc;
+.funkyradio input[type="radio"]:checked~label:before,
+.funkyradio input[type="checkbox"]:checked~label:before {
+    content: '\2714';
+    text-indent: .9em;
+    color: #333;
+    background-color: #ccc;
 }
 
-.funkyradio input[type="radio"]:focus ~ label:before,
-.funkyradio input[type="checkbox"]:focus ~ label:before {
-  box-shadow: 0 0 0 3px #999;
+.funkyradio input[type="radio"]:focus~label:before,
+.funkyradio input[type="checkbox"]:focus~label:before {
+    box-shadow: 0 0 0 3px #999;
 }
 
-.funkyradio-default input[type="radio"]:checked ~ label:before,
-.funkyradio-default input[type="checkbox"]:checked ~ label:before {
-  color: #333;
-  background-color: #ccc;
+.funkyradio-default input[type="radio"]:checked~label:before,
+.funkyradio-default input[type="checkbox"]:checked~label:before {
+    color: #333;
+    background-color: #ccc;
 }
 
-.funkyradio-primary input[type="radio"]:checked ~ label:before,
-.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #337ab7;
+.funkyradio-primary input[type="radio"]:checked~label:before,
+.funkyradio-primary input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #337ab7;
 }
 
-.funkyradio-success input[type="radio"]:checked ~ label:before,
-.funkyradio-success input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #5cb85c;
+.funkyradio-success input[type="radio"]:checked~label:before,
+.funkyradio-success input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #5cb85c;
 }
 
-.funkyradio-danger input[type="radio"]:checked ~ label:before,
-.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #d9534f;
+.funkyradio-danger input[type="radio"]:checked~label:before,
+.funkyradio-danger input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #d9534f;
 }
 
-.funkyradio-warning input[type="radio"]:checked ~ label:before,
-.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #f0ad4e;
+.funkyradio-warning input[type="radio"]:checked~label:before,
+.funkyradio-warning input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #f0ad4e;
 }
 
-.funkyradio-info input[type="radio"]:checked ~ label:before,
-.funkyradio-info input[type="checkbox"]:checked ~ label:before {
-  color: #fff;
-  background-color: #5bc0de;
+.funkyradio-info input[type="radio"]:checked~label:before,
+.funkyradio-info input[type="checkbox"]:checked~label:before {
+    color: #fff;
+    background-color: #5bc0de;
 }
+
 .pdiv1 {
-  display: inline-block;
-  float:left;
+    display: inline-block;
+    float: left;
 }
 
 .pdiv2 {
-  float:right;
+    float: right;
 }
 
 .raspClass {
-  padding: 25px;
+    padding: 25px;
 }
 
 .information-display {
@@ -362,34 +360,38 @@ input[name="emotion"] {
     top: 100px;
     z-index: 2048;
 }
-/* textbox kod osobnog razloga*/
-  .hide { display: none; }
 
-/*aktivacija deaktivacija*/
-.material-switch > input[type="checkbox"] {
+/* textbox kod osobnog razloga*/
+.hide {
     display: none;
 }
 
-.material-switch > label {
+/*aktivacija deaktivacija*/
+.material-switch>input[type="checkbox"] {
+    display: none;
+}
+
+.material-switch>label {
     cursor: pointer;
     height: 0px;
     position: relative;
     width: 40px;
 }
 
-.material-switch > label::before {
+.material-switch>label::before {
     background: rgb(0, 0, 0);
     box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
     content: '';
     height: 16px;
     margin-top: -8px;
-    position:absolute;
+    position: absolute;
     opacity: 0.3;
     transition: all 0.4s ease-in-out;
     width: 40px;
 }
-.material-switch > label::after {
+
+.material-switch>label::after {
     background: rgb(255, 255, 255);
     border-radius: 16px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
@@ -402,37 +404,38 @@ input[name="emotion"] {
     transition: all 0.3s ease-in-out;
     width: 24px;
 }
-.material-switch > input[type="checkbox"]:checked + label::before {
+
+.material-switch>input[type="checkbox"]:checked+label::before {
     background: inherit;
     opacity: 0.5;
 }
-.material-switch > input[type="checkbox"]:checked + label::after {
+
+.material-switch>input[type="checkbox"]:checked+label::after {
     background: inherit;
     left: 20px;
 }
-
-
-
 
 /* checkbox anoniman student*/
 .form-group input[type="checkbox"] {
     display: none;
 }
 
-.form-group input[type="checkbox"] + .btn-group > label span {
+.form-group input[type="checkbox"]+.btn-group>label span {
     width: 20px;
 }
 
-.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+.form-group input[type="checkbox"]+.btn-group>label span:first-child {
     display: none;
 }
-.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+
+.form-group input[type="checkbox"]+.btn-group>label span:last-child {
     display: inline-block;
 }
 
-.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+.form-group input[type="checkbox"]:checked+.btn-group>label span:first-child {
     display: inline-block;
 }
-.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+
+.form-group input[type="checkbox"]:checked+.btn-group>label span:last-child {
     display: none;
 }

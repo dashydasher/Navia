@@ -11,7 +11,8 @@
 {% block content %}
 
     <div class="current-emotion">
-        Trenutno se osjećam <span id="current-emotion-text"></span>
+        Trenutno se osjećam
+        <span id="current-emotion-text"></span>
     </div>
 
     <section>
@@ -27,192 +28,160 @@
                     <input class="form-control input-lg" name="studentId" id="studentIdInput" type="textarea" placeholder="Id">
                 </div>
             </div>
-<div class="col-md-4 " align="left">
- <div class="funkyradio">
+            <div align="left" style="max-width: 150px; margin-top: 20px; margin-bottom: 50px;">
+                <div class="funkyradio">
 
-                <div class="funkyradio-warning">
-            <input type="checkbox" name="checkbox" id="anonimnost" checked/>
-            <label for="anonimnost">anoniman</label>
-        </div>
-            </div>
-
-        </div></div>
-    <!--  <div class="col-md-4 col-md-offset-4" align="left">
-        <div class="form-group">
-            <input type="checkbox" name="fancy-checkbox-danger" id="fancy-checkbox-danger" autocomplete="off" />
-            <div class="btn-group">
-                <label for="fancy-checkbox-danger" class="btn btn-danger btn-sm">
-                    <span class="glyphicon glyphicon-ok"></span>
-                   <span></span>
-                </label>
-                <label for="fancy-checkbox-danger" class=" btn btn-light active btn-sm ">
-                    anoniman
-                </label>
-
+                    <div class="funkyradio-warning">
+                        <input type="checkbox" name="checkbox" id="anonimnost" checked="checked"/>
+                        <label for="anonimnost">anoniman</label>
+                    </div>
+                </div>
 
             </div>
         </div>
-      </div>-->
-
-        <br><br>
-
+        <!-- <div class="col-md-4 col-md-offset-4" align="left"> <div class="form-group"> <input type="checkbox" name="fancy-checkbox-danger" id="fancy-checkbox-danger" autocomplete="off" /> <div class="btn-group"> <label for="fancy-checkbox-danger"
+        class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-ok"></span> <span></span> </label> <label for="fancy-checkbox-danger" class=" btn btn-light active btn-sm "> anoniman </label> </div> </div> </div>-->
 
     </div>
 
-        <br><br><br><br><br><br>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
 
-        <section>
-            <div class="container">
-                <div class="row" >
-                    <div class="col-md-6 col-md-offset-3" >
+                    <div class="form-group" align="center">
+                        <div class="input-group">
+                            <!-- <span class="input-group-addon"><i class="fa fa-question"></i></span>-->
+                            <input class="form-control  input-lg" name="question" id="questionInput" type="textfield" placeholder="Pitanje">
 
-                        <div class="form-group" align="center">
-                            <div class="input-group">
-                                <!-- <span class="input-group-addon"><i class="fa fa-question"></i></span>-->
-                                <input class="form-control  input-lg" name="question" id="questionInput" type="textfield" placeholder="Pitanje">
-
-                                <span class="input-group-btn">
-                                    <button id="pitanje-submit" style="width:60px" type="submit" class="btn btn-default btn-lg">
-                                        <i class="fa fa-question"></i>
-                                    </button>
-                                </span>
-                            </div>
+                            <span class="input-group-btn">
+                                <button id="pitanje-submit" style="width:60px" type="submit" class="btn btn-default btn-lg">
+                                    <i class="fa fa-question"></i>
+                                </button>
+                            </span>
                         </div>
-
-                        <ul id="objavljena-pitanja" type="1" class="list-group"><!-- class="list-unstyled">-->
-
-                            {% for question in questions %}
-                                <li class='list-group-item list-group-item-success' style='margin: 10px'>{{ question.question }}</li>
-                            {% endfor %}
-
-                        </ul>
-
-                        <div class="form-group" align="center">
-                            <div class="input-group ">
-                                <!-- <span class="input-group-addon"><i class="fa fa-commenting-o"></i></span>-->
-                                <input class="form-control input-lg" name="comment" id="commentInput" type="textfield" placeholder="Komentar">
-                                <span class="input-group-btn">
-                                    <button id="komentar-submit" style="width:60px" class="btn btn-default btn-lg" type="submit">
-                                        <i class="fa fa-commenting-o"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <ul id="objavljeni-komentari" type="1" class="list-group" ><!-- class="list-unstyled">-->
-
-                            {% for comment in comments %}
-                                <li class='list-group-item list-group-item-success' style='margin: 10px'>{{ comment.comment }}</li>
-                            {% endfor %}
-
-                        </ul>
-
                     </div>
 
-                </div>
-            </div>
-        </section>
+                    <ul id="objavljena-pitanja" type="1" class="list-group">
+                        <!-- class="list-unstyled">-->
 
-        <br><br><br>
-
-        <div class="col-md-7 col-md-offset-4">
-
-            <div class="row">
-                <div class="col-lg-6 " align="center">
-                    <h2 align="center">Novo raspoloženje:</h2>
-                    <br><br><br>
-                </div>
-            </div>
-            <div class="row" align="center">
-                <div class="col-md-6" align="center" id="emoticons">
-
-                    <input type='radio' value='1' name='emotion' id='radioSmile'/>
-                    <span for='radioSmile' class="raspClass">
-                        <button type="button" class="btn btn-success btn-circle btn-xl">
-                            <i class="fa fa-smile-o fa-5x"></i>
-                        </button>
-                    </span>
-
-                    <input type='radio' value='2' name='emotion' id='radioMeh'/>
-                    <span for='radioMeh' class="raspClass">
-                        <button type="button" class="btn btn-warning btn-circle btn-xl">
-                            <i class="fa fa-meh-o fa-5x"></i>
-                        </button>
-                    </span>
-
-                    <input type='radio' value='3' name='emotion' id='radioFrown'/>
-                    <span for='radioFrown' class="raspClass">
-                        <button type="button" class="btn btn-danger btn-circle btn-xl">
-                            <i class="fa fa-frown-o fa-5x"></i>
-                        </button>
-                    </span>
-
-                </div>
-            </div>
-
-            <br>
-
-            <div class="row" id="reasons" hidden>
-                <div class="col-lg-6 ">
-                    <br/><br>
-                    <h2 align="center">jer...</h2>
-                    <br>
-                    <br>
-                    <div class="funkyradio">
-
-                        {% for reason in reasons %}
-                            <div class="ajaxMoodReason {% if reason.type == 1 %} funkyradio-success {% else %} funkyradio-danger {% endif %}" data-type="{{ reason.type }}">
-                                <input type="radio" name="razlog" id="razlog-radio-{{ loop.index }}" value="{{ reason.id }}" />
-                                <label for="razlog-radio-{{ loop.index }}">{{ reason.reason }}</label>
-                            </div>
+                        {% for question in questions %}
+                            <li class='list-group-item list-group-item-success' style='margin: 10px'>{{ question.question }}</li>
                         {% endfor %}
 
-                        <!--
-                        <div class="funkyradio-danger">
-                            <input type="radio" name="razlog" id="radio1" value="Profesor objašnjava prebrzo"/>
-                            <label for="radio1">Profesor objašnjava prebrzo</label>
-                        </div>
-                        <div class="funkyradio-primary">
-                            <input type="radio" name="razlog" id="radio2" value="Profesor objašnjava presporo"/>
-                            <label for="radio2">Profesor objašnjava presporo</label>
-                        </div>
+                    </ul>
 
-                        <div class="funkyradio-warning">
-                            <input type="radio" name="razlog" id="radio3" value="Profesor je dosadan"/>
-                            <label for="radio3">Profesor je dosadan</label>
-                        </div>
-                        <div class="funkyradio-info">
-                            <input type="radio" name="razlog" id="radio4" value="Profesor ima previše digresija"/>
-                            <label for="radio4">Profesor ima previše digresija</label>
-                        </div>
-                        -->
-                        <div class="funkyradio-warning">
-                            <input type="radio" name="razlog" id="razlog-radio-osobni" value="personal"/>
-                            <label for="razlog-radio-osobni">osobni razlog</label>
-
-                            <div id="textboxdiv" hidden>
-                                <input class="form-control input-lg" type="text" id="razlog_text" name="razlog" placeholder="Upiši svoj razlog"/>
-
-                            </div>
-
-                        </div>
-                        <br>
-                        <div align="center">
-                            <button id="razlog-submit" class="btn btn-primary ">Pošalji</button>
+                    <div class="form-group" align="center">
+                        <div class="input-group ">
+                            <!-- <span class="input-group-addon"><i class="fa fa-commenting-o"></i></span>-->
+                            <input class="form-control input-lg" name="comment" id="commentInput" type="textfield" placeholder="Komentar">
+                            <span class="input-group-btn">
+                                <button id="komentar-submit" style="width:60px" class="btn btn-default btn-lg" type="submit">
+                                    <i class="fa fa-commenting-o"></i>
+                                </button>
+                            </span>
                         </div>
                     </div>
+                    <ul id="objavljeni-komentari" type="1" class="list-group">
+                        <!-- class="list-unstyled">-->
 
+                        {% for comment in comments %}
+                            <li class='list-group-item list-group-item-success' style='margin: 10px'>{{ comment.comment }}</li>
+                        {% endfor %}
+
+                    </ul>
 
                 </div>
+
             </div>
-            <br/><br/>
-            <div align="center">
-            <a href="."><button type="submit" style="font-size:20px" class="btn btn-default" id="btnIzlaz">Izađi iz sobe</button></a>
-            <br/><br/>
+        </div>
+    </section>
+
+    <br><br><br>
+
+    <div class="col-md-7 col-md-offset-4">
+
+        <div class="row">
+            <div class="col-lg-6 " align="center">
+                <h2 align="center">Novo raspoloženje:</h2>
+                <br><br><br>
+            </div>
+        </div>
+        <div class="row" align="center">
+            <div class="col-md-6" align="center" id="emoticons">
+
+                <input type='radio' value='1' name='emotion' id='radioSmile'/>
+                <span for='radioSmile' class="raspClass">
+                    <button type="button" class="btn btn-success btn-circle btn-xl">
+                        <i class="fa fa-smile-o fa-5x"></i>
+                    </button>
+                </span>
+
+                <input type='radio' value='2' name='emotion' id='radioMeh'/>
+                <span for='radioMeh' class="raspClass">
+                    <button type="button" class="btn btn-warning btn-circle btn-xl">
+                        <i class="fa fa-meh-o fa-5x"></i>
+                    </button>
+                </span>
+
+                <input type='radio' value='3' name='emotion' id='radioFrown'/>
+                <span for='radioFrown' class="raspClass">
+                    <button type="button" class="btn btn-danger btn-circle btn-xl">
+                        <i class="fa fa-frown-o fa-5x"></i>
+                    </button>
+                </span>
+
             </div>
         </div>
 
+        <br>
 
-    </section>
+        <div class="row" id="reasons" hidden="hidden">
+            <div class="col-lg-6 ">
+                <br/><br>
+                <h2 align="center">jer...</h2>
+                <br>
+                <br>
+                <div class="funkyradio">
+
+                    {% for reason in reasons %}
+                        <div class="ajaxMoodReason {% if reason.type == 1 %} funkyradio-success {% else %} funkyradio-danger {% endif %}" data-type="{{ reason.type }}">
+                            <input type="radio" name="razlog" id="razlog-radio-{{ loop.index }}" value="{{ reason.id }}"/>
+                            <label for="razlog-radio-{{ loop.index }}">{{ reason.reason }}</label>
+                        </div>
+                    {% endfor %}
+
+                    <!-- <div class="funkyradio-danger"> <input type="radio" name="razlog" id="radio1" value="Profesor objašnjava prebrzo"/> <label for="radio1">Profesor objašnjava prebrzo</label> </div> <div class="funkyradio-primary"> <input type="radio" name="razlog"
+                    id="radio2" value="Profesor objašnjava presporo"/> <label for="radio2">Profesor objašnjava presporo</label> </div> <div class="funkyradio-warning"> <input type="radio" name="razlog" id="radio3" value="Profesor je dosadan"/> <label
+                    for="radio3">Profesor je dosadan</label> </div> <div class="funkyradio-info"> <input type="radio" name="razlog" id="radio4" value="Profesor ima previše digresija"/> <label for="radio4">Profesor ima previše digresija</label> </div> -->
+                    <div class="funkyradio-warning">
+                        <input type="radio" name="razlog" id="razlog-radio-osobni" value="personal"/>
+                        <label for="razlog-radio-osobni">osobni razlog</label>
+
+                        <div id="textboxdiv" hidden="hidden">
+                            <input class="form-control input-lg" type="text" id="razlog_text" name="razlog" placeholder="Upiši svoj razlog"/>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <div align="center">
+                        <button id="razlog-submit" class="btn btn-primary ">Pošalji</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <br/><br/>
+        <div align="center">
+            <a href=".">
+                <button type="submit" style="font-size:20px" class="btn btn-default" id="btnIzlaz">Izađi iz sobe</button>
+            </a>
+            <br/><br/>
+        </div>
+    </div>
+
+</section>
 
 {% endblock %}
 
@@ -223,7 +192,7 @@
         <script>
             var trenutno_rasoplozenje = "{{ current_mood.mood_option_id }}";
         </script>
-    {# inače student počinje neutralno ("2") #}
+        {# inače student počinje s defaultnim moodom definiram u PHP-u #}
     {% else %}
         <script>
             var trenutno_rasoplozenje = "{{ default_mood_id }}";
@@ -237,7 +206,7 @@
         <script>
             promijeni_trenutno_raspolozenje(trenutno_rasoplozenje);
         </script>
-    {# inače pošalji ajax zahtjev i zabilježi da je student ušao u sobu #}
+        {# inače pošalji ajax zahtjev i zabilježi da je student ušao u sobu #}
     {% else %}
         <script>
             ajax_promijeni_raspolozenje(trenutno_rasoplozenje, "personal", "student se priključio sobi");
