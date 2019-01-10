@@ -14,35 +14,39 @@ function dohvati_potpis() {
 }
 
 function spremi_komentar() {
-    var serializedData = {
-        "comment": $("#commentInput").val(),
-        "signature": dohvati_potpis(),
-    };
-    $.post("./php-api/comment-add.php", serializedData)
-        .done(function(data) {
-            if (data.success) {
-                $("#objavljeni-komentari").prepend($("<li class='list-group-item list-group-item-success' style='margin: 10px'>").append(data.comment.comment));
-                $("#commentInput").val("");
-            } else {
-                alert(data.error);
-            }
-        });
+    if ($("#commentInput").val()) {
+        var serializedData = {
+            "comment": $("#commentInput").val(),
+            "signature": dohvati_potpis(),
+        };
+        $.post("./php-api/comment-add.php", serializedData)
+            .done(function(data) {
+                if (data.success) {
+                    $("#objavljeni-komentari").prepend($("<li class='list-group-item list-group-item-success' style='margin: 10px'>").append(data.comment.comment));
+                    $("#commentInput").val("");
+                } else {
+                    alert(data.error);
+                }
+            });
+    }
 }
 
 function spremi_pitanje() {
-    var serializedData = {
-        "question": $("#questionInput").val(),
-        "signature": dohvati_potpis(),
-    };
-    $.post("./php-api/question-add.php", serializedData)
-        .done(function(data) {
-            if (data.success) {
-                $("#objavljena-pitanja").prepend($("<li class='list-group-item list-group-item-success' style='margin: 10px'>").append(data.question.question));
-                $("#questionInput").val("");
-            } else {
-                alert(data.error);
-            }
-        });
+    if ($("#questionInput").val()) {
+        var serializedData = {
+            "question": $("#questionInput").val(),
+            "signature": dohvati_potpis(),
+        };
+        $.post("./php-api/question-add.php", serializedData)
+            .done(function(data) {
+                if (data.success) {
+                    $("#objavljena-pitanja").prepend($("<li class='list-group-item list-group-item-success' style='margin: 10px'>").append(data.question.question));
+                    $("#questionInput").val("");
+                } else {
+                    alert(data.error);
+                }
+            });
+    }
 }
 
 function spremi_razlog() {
