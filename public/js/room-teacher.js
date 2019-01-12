@@ -87,13 +87,13 @@ function get_mood_icon_by_id(mood) {
 
     switch (mood.mood_option_id) {
         case 1:
-            element_string += ' class="fa fa-smile-o fa-1x" style="color: #00ff00;"';
+            element_string += ' class="fa fa-smile-o fa-1x" style="color: #00ff00; font-size:60px;"';
             break;
         case 2:
-            element_string += ' class="fa fa-meh-o fa-1x" style="color: #ff7f00;"';
+            element_string += ' class="fa fa-meh-o fa-1x" style="color: #ff7f00; font-size:60px;"';
             break;
         case 3:
-            element_string += ' class="fa fa-frown-o fa-1x" style="color: #ff0000;"';
+            element_string += ' class="fa fa-frown-o fa-1x" style="color: #ff0000; font-size:60px;"';
             break;
     }
     element_string += ' title="' + mood.signature + ': ';
@@ -120,7 +120,7 @@ function azuriraj_razloge() {
 
     $("#razlozi").html("");
     items.slice(0, 3).forEach(function(item) {
-        $("#razlozi").append( $("<li>").append(Number(item[1]/broj_trenutnih_raspolozenja*100).toFixed(2) + "% - " + item[0]) );
+        $("#razlozi").append( $("<li class='list-group-item list-group-item-info' style='margin: 10px'>").append(Number(item[1]/broj_trenutnih_raspolozenja*100).toFixed(2) + "% - " + item[0]) );
     });
 }
 
