@@ -1,0 +1,36 @@
+.my-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 2px dotted black;
+}
+
+.osobni-razlozi-hover {
+    visibility: hidden;
+    text-align: center;
+    border-radius: 6px;
+    -webkit-box-shadow: 0px 0px 7px black;
+    box-shadow: 0px 0px 7px black;
+    padding: 15px;
+    background: rgb(255, 255, 255);
+    bottom: 120%;
+    left: 50%;
+    margin-left: -170px;
+    position: absolute;
+    z-index: 1;
+    font-size: 35px;
+}
+
+.osobni-razlozi-hover:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: grey transparent transparent transparent;
+}
+
+.my-tooltip:hover .osobni-razlozi-hover {
+    visibility: visible;
+}

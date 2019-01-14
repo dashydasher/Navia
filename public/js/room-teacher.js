@@ -107,6 +107,17 @@ function get_mood_icon_by_id(mood) {
     return element_string;
 }
 
+function dohvati_osobne_razloge() {
+    var razlozi = "";
+    for (var j = 0, len2 = trenutna_raspolozenja.length; j < len2; j++) {
+        var trenutno_raspolozenje = trenutna_raspolozenja[j];
+        if (!(trenutno_raspolozenje.mood_reason_id)) {
+            razlozi += "<p>" + trenutno_raspolozenje.personal_reason + "</p>";
+        }
+    }
+    return razlozi;
+}
+
 function azuriraj_razloge() {
     // Create items array
     var items = Object.keys(mood_frequency).map(function(key) {
@@ -120,7 +131,21 @@ function azuriraj_razloge() {
 
     $("#razlozi").html("");
     items.slice(0, 3).forEach(function(item) {
-        $("#razlozi").append( $("<li class='list-group-item list-group-item-info' style='margin: 10px'>").append(Number(item[1]/broj_trenutnih_raspolozenja*100).toFixed(2) + "% - " + item[0]) );
+        if (item[0].trim() != "osobni razlog") {
+            $("#razlozi").append(
+                $("<li class='list-group-item list-group-item-info' style='margin: 10px'>")
+                .append(Number(item[1]/broj_trenutnih_raspolozenja*100).toFixed(2) + "% - " + item[0])
+            );
+        } else {
+            $("#razlozi")
+                .append($("<li class='list-group-item list-group-item-info my-tooltip' style='margin: 10px'>")
+                    .append(Number(item[1]/broj_trenutnih_raspolozenja*100).toFixed(2) + "% - " + item[0])
+                    .append( $('<span class="glyphicon glyphicon-info-sign" style="font-size:30px;margin-left: 15px;">'))
+                    .append( $('<div id="osobni-razlozi" class="osobni-razlozi-hover">')
+                        .append(dohvati_osobne_razloge())
+                    )
+                );
+        }
     });
 }
 
@@ -146,7 +171,7 @@ function dodaj_rasposlozenja(moods) {
         if (mood.parent_mood_id) {
             $('#raspolozenja i[data-id="' + mood.parent_mood_id + '"]').remove();
 
-            for (var j = 0, len2 = trenutna_raspolozenja.length; j < len; j++) {
+            for (var j = 0, len2 = trenutna_raspolozenja.length; j < len2; j++) {
                 var trenutno_raspolozenje = trenutna_raspolozenja[j];
 
                 if (trenutno_raspolozenje.id == mood.parent_mood_id) {
