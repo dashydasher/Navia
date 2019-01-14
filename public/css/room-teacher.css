@@ -13,8 +13,7 @@
     padding: 15px;
     background: rgb(255, 255, 255);
     bottom: 120%;
-    left: 50%;
-    margin-left: -170px;
+    min-width: 300px;
     position: absolute;
     z-index: 1;
     font-size: 35px;
