@@ -3,74 +3,43 @@ Sustav za potporu edukacijskom osoblju. Cilj projekta je profesorima pružiti je
 
 # Instalacija
 
-# Docs
+### Potreban software
 
-## Session varijable za studenta
+ - Apache 2
+ - MySQL 5
+ - PHP 7
+ - Composer
 
-### SESSION["current_moods"]
-pamti studentova raspoloženja za svaku sobu di je ušao, a to služi za prikaz zadnjeg raspoloženja studentu kad izađe iz sobe pa se ponovo vrati u nju.
-također je i bitno za pamćenje je li to raspoloženje inicijalno (student se tek pridružio sobi) ili je već mijenjano.
-ključ je ID sobe, a vrijednosti su samo neki atributi klase Mood (id, mood_option_id) definirani u modelu.
-```
-'current_moods' =>
-    array (size=2)
-      1 =>
-        object(Models\Mood)[3]
-          public 'id' => string '3' (length=1)
-          public 'mood_option_id' => string '2' (length=1)
-      2 =>
-        object(Models\Mood)[2]
-          public 'id' => string '4' (length=1)
-          public 'mood_option_id' => string '2' (length=1)
-```
+Na Windowsima postoji WAMP alat (LAMP za Linux) koji dolazi sa svime potrebnim za lokalnu produkciju. Composer nije uključen.
+Ukoliko dođe do neke pogreške prilikom instalacije WAMP-a, vjerojatno neki od servisa neće raditi (MySQL). Pogledati poglavlje Korištenje WAMP-a za rješenje.
 
-### SESSION["comments"]
-pamti studentove komentare za svaku sobu di je ušao, a to služi za prikaz svih postavljenih komentara kad student izađe iz sobe pa se ponovo vrati u nju.
-ključ je ID sobe, a vrijednosti su samo neki atributi klase Comment (comment) definirani u modelu.
-```
-'comments' =>
-    array (size=2)
-      1 =>
-        object(Models\Comment)[3]
-          public 'comment' => string 'test' (length=4)
-      2 =>
-        object(Models\Comment)[2]
-          public 'comment' => string 'greška na slajdu 34' (length=??)
-```
+### Dohvaćanje projekta sa githuba
 
-### SESSION["questions"]
-pamti studentova pitanja za svaku sobu di je ušao, a to služi za prikaz svih postavljenih pitanja kad student izađe iz sobe pa se ponovo vrati u nju.
-ključ je ID sobe, a vrijednosti su samo neki atributi klase Question (question) definirani u modelu.
-```
-'questions' =>
-    array (size=1)
-      1 =>
-        object(Models\Question)[3]
-          public 'question' => string 'radi?' (length=5)
-```
+```git clone https://github.com/dashydasher/Navia```
 
-### SESSION["entered_room_id"]
-pamti id sobe u kojoj je student trenutno. služi za dodavanje komentara, pitanja i promjene raspoloženja.
-```
-'entered_room_id' => int 2
-```
+Ukoliko je projekt dohvaćen s githuba, fali mu vendor folder koji je potreban zbog projektih dependencyja. Za to je potrebno skinuti Composer alat i prilikom instalacije paziti da se odabere PHP verzija 7. Nakon toga potrebno se u konzoli pozicionirati u projektni folder i instalirati sve dependencyje. Komanda za to je ```composer install``` nakon čega se pojavljuje vendor folder. Inače je u datoteci ```composer.json``` vidljivo koji sve dependency su potrebni (koristimo samo Twig).
 
-## Session varijable za profesora
+### Korištenje WAMP-a
 
-### SESSION["my_id"]
-ID teachera.
-```
-'my_id' => int 10
-```
+ - Kad se WAMP upali bitno je da se pojavi zelena ikonica što znači da rade Apache, MySQL i PHP. Ako je samo naranđasta ikonica onda vjerojatno MySQL ne radi. To znači da se ne može spajati na lokalnu bazu. Problem se može rješiti tako da se instaliraju svi Microsoft Visual C++ Redistributable (i x86 i x64) sve od 2008 pa do 2017 i nakon toga ponoviti instalaciju WAMP-a (potražiti rješenje i online). Nažalost trenutno nema boljeg načina.
+ - Također, možda se treba ugasiti Skype jer neki od servisa koristi isti port.
+ - Postaviti WAMP da radi s PHP-om verzije 7: Lijevi klik na WAMP ikonicu --> PHP --> Version --> odabrati bilo koju verziju 7 (to je potrebno samo jednom napraviti).
 
-### SESSION["my_name"]
-služi za prikaz imena u headeru(navbaru).
-```
-'my_name' => string 'Petar Jalušić' (length=15)
-```
+### Kreiranje baze za lokalnu produkciju
 
-### SESSION["room_id"]
-id sobe u kojoj sam trenutno.
+S upaljenim WAMP-om potrebno je u browseru otiči na ```http://localhost/phpmyadmin/``` i prijaviti se (u: "root", p: ""). Bazu je najlakše kreirati tako da se stisne na ```SQL``` karticu gore i kopira MySQL skripta za kreiranje baze (u skripti je ime baze "navia_fer").
+
+### Postavljanje konfiguracije baze
+
+Unutar projektnog foldera nalazi se folder config u kojem se treba nalaziti datoteka ```database.php``` koja je isključena s gita. U njoj se postavljaju parametri za bazu. Za lokalnu produkcije u file unesite ovo:
+
 ```
-'room_id' => string '2' (length=1)
+<?php
+return (object) array(
+    "servername" => "localhost",
+    "username" => "root",
+    "password" => "",
+    "db" => "navia_fer",
+    "charset" => "utf8",
+);
 ```
