@@ -10,6 +10,7 @@ if (!isset($_POST['comment_id'])) {
 
     header('Content-type:application/json;charset=utf-8');
 
+    // dohvati parametre
     $comment_id = $_POST['comment_id'];
 
     $comment = new Comment;

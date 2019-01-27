@@ -13,7 +13,7 @@ class Helper {
     /*
     koristi se kod php apija sa strane studenta.
     prilikom unosa komentara, pitanja ili promjene raspoloženja se prvo provjerava
-        je li osba uopce aktivna. ako nije, onda nije moguće imati interakcije s njom.
+        je li soba uopce aktivna. ako nije, onda nije moguće imati interakcije s njom.
     služi za slučajeve kad profesor tijekom predavanja deaktivira sobu (npr tijekom odmora).
     */
     static function provjeri_aktivnost_sobe_vrati_id() {

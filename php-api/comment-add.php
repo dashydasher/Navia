@@ -9,6 +9,7 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
     // on vec postavlja Content-type:application/json u header
     $room_id = Helper::provjeri_aktivnost_sobe_vrati_id();
 
+    // dohvati parametre
     $signature = Helper::xssafe($_POST['signature']);
     $content = Helper::xssafe($_POST['comment']);
 
@@ -17,12 +18,14 @@ if (!isset($_POST['signature']) || !isset($_POST['comment'])) {
     $result = $comment->store($signature, $content, $room_id);
     if ($result > 0) {
         /*
-        u session sprema komentare za neku sobu.
+        pamti studentove komentare za svaku sobu di je ušao, a to služi za prikaz svih postavljenih komentara kad student izađe iz sobe pa se ponovo vrati u nju.
         dictionary služi da bi se moglo spremiti više soba (poseban array za svaku sobu di je student pristupio).
+        ključ je ID sobe, a vrijednosti su samo neki atributi klase Comment (comment) definirani u modelu.
         */
         if (!isset($_SESSION["comments"][$room_id])) {
             $_SESSION["comments"][$room_id] = array();
         }
+        // stavi komentar na prvo mjesto
         array_unshift($_SESSION["comments"][$room_id], $comment);
 
         echo json_encode(array(

@@ -10,14 +10,18 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
     // on vec postavlja Content-type:application/json u header
     $room_id = Helper::provjeri_aktivnost_sobe_vrati_id();
 
+    // dohvati parametre
     $signature = Helper::xssafe($_POST['signature']);
     $mood_option_id = $_POST['mood_option_id'];
     $reason_id = $_POST['reason_id'];
     $personal_reason = Helper::xssafe($_POST['personal_reason']);
 
     /*
-    u session sprema trenutno raspoloženje za neku sobu.
+    pamti studentova raspoloženja za svaku sobu di je ušao, a to služi za prikaz zadnjeg raspoloženja studentu kad izađe iz sobe pa se ponovo vrati u nju.
+    također je i bitno za pamćenje je li to raspoloženje inicijalno (student se tek pridružio sobi) ili je već mijenjano.
     dictionary služi da bi se moglo spremiti više raspoloženja (svaki za jednu sobu di je student pristupio).
+    ključ je ID sobe, a vrijednosti su samo neki atributi klase Mood (id, mood_option_id) definirani u modelu.
+
     $current_mood_id postaje parent_mood_id novom raspoloženju.
     */
     $current_mood_id = null;
@@ -32,7 +36,7 @@ if (!isset($_POST['signature']) || !isset($_POST['mood_option_id']) || !isset($_
         $result = $mood->store($signature, $mood_option_id, $reason_id, $room_id, $current_mood_id, null);
     }
     if ($result > 0) {
-        // ako već postoji zapis s tim ključem onda ga prepiši. inače unesi novo raspoloženje za tu sobu.
+        // ako već postoji zapis s tim ključem onda ga prepiši (promijenilo se raspoloženje). inače unesi novo raspoloženje za tu sobu.
         $_SESSION["current_moods"][$room_id] = $mood;
 
         echo json_encode(array(

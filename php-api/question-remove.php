@@ -10,6 +10,7 @@ if (!isset($_POST['question_id'])) {
 
     header('Content-type:application/json;charset=utf-8');
 
+    // dohvati parametre
     $question_id = $_POST['question_id'];
 
     $question = new Question;

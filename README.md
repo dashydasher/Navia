@@ -10,8 +10,12 @@ Sustav za potporu edukacijskom osoblju. Cilj projekta je profesorima pružiti je
  - PHP 7
  - Composer
 
-Na Windowsima postoji WAMP alat (LAMP za Linux) koji dolazi sa svime potrebnim za lokalnu produkciju. Composer nije uključen.
+Na Windowsima postoji WAMP alat (LAMP za Linux) koji dolazi sa svime potrebnim za lokalni razvoj. Composer nije uključen.
 Ukoliko dođe do neke pogreške prilikom instalacije WAMP-a, vjerojatno neki od servisa neće raditi (MySQL). Pogledati poglavlje Korištenje WAMP-a za rješenje.
+
+### PHP dependency
+
+ - Twig (https://twig.symfony.com/)
 
 ### Dohvaćanje projekta sa githuba
 
@@ -25,13 +29,13 @@ Ukoliko je projekt dohvaćen s githuba, fali mu vendor folder koji je potreban z
  - Također, možda se treba ugasiti Skype jer neki od servisa koristi isti port.
  - Postaviti WAMP da radi s PHP-om verzije 7: Lijevi klik na WAMP ikonicu --> PHP --> Version --> odabrati bilo koju verziju 7 (to je potrebno samo jednom napraviti).
 
-### Kreiranje baze za lokalnu produkciju
+### Kreiranje baze za lokalni razvoj
 
 S upaljenim WAMP-om potrebno je u browseru otiči na ```http://localhost/phpmyadmin/``` i prijaviti se (u: "root", p: ""). Bazu je najlakše kreirati tako da se stisne na ```SQL``` karticu gore i kopira MySQL skripta za kreiranje baze (u skripti je ime baze "navia_fer").
 
 ### Postavljanje konfiguracije baze
 
-Unutar projektnog foldera nalazi se folder config u kojem se treba nalaziti datoteka ```database.php``` koja je isključena s gita. U njoj se postavljaju parametri za bazu. Za lokalnu produkcije u file unesite ovo:
+Unutar projektnog foldera nalazi se folder config u kojem se treba nalaziti datoteka ```database.php``` koja je isključena s gita. U njoj se postavljaju parametri za bazu. Za lokalni razvoj u file unesite ovo:
 
 ```
 <?php

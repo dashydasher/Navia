@@ -10,7 +10,9 @@ if (!isset($_POST['room-id']) || !isset($_POST['activate'])) {
 
     header('Content-type:application/json;charset=utf-8');
 
+    // dohvati parametre
     $room_id = $_POST['room-id'];
+    // activate je 0 (deaktiviraj) ili 1 (aktiviraj)
     $activate = $_POST['activate'];
 
     $room = new Room;

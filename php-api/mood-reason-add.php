@@ -10,7 +10,9 @@ if (!isset($_POST['mood-reason']) || !isset($_POST['type'])) {
 
     header('Content-type:application/json;charset=utf-8');
 
+    // dohvati parametre
     $mood_reason_text = Helper::xssafe($_POST['mood-reason']);
+    // type je 0 (negativni razlog) ili 1 (pozitivni razlog)
     $type = $_POST['type'];
 
     $mood_reason = new MoodReason;
